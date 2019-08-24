@@ -1,5 +1,3 @@
-using System;
-
 namespace Expoceep.Models
 {
     public class ErrorViewModel

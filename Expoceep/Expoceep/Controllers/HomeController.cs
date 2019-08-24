@@ -1,17 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Expoceep.DB;
 using Expoceep.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace Expoceep.Controllers
 {
+
     public class HomeController : Controller
     {
+        private ERPDatabaseContext context;
+        public HomeController(ERPDatabaseContext contexto)
+        {
+            context = contexto;
+        }
         public IActionResult Index()
         {
+            Usuario usr = new Usuario() {Nome ="ADMIN",Cpf ="123456789",Email="teste",Login ="admin",Senha="admin" };
+            new UsuarioDAO(context).AdicionarUsuario(usr);
             return View();
         }
 
