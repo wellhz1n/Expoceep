@@ -20,5 +20,10 @@ namespace Expoceep
             conn.Usuarios.Add(u);
             conn.SaveChanges();
         }
+        public bool Login(string login,string senha)
+        {
+            var usuarioslog = conn.Usuarios.Where(u => u.Login == login && u.Senha == senha).FirstOrDefault();
+            return usuarioslog != null ? true : false;
+        }
     }
 }

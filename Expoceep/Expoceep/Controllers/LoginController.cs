@@ -1,28 +1,34 @@
 ﻿using Expoceep.DB;
 using Expoceep.Models;
+using Expoceep.Regras;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace Expoceep.Controllers
 {
 
-    public class HomeController : Controller
+    public class LoginController : Controller
     {
         private ERPDatabaseContext context;
-        public HomeController(ERPDatabaseContext contexto)
+        public LoginController(ERPDatabaseContext contexto)
         {
             context = contexto;
         }
-        public IActionResult Index()
+        public IActionResult Login()
         {
-            Usuario usr = new Usuario() {Nome ="ADMIN",Cpf ="123456789",Email="teste",Login ="admin",Senha="admin" };
-            new UsuarioDAO(context).AdicionarUsuario(usr);
+
             return View();
         }
-
-        public IActionResult Privacy()
+        [HttpPost]
+        public IActionResult Login(string login, string senha)
         {
-            return View();
+            bool logou = new UsuarioBO(context).LoginSucesso(login, senha);
+            if (logou)
+            {
+                return RedirectToPage("Inicio/Home");
+            }
+            else
+                return RedirectToAction(nameof(Login));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

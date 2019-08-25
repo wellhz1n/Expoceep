@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Login";
+    
+}
+
+<div class="text-center">
+    <h1 class="display-4">Login</h1>
+    <form action="/Login/Login" id="form" class="form-group" method="post">
+        <div class="col-form-label">
+            <label for="loginusr">Usuario:</label>
+            <input type="text" id="loginusr" placeholder="Usuario" name="Login" value="" />
+        </div>
+        <div class="col-form-label">
+
+            <label for="loginsenha">Senha:</label>
+            <input type="password" id="loginsenha" placeholder="Senha" name="Senha" value="" />
+        </div>
+            <button type="button" id="login" class="btn btn-success">Entrar</button>
+    </form>
+</div>
