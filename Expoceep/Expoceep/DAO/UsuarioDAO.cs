@@ -8,19 +8,25 @@ using System.Threading.Tasks;
 
 namespace Expoceep
 {
-    public class UsuarioDAO 
+    public class UsuarioDAO
     {
         private ERPDatabaseContext conn;
         public UsuarioDAO(ERPDatabaseContext connection)
         {
             conn = connection;
+            if (conn.Usuarios.ToList().Count() < 1)
+            {
+                Usuario u = new Usuario() { Login = "admin", Senha = "admin", Email = "admin@gmail.com" };
+                conn.Usuarios.Add(u);
+            }
         }
-       
-        public  void AdicionarUsuario(Usuario u) {
+
+        public void AdicionarUsuario(Usuario u)
+        {
             conn.Usuarios.Add(u);
             conn.SaveChanges();
         }
-        public bool Login(string login,string senha)
+        public bool Login(string login, string senha)
         {
             var usuarioslog = conn.Usuarios.Where(u => u.Login == login && u.Senha == senha).FirstOrDefault();
             return usuarioslog != null ? true : false;

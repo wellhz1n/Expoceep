@@ -3,7 +3,7 @@ using Expoceep.Models;
 using Expoceep.Regras;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-
+using Microsoft.AspNetCore.Http;
 namespace Expoceep.Controllers
 {
 
@@ -25,7 +25,7 @@ namespace Expoceep.Controllers
             bool logou = new UsuarioBO(context).LoginSucesso(login, senha);
             if (logou)
             {
-                return RedirectToPage("Inicio/Home");
+                return this.RedirectToActionPermanent("Home","Inicio");
             }
             else
                 return RedirectToAction(nameof(Login));
