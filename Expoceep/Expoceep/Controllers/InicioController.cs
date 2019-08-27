@@ -31,11 +31,21 @@ namespace Expoceep.Controllers
             {
                 return this.RedirectToActionPermanent("Login", "Login");
             }
+            //var vl = new VerificadorDeSecao(new HttpContextAccessor()).VerificaLogin();
+            //if (vl)
+            //    return View();
+            //else
+            //    return RedirectToActionPermanent("Login", "Login");
+
         }
-        public IActionResult Logout()
+        [HttpPost]
+        public bool Logout()
         {
             HttpContext.Session.Clear();
-            return RedirectToActionPermanent("Login", "Login");
+            HttpContext.Session.Remove("LOGIN");
+            HttpContext.Session.Remove("USER");
+            return true;
         }
     }
 }
+
