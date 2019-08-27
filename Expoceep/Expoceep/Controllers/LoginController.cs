@@ -35,16 +35,15 @@ namespace Expoceep.Controllers
             if (logou)
             {
                 HttpContext.Session.SetString("LOGIN", "true");
+                HttpContext.Session.SetString("USER", login);
+
                 return this.RedirectToActionPermanent("Home", "Inicio");
             }
             else
-                return RedirectToAction(nameof(Login));
+                return this.RedirectToActionPermanent("Login", "Login");
         }
-        public IActionResult Logout()
-        {
-                HttpContext.Session.Remove("LOGIN");
-                return this.RedirectToActionPermanent(nameof(Login));
-        }
+
+        
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

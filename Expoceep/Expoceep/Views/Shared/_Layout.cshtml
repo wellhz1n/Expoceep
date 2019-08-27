@@ -41,7 +41,7 @@
                                 if (bool.Parse(Context.Session.GetString("LOGIN")))
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout"></a>
+                                        <a class="nav-link text-dark" href="@Url.Action("Logout","Inicio")">@Context.Session.GetString("USER")</a>
                                     </li>
                                 }
                             }
