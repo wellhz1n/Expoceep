@@ -16,8 +16,17 @@ namespace Expoceep.Controllers
         }
         public IActionResult Login()
         {
-
-            return View();
+            try
+            {
+                if (bool.Parse(HttpContext.Session.GetString("LOGIN")))
+                    return this.RedirectToActionPermanent("Home", "Inicio");
+                else
+                    return View();
+            }
+            catch
+            {
+                return View();
+            }
         }
         [HttpPost]
         public IActionResult Login(string login, string senha)
@@ -25,12 +34,17 @@ namespace Expoceep.Controllers
             bool logou = new UsuarioBO(context).LoginSucesso(login, senha);
             if (logou)
             {
-                return this.RedirectToActionPermanent("Home","Inicio");
+                HttpContext.Session.SetString("LOGIN", "true");
+                return this.RedirectToActionPermanent("Home", "Inicio");
             }
             else
                 return RedirectToAction(nameof(Login));
         }
-
+        public IActionResult Logout()
+        {
+                HttpContext.Session.Remove("LOGIN");
+                return this.RedirectToActionPermanent(nameof(Login));
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

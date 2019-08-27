@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using System;
-
+using Microsoft.AspNetCore.Session;
 namespace Expoceep
 {
     public class Startup
@@ -34,6 +34,8 @@ namespace Expoceep
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             string conn = Configuration["ConexaoMySql:MySqlConnectionString"];
             services.AddDbContext<ERPDatabaseContext>(o => o.UseMySql(conn));
+            services.AddDistributedMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,7 +55,7 @@ namespace Expoceep
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
