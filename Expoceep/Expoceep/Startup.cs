@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using System;
 using Microsoft.AspNetCore.Session;
+using Expoceep.DAO.UsuarioDAO;
+
 namespace Expoceep
 {
     public class Startup
@@ -20,16 +22,18 @@ namespace Expoceep
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
+            //INJECAO DE DEPENDENCIA PARA OS DAO
+            #region DAO
+            services.AddScoped<IUsuarioDAO, UsuarioDAO>(); 
+            #endregion
+            //FIM DAS INJECOES DE DEPENDENCIAS
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             string conn = Configuration["ConexaoMySql:MySqlConnectionString"];

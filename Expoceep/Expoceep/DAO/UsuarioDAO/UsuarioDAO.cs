@@ -1,4 +1,5 @@
-﻿using Expoceep.DB;
+﻿using Expoceep.DAO.UsuarioDAO;
+using Expoceep.DB;
 using Expoceep.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Expoceep
 {
-    public class UsuarioDAO
+    public class UsuarioDAO : IUsuarioDAO
     {
         private ERPDatabaseContext conn;
         public UsuarioDAO(ERPDatabaseContext connection)
         {
             conn = connection;
-            if (conn.Usuarios.ToList().Count() < 1)
+            if (SelectUsuarios().Count() < 1)
             {
                 Usuario u = new Usuario() { Login = "admin", Senha = "admin", Email = "admin@gmail.com" };
                 conn.Usuarios.Add(u);
@@ -30,6 +31,10 @@ namespace Expoceep
         {
             var usuarioslog = conn.Usuarios.Where(u => u.Login == login && u.Senha == senha).FirstOrDefault();
             return usuarioslog != null ? true : false;
+        }
+        public IEnumerable<Usuario> SelectUsuarios()
+        {
+                return  conn.Usuarios.ToList();
         }
     }
 }

@@ -4,15 +4,17 @@ using Expoceep.Regras;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using Expoceep.DAO.UsuarioDAO;
+
 namespace Expoceep.Controllers
 {
 
     public class LoginController : Controller
     {
-        private ERPDatabaseContext context;
-        public LoginController(ERPDatabaseContext contexto)
+        private IUsuarioDAO _UsuarioDAO;
+        public LoginController(IUsuarioDAO usuarioDAO)
         {
-            context = contexto;
+            _UsuarioDAO = usuarioDAO;
         }
         public IActionResult Login()
         {
@@ -31,7 +33,7 @@ namespace Expoceep.Controllers
         [HttpPost]
         public IActionResult Login(string login, string senha)
         {
-            bool logou = new UsuarioBO(context).LoginSucesso(login, senha);
+            bool logou = _UsuarioDAO.Login(login,senha);
             if (logou)
             {
                 HttpContext.Session.SetString("LOGIN", "true");
