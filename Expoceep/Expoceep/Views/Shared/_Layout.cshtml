@@ -3,7 +3,7 @@
 <head>
 
 
-    
+
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,15 +20,16 @@
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 </head>
 <body>
     <header>
 
         @{
-                
+
             if (Context.Session.TryGetValue("Login.Usuario", out byte[] a))
             {
-               
+
                 <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
                     <div class="container">
                         <a class="navbar-brand" asp-area="" asp-controller="Inicio" asp-action="Home">Expoceep</a>
@@ -38,9 +39,9 @@
                         </button>
                         <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                             <ul class="navbar-nav flex-grow-1">
-                                        <li class="nav-item">
-                                            <a class="nav-link text-dark" asp-area="" asp-controller="Cadastros" asp-action="Index">Cadastros</a>
-                                        </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Cadastros" asp-action="Index">Cadastros</a>
+                                </li>
                                 <li class="nav-item">
                                     <button class="nav-link Logout-canto text-dark" id="Logout">@Context.Session.GetString("USER")</button>
                                 </li>
@@ -57,28 +58,25 @@
 
 
     </header>
-    <div class="container">
+    <div class="container-fluid m-0 p-0">
         <partial name="_CookieConsentPartial" />
-        <main role="main" class="pb-3">
+        <main role="main" class="">
             @RenderBody()
         </main>
     </div>
     @{
-        try
+
+        if (a != null)
         {
-            if (bool.Parse(Context.Session.GetString("LOGIN")))
-            {
-                <footer class="border-top footer text-muted">
-                    <div class="container">
-                        &copy; 2019 - Expoceep - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    </div>
-                </footer>
-            }
-        }
-        catch
-        {
+            <footer class="border-top footer text-muted">
+                <div class="container">
+                    &copy; 2019 - Expoceep - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
+            </footer>
         }
     }
+
+
 
 
     <environment include="Development">
@@ -98,9 +96,12 @@
                 crossorigin="anonymous"
                 integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
         </script>
+
     </environment>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script type="text/javascript" src="~/js/Login/Login.js"></script>
+    <script type="text/javascript" src="~/js/Cadastrar/MenuCadastrar.js"></script>
 
 
     @RenderSection("Scripts", required: false)

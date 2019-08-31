@@ -9,7 +9,7 @@ namespace Expoceep.Bibliotecas.Filtros
 {
     public class UsuarioAutorizado : Attribute, IAuthorizationFilter
     {
-        LoginSession _loginSession;
+        //LoginSession _loginSession;
         public void OnAuthorization(AuthorizationFilterContext context)
         {
            //_loginSession = (LoginSession)context.HttpContext.RequestServices.GetService(typeof(LoginSession));
