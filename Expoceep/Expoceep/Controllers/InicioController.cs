@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Expoceep.Bibliotecas;
 using Expoceep.DB;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,24 +14,24 @@ namespace Expoceep.Controllers
     public class InicioController : Controller
     {
         private ERPDatabaseContext context;
-        public InicioController(ERPDatabaseContext contexto)
+        private LoginSession _loginSession;
+
+        public InicioController(ERPDatabaseContext contexto, LoginSession loginSession)
         {
             context = contexto;
+            _loginSession = loginSession;
+
         }
 
         public IActionResult Home()
         {
-            try
-            {
-                if (bool.Parse(HttpContext.Session.GetString("LOGIN")))
-                    return View();
+
+            if (_loginSession.GetUsuarioSession() != null)
+                return View();
                 else
-                    return this.RedirectToActionPermanent("Login", "Login");
-            }
-            catch
-            {
-                return this.RedirectToActionPermanent("Login", "Login");
-            }
+                    return this.RedirectToAction("Login", "Login");
+            
+        
             //var vl = new VerificadorDeSecao(new HttpContextAccessor()).VerificaLogin();
             //if (vl)
             //    return View();
@@ -38,14 +39,7 @@ namespace Expoceep.Controllers
             //    return RedirectToActionPermanent("Login", "Login");
 
         }
-        [HttpPost]
-        public bool Logout()
-        {
-            HttpContext.Session.Clear();
-            HttpContext.Session.Remove("LOGIN");
-            HttpContext.Session.Remove("USER");
-            return true;
-        }
+       
     }
 }
 

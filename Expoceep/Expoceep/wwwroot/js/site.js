@@ -4,7 +4,7 @@
 // Write your JavaScript code.
 $(document).on("click", "#Logout", ()=>{
    
-    $.post("/Inicio/Logout", (data) => {
+    $.post("/Login/Logout", (data) => {
 
         if (data)
             window.location.reload();

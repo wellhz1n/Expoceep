@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Expoceep.Bibliotecas;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,20 +12,19 @@ namespace Expoceep.Controllers
 {
     public class CadastrosController : Controller
     {
+        private LoginSession _loginSession;
+
         // GET: /<controller>/
-        public IActionResult MenuCadastro()
+        public CadastrosController(LoginSession loginSession)
         {
-            try
-            {
-                if (bool.Parse(HttpContext.Session.GetString("LOGIN")))
-                    return this.View();
-                else
-                    return this.RedirectToActionPermanent("Login", "Login");
-            }
-            catch
-            {
-                return this.RedirectToActionPermanent("Login", "Login");
-            }
+            _loginSession = loginSession;
+        }
+        public IActionResult Index()
+        {
+            if (_loginSession.GetUsuarioSession() != null)
+                return View();
+            else
+                return this.RedirectToAction("Login", "Login");
         }
     }
 }

@@ -10,6 +10,7 @@ using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using System;
 using Microsoft.AspNetCore.Session;
 using Expoceep.DAO.UsuarioDAO;
+using Expoceep.Bibliotecas;
 
 namespace Expoceep
 {
@@ -31,15 +32,21 @@ namespace Expoceep
             });
             //INJECAO DE DEPENDENCIA PARA OS DAO
             #region DAO
-            services.AddScoped<IUsuarioDAO, UsuarioDAO>(); 
+            services.AddScoped<IUsuarioDAO, UsuarioDAO>();
             #endregion
             //FIM DAS INJECOES DE DEPENDENCIAS
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             string conn = Configuration["ConexaoMySql:MySqlConnectionString"];
             services.AddDbContext<ERPDatabaseContext>(o => o.UseMySql(conn));
+
+
+            #region CACHE
             services.AddDistributedMemoryCache();
             services.AddSession();
+            services.AddHttpContextAccessor();
+            services.AddScoped<Sessao>(); 
+            services.AddScoped<LoginSession>(); 
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

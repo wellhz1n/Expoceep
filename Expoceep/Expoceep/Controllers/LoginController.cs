@@ -1,10 +1,12 @@
 ﻿using Expoceep.DB;
 using Expoceep.Models;
-using Expoceep.Regras;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Expoceep.DAO.UsuarioDAO;
+using Expoceep.Bibliotecas;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Expoceep.Controllers
 {
@@ -12,23 +14,24 @@ namespace Expoceep.Controllers
     public class LoginController : Controller
     {
         private IUsuarioDAO _UsuarioDAO;
-        public LoginController(IUsuarioDAO usuarioDAO)
+        private LoginSession _loginSession;
+        private Sessao _sessao;
+        public LoginController(IUsuarioDAO usuarioDAO, LoginSession loginSession,Sessao sessao)
         {
             _UsuarioDAO = usuarioDAO;
+            _loginSession = loginSession;
+            _sessao = sessao;
         }
         public IActionResult Login()
         {
-            try
-            {
-                if (bool.Parse(HttpContext.Session.GetString("LOGIN")))
-                    return this.RedirectToActionPermanent("Home", "Inicio");
+           
+                if (_loginSession.GetUsuarioSession() != null)
+                    return this.RedirectToAction("Home","Inicio");
                 else
                     return View();
-            }
-            catch
-            {
-                return View();
-            }
+            
+           
+            
         }
         [HttpPost]
         public IActionResult Login(string login, string senha)
@@ -36,16 +39,21 @@ namespace Expoceep.Controllers
             bool logou = _UsuarioDAO.Login(login,senha);
             if (logou)
             {
-                HttpContext.Session.SetString("LOGIN", "true");
-                HttpContext.Session.SetString("USER", login);
-
-                return this.RedirectToActionPermanent("Home", "Inicio");
+                List<Usuario> usuario = (List<Usuario>)_UsuarioDAO.SelectUsuarios();
+                _loginSession.Login(usuario.Where(u=> u.Login == login).First());
+                _sessao.SalvarEmCache("USER", login);
+                return this.RedirectToAction("Home", "Inicio");
             }
             else
-                return this.RedirectToActionPermanent("Login", "Login");
+                return View();
         }
 
-        
+        [HttpPost]
+        public bool Logout()
+        {
+            _loginSession.Logout();
+            return true;
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
