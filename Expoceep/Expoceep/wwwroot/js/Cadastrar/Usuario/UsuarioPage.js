@@ -1,7 +1,11 @@
 ﻿$(document).ready(() => {
 
     $(".cpf").mask('000.000.000-00');
-
+toastr.info('Implementar notificações');
+//TODO
+//https://github.com/CodeSeven/toastr
+ //FAZER SISTEMA DE NOTIFICACOES PARA USAR NO JS E NO C# 
+//https://chrissainty.com/blazor-toast-notifications-using-only-csharp-html-css/
 });
 $(document).on("click", "#btnNovo", () => {
     Adicionar("#Adicionar", "#Listagem");
