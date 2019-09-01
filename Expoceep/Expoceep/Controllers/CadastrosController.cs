@@ -62,6 +62,16 @@ namespace Expoceep.Controllers
         {
             string json = "{ \"data\" : "+ new ConversorDeObjetos().ConverterParaString(_usuarioDAO.SelectUsuarios()) + "}";
             return json;
+            // var lista = _usuarioDAO.SelectUsuarios();
+            //dynamic response = new
+            //{
+            //    Data = lista,
+            //    Draw = "1",
+            //    RecordsFiltered = lista.Count(),
+            //    RecordsTotal = lista.Count()
+
+            //};
+            //return Ok(response);
         }
      
         #endregion

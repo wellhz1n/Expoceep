@@ -40,10 +40,10 @@ function Adicionar(Teladeadicionar, Teladelistagem) {
 
 }
 function Cancelar(Teladeadicionar, Teladelistagem) {
- 
-   
+
+
     LimpaFormulario(Teladeadicionar);
-  
+
     AparecerElemento(Teladelistagem);
     AparecerElemento("#btnNovo");
     AparecerElemento("#btnDeletar");
@@ -104,4 +104,65 @@ function checarNulos(array, arrayOpcionalDeExcessoes) {
         }
     }
     return naoTemNulo;
+}
+async function Tabela(idtabela, action, controller) {
+    //Exemplo de coluna
+    //{ "data": "Nome", "title": "Nome", "autowidth": true }
+
+    if (controller == null)
+        controller = GetController();
+    let colunas = TableGetColuns(idtabela);
+    let table = await $('#' + idtabela).DataTable({
+        language: {
+            "lengthMenu": "Exibe _MENU_ Registros por página",
+            "search": "Procurar",
+            "paginate": { "previous": "Retorna", "next": "Avança" },
+            "zeroRecords": "Nada foi encontrado",
+            "info": "Exibindo página _PAGE_ de _PAGES_",
+            "infoEmpty": "Sem registros",
+            "infoFiltered": "(filtrado de _MAX_ regitros totais)"
+        },
+        //"processing": true,
+        //"serverSide": true,
+        //"filter": true, // habilita o filtro(search box)
+        //"lengthMenu": [[3, 5, 10, 25, 50, -1], [3, 5, 10, 25, 50, "Todos"]],
+        pageLength: 10,
+        destroy: true,
+        responsive: true,
+        ajax: {
+            url: "/" + controller + "/" + action,
+            type: "POST",
+            datatype: "json"
+        },
+        columns: colunas
+        //{ "data": "Nome", "title": "Nome", "autowidth": true },
+        //{ "data": "Login", "title": "Login", "autowidth": true },
+        //{ "data": "Email", "title": "Email", "autowidth": true }
+
+
+    });
+    //$('.dataTables_length').addClass('bs-select');
+    $('#' + idtabela + ' tbody').on('click', 'tr', function () {
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+        }
+        else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    });
+    debugger
+
+}
+
+function TableGetColuns(idtabela) {
+    let tab = $("#" + idtabela + "> thead > tr > th");
+    let colunas = [];
+    debugger
+    for (var i = 0; i < tab.length; i++) {
+        console.log(tab[i].attributes.name.value)
+        console.log(tab[i].innerText)
+        colunas.push({ "data": tab[i].attributes.name.value, "title": tab[i].innerText != "" ? tab[i].innerText : tab[i].attributes.name.value, "autowidth": true });
+    }
+    return colunas;
 }

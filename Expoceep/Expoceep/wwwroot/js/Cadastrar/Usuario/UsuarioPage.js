@@ -1,5 +1,8 @@
-﻿$(document).ready(() => {
+﻿
 
+
+$(document).ready(async () => {
+    await Tabela("dtUsuario","GetUsuariosTable");
     $(".cpf").mask('000.000.000-00');
     toastr.info('Implementar notificações', "Info", { timeOut: 2000 });
 
@@ -7,8 +10,8 @@
 $(document).on("click", "#btnNovo", () => {
     Adicionar("#Adicionar", "#Listagem");
 });
-$(document).on("click", "#btnCancelar", async() => {
-   await Cancelar("#Adicionar", "#Listagem");
+$(document).on("click", "#btnCancelar", async () => {
+    await Cancelar("#Adicionar", "#Listagem");
 });
 $(document).on("click", "#btnSalvar", async () => {
     let user = $("#Usuario").serializeArray();
@@ -23,7 +26,7 @@ $(document).on("click", "#btnSalvar", async () => {
         }
         await $.post("/" + GetController() + "/SalvarUsuario", { usuario: Usuario }, async (e) => {
             if (e) {
-                toastr.success("Salvo Com Sucesso", "Sucesso", { timeOut:2000 })
+                toastr.success("Salvo Com Sucesso", "Sucesso", { timeOut: 2000 })
                 await $('#dtBasicExample').DataTable().ajax.reload();
                 await Cancelar("#Adicionar", "#Listagem");
             }
