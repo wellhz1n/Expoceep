@@ -1,5 +1,6 @@
 ﻿$(document).ready(() => {
-   
+
+    $(".cpf").mask('000.000.000-00');
 
 });
 $(document).on("click", "#btnNovo", () => {
