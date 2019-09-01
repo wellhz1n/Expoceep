@@ -7,8 +7,8 @@ $(document).on("click", "#btnNovo", () => {
 }); 
 $(document).on("click", "#btnCancelar", () => {
     Cancelar("#Adicionar", "#Listagem");
-}); 
-$(document).on("click", "#btnSalvar", () => {
+});
+$(document).on("click", "#btnSalvar", async () => {
     let user = $("#Usuario").serializeArray();
     let Usuario = {
         id: 0,
@@ -18,14 +18,13 @@ $(document).on("click", "#btnSalvar", () => {
         Email: user[3].value,
         Cpf: user[4].value
     }
-    let teste = JSON.stringify(Usuario).toString();
-    $.ajax({
-        url: "/" + GetController() + "/SalvarUsuario",
-        method: 'POST',
-        contentType: "application/json",
-        data: { 'nome': user[0].value }
-        
+    await $.post("/" + GetController() + "/SalvarUsuario", { usuario: Usuario }, async (e) => {
+        if (e) {
+            await $('#dtBasicExample').DataTable().ajax.reload();
+            $("#Usuario")[0].reset();
+            Cancelar("#Adicionar", "#Listagem");
+        }
     });
-
-    Cancelar("#Adicionar", "#Listagem");
+   
+   
 }); 

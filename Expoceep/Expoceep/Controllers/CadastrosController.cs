@@ -49,9 +49,10 @@ namespace Expoceep.Controllers
                 return this.RedirectToAction("Login", "Login");
         }
         [HttpPost]
-        public void SalvarUsuario(string nome)
+        public bool SalvarUsuario(Usuario usuario)
         {
-
+             _usuarioDAO.AdicionarUsuario(usuario);
+           return ( _usuarioDAO.SelectUsuarios().Where(u => u.Nome == usuario.Nome).FirstOrDefault() !=null);
         }
         [HttpPost]
         public string GetUsuariosTable()
