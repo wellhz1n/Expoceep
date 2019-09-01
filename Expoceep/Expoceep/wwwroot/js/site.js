@@ -48,3 +48,35 @@ function Cancelar(Teladeadicionar, Teladelistagem) {
     EscondeElemento(Teladeadicionar);
 
 }
+
+
+// Checa se um array tem nulos
+
+
+function checarNulos(array, arrayOpcionalDeExcessoes) {
+    let naoTemNulo = true;
+    //Caso tiver um array de excessões:
+    if (arrayOpcionalDeExcessoes !== undefined) {
+        if (typeof arrayOpcionalDeExcessoes[0] == "number") {
+            for (let c in array) {
+                for (let itemInterno in arrayOpcionalDeExcessoes) {
+                    if (c == arrayOpcionalDeExcessoes[itemInterno].toString()) {
+                        naoTemNulo = true;
+                        break;
+                    } else if (array[c].value == null || array[c].value == "") {
+                        naoTemNulo = false;
+                    }
+                }
+
+            }
+        }
+
+    } else { //Caso não tiver
+        for (let c in array) {
+            if (array[c].value == null || array[c].value == "") {
+                naoTemNulo = false;
+            }
+        }
+    }
+    return naoTemNulo;
+}
