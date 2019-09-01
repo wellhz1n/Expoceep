@@ -51,6 +51,7 @@ namespace Expoceep.Controllers
         [HttpPost]
         public bool Logout()
         {
+            
             _loginSession.Logout();
             return true;
         }

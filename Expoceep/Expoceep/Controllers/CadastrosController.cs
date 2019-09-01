@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Expoceep.DAO.UsuarioDAO;
 using Expoceep.Models;
+using NToastNotify;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,12 +17,14 @@ namespace Expoceep.Controllers
     {
         private LoginSession _loginSession;
         private IUsuarioDAO _usuarioDAO;
+        private readonly IToastNotification _toastNotification;
 
         // GET: /<controller>/
-        public CadastrosController(LoginSession loginSession, IUsuarioDAO usuarioDAO)
+        public CadastrosController(LoginSession loginSession, IUsuarioDAO usuarioDAO,IToastNotification toast)
         {
             _loginSession = loginSession;
             _usuarioDAO = usuarioDAO;
+            _toastNotification = toast;
         }
         public IActionResult Index()
         {

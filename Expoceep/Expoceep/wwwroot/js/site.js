@@ -1,4 +1,5 @@
-﻿function GetController() {
+﻿
+function GetController() {
     return window.location.href.split(window.location.host)[1].split("/")[1];
 }
 function MudaUrl(controller, action) {
@@ -39,6 +40,10 @@ function Adicionar(Teladeadicionar, Teladelistagem) {
 
 }
 function Cancelar(Teladeadicionar, Teladelistagem) {
+ 
+   
+    LimpaFormulario(Teladeadicionar);
+  
     AparecerElemento(Teladelistagem);
     AparecerElemento("#btnNovo");
     AparecerElemento("#btnDeletar");
@@ -47,8 +52,15 @@ function Cancelar(Teladeadicionar, Teladelistagem) {
     EscondeElemento("#btnSalvar");
     EscondeElemento(Teladeadicionar);
 
+
 }
 
+
+function LimpaFormulario(TeladoForm) {
+    let c = TeladoForm + " form " + " :input";
+    $(c).removeClass("border-danger");
+    $(c).toArray().forEach(o => o.value = null);
+}
 
 // Checa se um array tem nulos
 
@@ -61,9 +73,13 @@ function checarNulos(array, arrayOpcionalDeExcessoes) {
             for (let c in array) {
                 for (let itemInterno in arrayOpcionalDeExcessoes) {
                     if (c == arrayOpcionalDeExcessoes[itemInterno].toString()) {
+                        $("input[name =\'" + array[c].name + "\' ]").removeClass("border-danger");
+
                         naoTemNulo = true;
                         break;
                     } else if (array[c].value == null || array[c].value == "") {
+                        $("input[name =\'" + array[c].name + "\' ]").addClass("border-danger");
+                        debugger
                         naoTemNulo = false;
                     }
                 }
@@ -74,7 +90,16 @@ function checarNulos(array, arrayOpcionalDeExcessoes) {
     } else { //Caso não tiver
         for (let c in array) {
             if (array[c].value == null || array[c].value == "") {
+                $("input[name =\'" + array[c].name + "\' ]").addClass("border-danger");
                 naoTemNulo = false;
+
+            }
+            else {
+                $("input[name =\'" + array[c].name + "\' ]").removeClass("border-danger");
+            }
+            if (!naoTemNulo) {
+                toastr.options.preventDuplicates = true;
+                toastr.error("Preencha os Campos", "Ops!", { timeOut: 2000 });
             }
         }
     }

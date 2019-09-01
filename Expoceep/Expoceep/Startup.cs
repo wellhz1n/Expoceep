@@ -11,6 +11,7 @@ using System;
 using Microsoft.AspNetCore.Session;
 using Expoceep.DAO.UsuarioDAO;
 using Expoceep.Bibliotecas;
+using NToastNotify;
 
 namespace Expoceep
 {
@@ -45,7 +46,14 @@ namespace Expoceep
             services.AddSession();
             services.AddHttpContextAccessor();
             services.AddScoped<Sessao>(); 
-            services.AddScoped<LoginSession>(); 
+            services.AddScoped<LoginSession>();
+            #endregion
+            #region Toastr
+            services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
+            {
+                ProgressBar = false,
+                PositionClass = ToastPositions.TopRight
+            }); 
             #endregion
         }
 
@@ -67,6 +75,7 @@ namespace Expoceep
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseSession();
+            app.UseNToastNotify();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
