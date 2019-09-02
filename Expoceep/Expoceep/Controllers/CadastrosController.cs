@@ -66,6 +66,12 @@ namespace Expoceep.Controllers
         public bool DeletarUsuario(Usuario usuario)
         {
             bool resultado = true;
+            var usr = _loginSession.GetUsuarioSession();
+            if (usr.Id.ToString() == usuario.Id.ToString())
+            {
+                _toastNotification.AddWarningToastMessage("Não é possivel apagar um usuario logado", new ToastrOptions { Title = "Usuario em uso!", TimeOut = 2000 });
+                return false;
+            }
             try
             {
                 _usuarioDAO.ApagarUsuario((int)usuario.Id);
