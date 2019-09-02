@@ -20,7 +20,7 @@ namespace Expoceep.Controllers
         private readonly IToastNotification _toastNotification;
 
         // GET: /<controller>/
-        public CadastrosController(LoginSession loginSession, IUsuarioDAO usuarioDAO,IToastNotification toast)
+        public CadastrosController(LoginSession loginSession, IUsuarioDAO usuarioDAO, IToastNotification toast)
         {
             _loginSession = loginSession;
             _usuarioDAO = usuarioDAO;
@@ -54,26 +54,30 @@ namespace Expoceep.Controllers
         [HttpPost]
         public bool SalvarUsuario(Usuario usuario)
         {
-             _usuarioDAO.AdicionarUsuario(usuario);
-           return ( _usuarioDAO.SelectUsuarios().Where(u => u.Nome == usuario.Nome).FirstOrDefault() !=null);
+            _usuarioDAO.AdicionarUsuario(usuario);
+            return (_usuarioDAO.SelectUsuarios().Where(u => u.Nome == usuario.Nome).FirstOrDefault() != null);
         }
         [HttpPost]
         public string GetUsuariosTable()
         {
-            string json = "{ \"data\" : "+ new ConversorDeObjetos().ConverterParaString(_usuarioDAO.SelectUsuarios()) + "}";
+            string json = "{ \"data\" : " + new ConversorDeObjetos().ConverterParaString(_usuarioDAO.SelectUsuarios()) + "}";
             return json;
-            // var lista = _usuarioDAO.SelectUsuarios();
-            //dynamic response = new
-            //{
-            //    Data = lista,
-            //    Draw = "1",
-            //    RecordsFiltered = lista.Count(),
-            //    RecordsTotal = lista.Count()
-
-            //};
-            //return Ok(response);
         }
-     
+        public bool DeletarUsuario(Usuario usuario)
+        {
+            bool resultado = true;
+            try
+            {
+                _usuarioDAO.ApagarUsuario((int)usuario.Id);
+            }
+            catch (Exception e)
+            {
+                _toastNotification.AddErrorToastMessage(e.Message, new ToastrOptions { Title = "Ops", TimeOut = 2000 });
+                return false;
+            }
+            return resultado;
+        }
+
         #endregion
         #region Materiais
         public IActionResult MateriaisCadastrar()

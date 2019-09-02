@@ -27,6 +27,14 @@ namespace Expoceep
             conn.Usuarios.Add(u);
             conn.SaveChanges();
         }
+
+        public void ApagarUsuario(int id)
+        {
+          var usr =  conn.Usuarios.ToList().Find(u => u.Id.ToString() == id.ToString());
+            conn.Remove(usr);
+            conn.SaveChanges();
+        }
+
         public bool Login(string login, string senha)
         {
             var usuarioslog = conn.Usuarios.Where(u => u.Login == login && u.Senha == senha).FirstOrDefault();

@@ -105,10 +105,9 @@ function checarNulos(array, arrayOpcionalDeExcessoes) {
     }
     return naoTemNulo;
 }
-async function Tabela(idtabela, action, controller) {
+async function Tabela(idtabela, action,controller) {
     //Exemplo de coluna
     //{ "data": "Nome", "title": "Nome", "autowidth": true }
-
     if (controller == null)
         controller = GetController();
     let colunas = TableGetColuns(idtabela);
@@ -135,25 +134,29 @@ async function Tabela(idtabela, action, controller) {
             datatype: "json"
         },
         columns: colunas
-        //{ "data": "Nome", "title": "Nome", "autowidth": true },
-        //{ "data": "Login", "title": "Login", "autowidth": true },
-        //{ "data": "Email", "title": "Email", "autowidth": true }
-
-
     });
-    //$('.dataTables_length').addClass('bs-select');
-    $('#' + idtabela + ' tbody').on('click', 'tr', function () {
-        if ($(this).hasClass('selected')) {
-            $(this).removeClass('selected');
-        }
-        else {
-            table.$('tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-        }
-    });
+    $('.dataTables_length').addClass('bs-select');
+
+  
+    return table;
     debugger
-
 }
+
+//function RowValueGet(objeto, table,linha) {
+//        if ($(row).hasClass('selected')) {
+//            $(row).removeClass('selected');
+//            objeto = objeto;
+//        }
+//        else {
+//            table.$('tr.selected').removeClass('selected');
+//            $(row).addClass('selected');
+//            let t = tabela.row(row).data();
+//            objeto = t;
+//        }
+//    console.log(objeto);
+//    return objeto;
+//    };
+
 
 function TableGetColuns(idtabela) {
     let tab = $("#" + idtabela + "> thead > tr > th");

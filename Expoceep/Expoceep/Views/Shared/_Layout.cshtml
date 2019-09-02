@@ -20,8 +20,9 @@
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+    @*<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />*@
     <link rel="stylesheet" href="~/lib/Toastr/toastr.css" />
+    <link rel="stylesheet" href="~/lib/DataTable/datatables.min.css" />
 </head>
 <body>
     <header>
@@ -82,7 +83,7 @@
 
 <environment include="Development">
     <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.13/jquery.mask.min.js"></script>
+    <script src="~/lib/jquery.mask.js"></script>
     <script src="~/lib/Toastr/toastr.min.js"></script>
 
 
@@ -103,7 +104,7 @@
         </script>
 
     </environment>
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/DataTable/datatables.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script type="text/javascript" src="~/js/Login/Login.js"></script>
     <script type="text/javascript" src="~/js/Cadastrar/MenuCadastrar.js"></script>

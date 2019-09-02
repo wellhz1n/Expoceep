@@ -10,5 +10,6 @@ namespace Expoceep.DAO.UsuarioDAO
         void AdicionarUsuario(Usuario u);
         bool Login(string login, string senha);
         IEnumerable<Usuario> SelectUsuarios();
+        void ApagarUsuario(int id);
     }
 }
