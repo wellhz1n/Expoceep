@@ -30,8 +30,16 @@ namespace Expoceep
 
         public void ApagarUsuario(int id)
         {
-          var usr =  conn.Usuarios.ToList().Find(u => u.Id.ToString() == id.ToString());
+            var usr = conn.Usuarios.ToList().Find(u => u.Id.ToString() == id.ToString());
             conn.Remove(usr);
+            conn.SaveChanges();
+        }
+
+        public void AtualizaUsuario(Usuario u)
+        {
+            var user = conn.Usuarios.SingleOrDefault(o=> o.Id.ToString() == u.Id.ToString());
+            conn.Entry(user).CurrentValues.SetValues(u);
+
             conn.SaveChanges();
         }
 
@@ -42,7 +50,7 @@ namespace Expoceep
         }
         public IEnumerable<Usuario> SelectUsuarios()
         {
-                return  conn.Usuarios.ToList();
+            return conn.Usuarios.ToList();
         }
     }
 }

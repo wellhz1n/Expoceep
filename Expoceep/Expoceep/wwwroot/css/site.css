@@ -65,3 +65,42 @@ body {
     position: relative;
     /*left:990px;*/
 }
+/*LOader*/
+.loader-page {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    display: block;
+    text-align:center;
+    z-index: 200;
+    background: rgba(150, 150, 150, 0.33);
+}
+.loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 10px solid #575656; /* Light grey */
+    border-top: 10px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    z-index: 201;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.loader-page > p {
+    position: absolute;
+    top: 60%;
+    left: 49%;
+}

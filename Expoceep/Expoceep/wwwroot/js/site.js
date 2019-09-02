@@ -105,9 +105,10 @@ function checarNulos(array, arrayOpcionalDeExcessoes) {
     }
     return naoTemNulo;
 }
-async function Tabela(idtabela, action,controller) {
+async function Tabela(idtabela, action, controller) {
     //Exemplo de coluna
     //{ "data": "Nome", "title": "Nome", "autowidth": true }
+    BloquearTela();
     if (controller == null)
         controller = GetController();
     let colunas = TableGetColuns(idtabela);
@@ -137,7 +138,7 @@ async function Tabela(idtabela, action,controller) {
     });
     $('.dataTables_length').addClass('bs-select');
 
-  
+     DesbloquearTela();
     return table;
     debugger
 }
@@ -168,4 +169,25 @@ function TableGetColuns(idtabela) {
         colunas.push({ "data": tab[i].attributes.name.value, "title": tab[i].innerText != "" ? tab[i].innerText : tab[i].attributes.name.value, "autowidth": true });
     }
     return colunas;
+}
+function ValorInput(obj, form) {
+    form = $("#" + form).serializeArray();
+    let objarray = []
+    objarray = Object.values(obj);
+    
+    
+    for (var i = 0; i < form.length; i++) {
+
+        
+        $("input[name =\'" + form[i].name + "\' ]").val(objarray[i]);
+        debugger
+    }
+
+
+}
+function BloquearTela() {
+    AparecerElemento("#loader");
+}
+function DesbloquearTela() {
+    EscondeElemento("#loader");
 }
