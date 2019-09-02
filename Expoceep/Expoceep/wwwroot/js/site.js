@@ -136,7 +136,7 @@ async function Tabela(idtabela, action, controller) {
         },
         columns: colunas
     });
-    $('.dataTables_length').addClass('bs-select');
+    //$('.dataTables_length').addClass('bs-select');
 
      DesbloquearTela();
     return table;
@@ -186,8 +186,8 @@ function ValorInput(obj, form) {
 
 }
 function BloquearTela() {
-    AparecerElemento("#loader");
+    AparecerElemento("#loaderpage");
 }
 function DesbloquearTela() {
-    EscondeElemento("#loader");
+    EscondeElemento("#loaderpage");
 }

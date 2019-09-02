@@ -12,5 +12,6 @@ namespace Expoceep.DAO.UsuarioDAO
         IEnumerable<Usuario> SelectUsuarios();
         void ApagarUsuario(int id);
         void AtualizaUsuario(Usuario u);
+        void Popular();
     }
 }

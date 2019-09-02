@@ -37,7 +37,7 @@ namespace Expoceep
 
         public void AtualizaUsuario(Usuario u)
         {
-            var user = conn.Usuarios.SingleOrDefault(o=> o.Id.ToString() == u.Id.ToString());
+            var user = conn.Usuarios.SingleOrDefault(o => o.Id.ToString() == u.Id.ToString());
             conn.Entry(user).CurrentValues.SetValues(u);
 
             conn.SaveChanges();
@@ -50,7 +50,30 @@ namespace Expoceep
         }
         public IEnumerable<Usuario> SelectUsuarios()
         {
-            return conn.Usuarios.ToList();
+            try
+            {
+                return conn.Usuarios.ToList();
+
+            }
+            catch (Exception)
+            {
+
+                throw new ArgumentException("Ocorreu um Erro no Banco De Dados");
+            }
+        }
+        public void Popular()
+        {
+            List<Usuario> users = new List<Usuario>();
+            for (int i = 0; i < 20; i++)
+            {
+                users.Add(new Usuario { Nome = "Teste"+i, Login = "Teste."+i, Senha = "123", Email = "TEste"+i+"@gmail.com" });
+
+            }
+            foreach (var item in users)
+            {
+                conn.Usuarios.Add(item);
+            }
+            conn.SaveChanges();
         }
     }
 }

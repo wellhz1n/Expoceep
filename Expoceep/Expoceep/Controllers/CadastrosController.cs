@@ -91,7 +91,12 @@ namespace Expoceep.Controllers
             }
             return resultado;
         }
-
+        [HttpGet]
+        public void Popular()
+        {
+            _usuarioDAO.Popular();
+            RedirectToAction(nameof(UsuarioCadastrar));
+        }
         #endregion
         #region Materiais
         public IActionResult MateriaisCadastrar()

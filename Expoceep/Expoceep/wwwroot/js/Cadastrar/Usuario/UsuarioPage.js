@@ -13,6 +13,7 @@ $(document).ready(async () => {
     Usuario = tabela[1];
     $(".cpf").mask('000.000.000-00');
     //toastr.info('Implementar notificações', "Info", { timeOut: 2000 });
+   
 
 });
 
@@ -26,7 +27,7 @@ $(document).on("click", "#btnCancelar", async () => {
 });
 $(document).on("click", "#btnSalvar", async () => {
     let user = $("#Usuario").serializeArray();
-    if (checarNulos(user) || Editando) {
+    if (checarNulos(user,[0]) || Editando) {
         Usuario = {
             id: user[0].value,
             Nome: user[1].value,
@@ -35,13 +36,13 @@ $(document).on("click", "#btnSalvar", async () => {
             Email: user[4].value,
             Cpf: user[5].value
         }
-        BloquearTela
+        await BloquearTela
         await $.post("/" + GetController() + "/SalvarUsuario", { usuario: Usuario, editando: Editando }, async (e) => {
             if (e) {
                 toastr.success("Salvo Com Sucesso", "Sucesso", { timeOut: 2000 })
                 await $('#dtUsuario').DataTable().ajax.reload();
                 await Cancelar("#Adicionar", "#Listagem");
-                 DesbloquearTela();
+                await DesbloquearTela();
             }
         });
     }
@@ -68,6 +69,7 @@ $(document).on("click", "#btnDeletar", async () => {
         $.post("/" + GetController() + "/DeletarUsuario", { usuario: Usuario }, async (retorno) => {
             if (retorno) {
                 await $('#dtUsuario').DataTable().ajax.reload();
+                Usuario = null;
                 await toastr.success("Usuario Apagado", "Sucesso", { timeOut: 2000 });
             }
         });
@@ -86,7 +88,7 @@ $(document).on("click", "#btnEditar", async () => {
         Editando = true;
     }
     else
-        toastr.warning("Selecione um registro", "Deletar", { timeOut: 2000 });
+        toastr.warning("Selecione um registro", "Editar", { timeOut: 2000 });
 
      DesbloquearTela();
 
