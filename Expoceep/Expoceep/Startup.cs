@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Session;
 using Expoceep.DAO.UsuarioDAO;
 using Expoceep.Bibliotecas;
 using NToastNotify;
+using Expoceep.DAO.ProdutoDAO;
 
 namespace Expoceep
 {
@@ -34,6 +35,7 @@ namespace Expoceep
             //INJECAO DE DEPENDENCIA PARA OS DAO
             #region DAO
             services.AddScoped<IUsuarioDAO, UsuarioDAO>();
+            services.AddScoped<IProdutoDAO, ProdutoDAO>();
             #endregion
             //FIM DAS INJECOES DE DEPENDENCIAS
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

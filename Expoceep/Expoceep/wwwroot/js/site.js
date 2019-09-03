@@ -1,4 +1,14 @@
-﻿
+﻿//OBJECTS
+var Produto = {
+    Id: null,
+    Codigo: null,
+    Nome: null,
+    Preco: null,
+    Unidades: null,
+    Tamanho: null 
+    }
+
+//FIM OBJECTS
 function GetController() {
     return window.location.href.split(window.location.host)[1].split("/")[1];
 }

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Expoceep.DAO.UsuarioDAO;
 using Expoceep.Models;
 using NToastNotify;
+using Expoceep.DAO.ProdutoDAO;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,13 +18,15 @@ namespace Expoceep.Controllers
     {
         private LoginSession _loginSession;
         private IUsuarioDAO _usuarioDAO;
+        private IProdutoDAO _produtoDAO;
         private readonly IToastNotification _toastNotification;
 
         // GET: /<controller>/
-        public CadastrosController(LoginSession loginSession, IUsuarioDAO usuarioDAO, IToastNotification toast)
+        public CadastrosController(LoginSession loginSession, IUsuarioDAO usuarioDAO, IProdutoDAO produtoDAO, IToastNotification toast)
         {
             _loginSession = loginSession;
             _usuarioDAO = usuarioDAO;
+            _produtoDAO = produtoDAO;
             _toastNotification = toast;
         }
         public IActionResult Index()
@@ -42,6 +45,42 @@ namespace Expoceep.Controllers
             else
                 return this.RedirectToAction("Login", "Login");
         }
+        #region CRUD
+        [HttpPost]
+        public bool SalvarProduto(Produto prod, bool editando)
+        {
+            if (!editando)
+            {
+                _produtoDAO.AdicionarProduto(prod);
+                return (_produtoDAO.SelectProdutos().Where(u => u.Nome == prod.Nome).FirstOrDefault() != null);
+            }
+            else
+            {
+                _produtoDAO.AtualizarProduto(prod);
+                return (_produtoDAO.SelectProdutos().Where(u => u.Nome == prod.Nome).FirstOrDefault() != null);
+            }
+        }
+        [HttpPost]
+        public string GetProdutosTable()
+        {
+            string json = "{ \"data\" : " + new ConversorDeObjetos().ConverterParaString(_produtoDAO.SelectProdutos()) + "}";
+            return json;
+        }
+        public bool DeletarProduto(Produto prod)
+        {
+            bool resultado = true;
+            try
+            {
+                _produtoDAO.ApagarProduto(prod);
+            }
+            catch (Exception e)
+            {
+                _toastNotification.AddErrorToastMessage(e.Message, new ToastrOptions { Title = "Ops", TimeOut = 2000 });
+                return false;
+            }
+            return resultado;
+        }
+        #endregion
         #endregion
         #region Usuario
         public IActionResult UsuarioCadastrar()
