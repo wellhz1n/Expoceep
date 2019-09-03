@@ -24,7 +24,7 @@ namespace Expoceep.DAO.ProdutoDAO
             }
             catch
             {
-                c = new Random().Next(maxValue:180).ToString();
+                c = new Random().Next(maxValue: 180).ToString();
             }
             List<string> codigo = GerarCodigo(c);
             var code = $"{codigo[0]}{codigo[1]}{codigo[2]}{codigo[3]}";
@@ -34,6 +34,19 @@ namespace Expoceep.DAO.ProdutoDAO
             }
             else
                 produto.Codigo = code;
+            if (SelectProdutos().Where(p => p.Codigo == produto.Codigo).FirstOrDefault() != null)
+            {
+                codigo.RemoveRange(0,codigo.Count());
+                    codigo= GerarCodigo((int.Parse(c) * 180).ToString());
+                code = $"{codigo[0]}{codigo[1]}{codigo[2]}{codigo[3]}";
+                if (code.Length > 4)
+                {
+                    produto.Codigo = code.Substring(0, 4);
+                }
+                else
+                    produto.Codigo = code;
+            }
+
             conn.Produtos.Add(produto);
             conn.SaveChanges();
         }

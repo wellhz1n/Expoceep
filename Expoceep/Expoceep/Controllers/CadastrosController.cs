@@ -51,8 +51,16 @@ namespace Expoceep.Controllers
         {
             if (!editando)
             {
-                _produtoDAO.AdicionarProduto(prod);
-                return (_produtoDAO.SelectProdutos().Where(u => u.Nome == prod.Nome).FirstOrDefault() != null);
+                try
+                {
+                    _produtoDAO.AdicionarProduto(prod);
+                    return (_produtoDAO.SelectProdutos().Where(u => u.Nome == prod.Nome).FirstOrDefault() != null);
+                }
+                catch (Exception e)
+                {
+                    _toastNotification.AddErrorToastMessage(e.Message, new ToastrOptions { Title = "Ops!", TimeOut = 2000 });
+                    return false;
+                }
             }
             else
             {
@@ -93,15 +101,24 @@ namespace Expoceep.Controllers
         [HttpPost]
         public bool SalvarUsuario(Usuario usuario, bool editando)
         {
-            if (!editando)
+            try
             {
-                _usuarioDAO.AdicionarUsuario(usuario);
-                return (_usuarioDAO.SelectUsuarios().Where(u => u.Nome == usuario.Nome).FirstOrDefault() != null);
+
+                if (!editando)
+                {
+                    _usuarioDAO.AdicionarUsuario(usuario);
+                    return (_usuarioDAO.SelectUsuarios().Where(u => u.Nome == usuario.Nome).FirstOrDefault() != null);
+                }
+                else
+                {
+                    _usuarioDAO.AtualizaUsuario(usuario);
+                    return (_usuarioDAO.SelectUsuarios().Where(u => u.Nome == usuario.Nome).FirstOrDefault() != null);
+                }
             }
-            else
+            catch (Exception e )
             {
-                _usuarioDAO.AtualizaUsuario(usuario);
-                return (_usuarioDAO.SelectUsuarios().Where(u => u.Nome == usuario.Nome).FirstOrDefault() != null);
+                _toastNotification.AddErrorToastMessage(e.Message, new ToastrOptions { Title = "Ops!", TimeOut = 2000 });
+                return false;
             }
         }
         [HttpPost]

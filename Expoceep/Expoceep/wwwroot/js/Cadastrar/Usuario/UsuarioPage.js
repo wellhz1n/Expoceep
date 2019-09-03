@@ -9,11 +9,12 @@
 var tabela;
 var Editando = false;
 $(document).ready(async () => {
+    await BloquearTela();
     tabela = await Tabela("dtUsuario", "GetUsuariosTable");
     Usuario = tabela[1];
     $(".cpf").mask('000.000.000-00');
     //toastr.info('Implementar notificações', "Info", { timeOut: 2000 });
-   
+    await DesbloquearTela();
 
 });
 
@@ -24,10 +25,11 @@ $(document).on("click", "#btnNovo", () => {
 $(document).on("click", "#btnCancelar", async () => {
     await Cancelar("#Adicionar", "#Listagem");
     Editando = false;
+    Usuario = null;
 });
 $(document).on("click", "#btnSalvar", async () => {
     let user = $("#Usuario").serializeArray();
-    if (checarNulos(user,[0]) || Editando) {
+    if (checarNulos(user, [0]) || Editando) {
         Usuario = {
             id: user[0].value,
             Nome: user[1].value,
@@ -36,14 +38,18 @@ $(document).on("click", "#btnSalvar", async () => {
             Email: user[4].value,
             Cpf: user[5].value
         }
-        await BloquearTela
+        //await BloquearTela();
+        await BloquearTela();
         await $.post("/" + GetController() + "/SalvarUsuario", { usuario: Usuario, editando: Editando }, async (e) => {
             if (e) {
                 toastr.success("Salvo Com Sucesso", "Sucesso", { timeOut: 2000 })
                 await $('#dtUsuario').DataTable().ajax.reload();
                 await Cancelar("#Adicionar", "#Listagem");
-                await DesbloquearTela();
+                //await DesbloquearTela();
             }
+
+            await DesbloquearTela();
+
         });
     }
 
@@ -60,6 +66,18 @@ $('#dtUsuario tbody').on('click', 'tr', function () {
         $(this).addClass('selected');
         Usuario = tabela.row(this).data();
     }
+});
+$('#dtUsuario tbody').on('dblclick ', 'tr', function () {
+    Usuario = tabela.row(this).data();
+    if (Usuario != null) {
+        ValorInput(Usuario, "Usuario");
+        Adicionar("#Adicionar", "#Listagem");
+        Editando = true;
+    }
+    else
+        toastr.warning("Selecione um registro", "Editar", { timeOut: 2000 });
+
+
 });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $(document).on("click", "#btnDeletar", async () => {
@@ -81,7 +99,7 @@ $(document).on("click", "#btnDeletar", async () => {
 
 });
 $(document).on("click", "#btnEditar", async () => {
-     BloquearTela();
+    //BloquearTela();
     if (Usuario != null) {
         ValorInput(Usuario, "Usuario");
         Adicionar("#Adicionar", "#Listagem");
@@ -90,7 +108,7 @@ $(document).on("click", "#btnEditar", async () => {
     else
         toastr.warning("Selecione um registro", "Editar", { timeOut: 2000 });
 
-     DesbloquearTela();
+    //DesbloquearTela();
 
 
 

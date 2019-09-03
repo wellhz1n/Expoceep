@@ -104,3 +104,10 @@ body {
     top: 60%;
     left: 49%;
 }
+
+
+.bloqueado{
+    opacity:0.8 !important;
+    pointer-events:none !important;
+    background:rgba(227, 227, 227, 0.79) !important;
+}
