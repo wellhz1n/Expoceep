@@ -20,7 +20,9 @@ namespace Expoceep.Models
         public string Preco { get; set; }
         public int Unidades { get; set; }
         public tamanho Tamanho { get; set; }
-
+        [NotMapped]
+        public string TamanhoString { get; set; }
     }
+   
 }
 

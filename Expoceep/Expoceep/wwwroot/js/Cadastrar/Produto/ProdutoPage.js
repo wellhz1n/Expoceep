@@ -24,7 +24,7 @@ $(document).on("click", "#btnCancelar", async () => {
 });
 $(document).on("click", "#btnSalvar", async () => {
     let produto = $("#Produto").serializeArray();
-    //if (/*checarNulos(produto,[0, 1, 5]) ||*/ Editando) {
+    if (checarNulos(produto,[0, 1, 5]) || Editando) {
     Produto = {
         Id: produto[0].value,
         Codigo: produto[1].value,
@@ -45,7 +45,7 @@ $(document).on("click", "#btnSalvar", async () => {
             await DesbloquearTela();
         }
     });
-    //}
+    }
 
 
 });
@@ -66,6 +66,7 @@ $('#dtProduto tbody').on('dblclick ', 'tr', function () {
     AparecerElemento("#CampoUsuarioCodigo");
     if (Produto != null) {
         ValorInput(Produto, "Produto");
+        $("#Tamanhoselect option:eq(" + Produto.Tamanho.value + ")").prop('selected', true);
         Adicionar("#Adicionar", "#Listagem");
         Editando = true;
     }
@@ -99,7 +100,8 @@ $(document).on("click", "#btnEditar", async () => {
     AparecerElemento("#CampoUsuarioCodigo");
     if (Produto != null) {
         ValorInput(Produto, "Produto");
-        Adicionar("#Adicionar", "#Listagem");
+        $("#Tamanhoselect option:eq(" + Produto.Tamanho.value + ")").prop('selected', true);
+        await Adicionar("#Adicionar", "#Listagem");
         Editando = true;
     }
     else
