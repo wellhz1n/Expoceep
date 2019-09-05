@@ -1,8 +1,7 @@
 ﻿$(document).on("click", "#menu-Backup", async () => {
     await BloquearTela();
-    $.post("/" + GetController() + "/GerarBackup", {}, async (e) => {
+    await $.post("/" + GetController() + "/GerarBackup", {}, async (e) => {
         if (e) {
-            await DesbloquearTela();
             toastr.success("Backup Gerado", "Sucesso");
         }
     });

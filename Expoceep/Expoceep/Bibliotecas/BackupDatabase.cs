@@ -38,9 +38,11 @@ namespace Expoceep.Bibliotecas
             {
                 var list = _cont.Usuarios.ToList();
                 var json = new ConversorDeObjetos().ConverterParaString(list);
-                await GerarArquivo(json, "UsuarioTable" + System.DateTime.Now.Minute.ToString());
-
-            }
+                await GerarArquivo(json, "UsuarioTable" + System.DateTime.Now.Day.ToString());
+                var listProduto = _cont.Produtos.ToList();
+                json = new ConversorDeObjetos().ConverterParaString(listProduto);
+                await GerarArquivo(json, "ProdutoTable" + System.DateTime.Now.Day.ToString());
+            } 
 
         }
         public async Task GerarArquivo(string content, string name)
