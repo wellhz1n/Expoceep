@@ -73,40 +73,39 @@ function LimpaFormulario(TeladoForm) {
 }
 
 // Checa se um array tem nulos
-
-
 function checarNulos(array, arrayOpcionalDeExcessoes) {
     let naoTemNulo = true;
     //Caso tiver um array de excessões:
     if (arrayOpcionalDeExcessoes !== undefined) {
         if (typeof arrayOpcionalDeExcessoes[0] == "number") {
+            
             for (let c in array) {
+                $("input[name =\'" + array[c].name + "\' ]").removeClass("erroNoInput");
                 for (let itemInterno in arrayOpcionalDeExcessoes) {
                     if (c == arrayOpcionalDeExcessoes[itemInterno].toString()) {
-                        $("input[name =\'" + array[c].name + "\' ]").removeClass("border-danger");
+                        $("input[name =\'" + array[c].name + "\' ]").removeClass("erroNoInput");
 
-                        naoTemNulo = true;
                         break;
                     } else if (array[c].value == null || array[c].value == "") {
-                        $("input[name =\'" + array[c].name + "\' ]").addClass("border-danger");
-                        debugger
+                        $("input[name =\'" + array[c].name + "\' ]").addClass("erroNoInput");
                         naoTemNulo = false;
                     }
                 }
 
             }
+
         }
 
     } else { //Caso não tiver
         for (let c in array) {
+            $("input[name =\'" + array[c].name + "\' ]").removeClass("erroNoInput");
             if (array[c].value == null || array[c].value == "") {
-                $("input[name =\'" + array[c].name + "\' ]").addClass("border-danger");
+                $("input[name =\'" + array[c].name + "\' ]").addClass("erroNoInput");
                 naoTemNulo = false;
 
             }
-            else {
-                $("input[name =\'" + array[c].name + "\' ]").removeClass("border-danger");
-            }
+            
+            
             if (!naoTemNulo) {
                 toastr.options.preventDuplicates = true;
                 toastr.error("Preencha os Campos", "Ops!", { timeOut: 2000 });
@@ -115,6 +114,9 @@ function checarNulos(array, arrayOpcionalDeExcessoes) {
     }
     return naoTemNulo;
 }
+////
+////
+
 async function Tabela(idtabela, action, controller) {
     //Exemplo de coluna
     //{ "data": "Nome", "title": "Nome", "autowidth": true }
@@ -148,7 +150,6 @@ async function Tabela(idtabela, action, controller) {
     //$('.dataTables_length').addClass('bs-select');
 
     return table;
-    debugger
 }
 
 //function RowValueGet(objeto, table,linha) {
@@ -170,10 +171,7 @@ async function Tabela(idtabela, action, controller) {
 function TableGetColuns(idtabela) {
     let tab = $("#" + idtabela + "> thead > tr > th");
     let colunas = [];
-    debugger
     for (var i = 0; i < tab.length; i++) {
-        console.log(tab[i].attributes.name.value)
-        console.log(tab[i].innerText)
         colunas.push({ "data": tab[i].attributes.name.value, "title": tab[i].innerText != "" ? tab[i].innerText : tab[i].attributes.name.value, "autowidth": true });
     }
     return colunas;
@@ -188,7 +186,7 @@ function ValorInput(obj, form) {
 
 
         $("input[name =\'" + form[i].name + "\' ]").val(objarray[i]);
-        debugger
+
     }
 
 
@@ -200,3 +198,4 @@ function DesbloquearTela() {
     $("#loaderpage").css("display", "none");
 
 }
+

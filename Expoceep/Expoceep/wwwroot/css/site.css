@@ -111,3 +111,24 @@ body {
     pointer-events:none !important;
     background:rgba(227, 227, 227, 0.79) !important;
 }
+
+
+
+
+
+.alinharCentroPai {
+    text-align:center;
+
+}
+
+.alinharCentroFilho {
+    display: inline-block;
+}
+
+.alinharCentroMargin {
+    margin: 0 auto;
+}
+
+.erroNoInput {
+    box-shadow: 0 0 10px 3px red;
+}

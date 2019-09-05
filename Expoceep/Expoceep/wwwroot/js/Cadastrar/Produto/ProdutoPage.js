@@ -24,28 +24,31 @@ $(document).on("click", "#btnCancelar", async () => {
 });
 $(document).on("click", "#btnSalvar", async () => {
     let produto = $("#Produto").serializeArray();
-    //if (/*checarNulos(produto,[0, 1, 5]) ||*/ Editando) {
-    Produto = {
-        Id: produto[0].value,
-        Codigo: produto[1].value,
-        Nome: produto[2].value,
-        Preco: produto[3].value,
-        Unidades: produto[4].value,
-        Tamanho: produto[5].value
+    var falhouUmaVez = false;
+    if (checarNulos(produto, [0, 1, 5]) || Editando) {
+        Produto = {
+            Id: produto[0].value,
+            Codigo: produto[1].value,
+            Nome: produto[2].value,
+            Preco: produto[3].value,
+            Unidades: produto[4].value,
+            Tamanho: produto[5].value
+        }
+        await BloquearTela();
+        await $.post("/" + GetController() + "/SalvarProduto", { prod: Produto, editando: Editando }, async (e) => {
+            if (e) {
+                toastr.success("Salvo Com Sucesso", "Sucesso", { timeOut: 2000 })
+                await $('#dtProduto').DataTable().ajax.reload();
+                await Cancelar("#Adicionar", "#Listagem");
+                await DesbloquearTela();
+            }
+            else {
+                await DesbloquearTela();
+            }
+        });
+    } else {
+        falhouUmaVez = true;
     }
-    await BloquearTela();
-    await $.post("/" + GetController() + "/SalvarProduto", { prod: Produto, editando: Editando }, async (e) => {
-        if (e) {
-            toastr.success("Salvo Com Sucesso", "Sucesso", { timeOut: 2000 })
-            await $('#dtProduto').DataTable().ajax.reload();
-            await Cancelar("#Adicionar", "#Listagem");
-            await DesbloquearTela();
-        }
-        else {
-            await DesbloquearTela();
-        }
-    });
-    //}
 
 
 });
@@ -109,4 +112,18 @@ $(document).on("click", "#btnEditar", async () => {
 
 
 
+});
+
+
+// Detecta se o erro foi corrigido
+$(document).ready(function () {
+    var inputsDoForm = [];
+    for (let i = 0; i < $("#tiraErro").children().length; i++) {
+        //if (($(".tiraErro").children()[i]).classList.contains("form-control")) {
+        //    inputsDoForm.push(($(".tiraErro").children())[i]);
+        //}
+        console.log(($("#tiraErro").children()[i]))
+        debugger
+    }
+    console.log(inputsDoForm)
 });
