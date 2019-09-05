@@ -71,7 +71,14 @@ namespace Expoceep.Controllers
         [HttpPost]
         public string GetProdutosTable()
         {
-            string json = "{ \"data\" : " + new ConversorDeObjetos().ConverterParaString(_produtoDAO.SelectProdutos()) + "}";
+            var a = _produtoDAO.SelectProdutos().ToList();
+            foreach (var item in a)
+            {
+                item.TamanhoString = item.Tamanho.ToString();
+            }
+            var txt = new ConversorDeObjetos().ConverterParaString(a);
+
+            string json = "{ \"data\" : " + txt+ "}";
             return json;
         }
         public bool DeletarProduto(Produto prod)

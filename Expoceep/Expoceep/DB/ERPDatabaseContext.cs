@@ -1,5 +1,6 @@
 ﻿using Expoceep.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Expoceep.DB
 {
@@ -8,7 +9,6 @@ namespace Expoceep.DB
 
         public ERPDatabaseContext(DbContextOptions<ERPDatabaseContext> options) : base(options)
         {
-
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -17,11 +17,13 @@ namespace Expoceep.DB
             builder.Entity<Usuario>().HasIndex(u => u.Cpf).IsUnique();
             #endregion
             #region ProdutoKeys
-             builder.Entity<Produto>().HasIndex(u => u.Codigo).IsUnique();
+            builder.Entity<Produto>().HasIndex(u => u.Codigo).IsUnique();
             #endregion
 
         }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Produto> Produtos { get; set; }
+
     }
+
 }

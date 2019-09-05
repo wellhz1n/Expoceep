@@ -37,6 +37,9 @@ namespace Expoceep
             services.AddScoped<IUsuarioDAO, UsuarioDAO>();
             services.AddScoped<IProdutoDAO, ProdutoDAO>();
             #endregion
+            #region Backup
+            services.AddScoped<IBackupDataBase, BackupDatabase>();
+            #endregion
             //FIM DAS INJECOES DE DEPENDENCIAS
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             string conn = Configuration["ConexaoMySql:MySqlConnectionString"];
