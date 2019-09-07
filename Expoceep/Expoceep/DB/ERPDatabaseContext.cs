@@ -1,5 +1,6 @@
 ﻿using Expoceep.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 
 namespace Expoceep.DB
@@ -9,6 +10,8 @@ namespace Expoceep.DB
 
         public ERPDatabaseContext(DbContextOptions<ERPDatabaseContext> options) : base(options)
         {
+            Tabelas.Add(typeof(Usuario).Name);
+            Tabelas.Add(typeof(Produto).Name);
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -23,7 +26,7 @@ namespace Expoceep.DB
         }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Produto> Produtos { get; set; }
-
+        public List<string> Tabelas = new List<string>();
     }
 
 }
