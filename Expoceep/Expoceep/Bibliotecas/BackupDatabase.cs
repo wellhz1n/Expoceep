@@ -70,38 +70,52 @@ namespace Expoceep.Bibliotecas
             }
 
         }
-        private async void AplicarArquivo()
+        private  void AplicarArquivo()
         {
             bool Conectou = _cont.Database.CanConnect();
             if (Conectou)
             {
                 List<string> tables = _cont.Tabelas;
                 object obj = null;
-                foreach (var item in tables)
+                try
                 {
-                    switch (item)
+                    foreach (var item in tables)
                     {
-                        case "Usuario":
-                            //obj = new List<Usuario>();
-                            obj = LerArquivo<Usuario>(item);
-                            if (obj != null)
-                            {
-                                _cont.Usuarios.RemoveRange(_cont.Usuarios.ToList());
-                                await _cont.Usuarios.AddRangeAsync((List<Usuario>)obj);
+                        switch (item)
+                        {
+                            case "Usuario":
+                                //obj = new List<Usuario>();
+                                obj =  LerArquivo<Usuario>(item);
+                                if (obj != null)
+                                {
+                                    _cont.Usuarios.RemoveRange(_cont.Usuarios.ToList());
+                                    _cont.Usuarios.AddRange((List<Usuario>)obj);
+                                   
 
-                            }
-                            break;
-                        case "Produto":
-                            obj = LerArquivo<Produto>(item);
-                            if (obj != null)
-                            {
-                                _cont.Produtos.RemoveRange(_cont.Produtos.ToList());
-                                await _cont.Produtos.AddRangeAsync((List<Produto>)obj);
-                            }
-                            break;
-                        default:
-                            throw new ArgumentException("Criar case da nova tabela!!!!!");
+
+                                }
+                                break;
+                            case "Produto":
+
+                                obj =  LerArquivo<Produto>(item);
+                               
+                                if (obj != null)
+                                {
+                                    _cont.Produtos.RemoveRange(_cont.Produtos.ToList());
+                                      _cont.Produtos.AddRange((List<Produto>)obj);
+                                  
+                                }
+                                break;
+                            default:
+                                throw new Exception("Criar case da nova tabela!!!!!");
+                        }
                     }
+                    _cont.SaveChanges();
+                }
+                catch (Exception)
+                {
+
+                    throw;
                 }
             }
 
@@ -136,7 +150,7 @@ namespace Expoceep.Bibliotecas
             DirectoryInfo dir = Directory.CreateDirectory(path);
             using (StreamWriter stw = new StreamWriter(path + "\\" + name + "Table.json"))
             {
-                stw.WriteLine(content);
+               await stw.WriteLineAsync(content);
                 stw.Close();
             }
 
