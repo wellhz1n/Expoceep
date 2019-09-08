@@ -137,3 +137,10 @@ body {
 .pointer{
     cursor: pointer !important;
 }
+.background-login {
+    background-image: url(../img/LoginBackground/Background.png) !important;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}

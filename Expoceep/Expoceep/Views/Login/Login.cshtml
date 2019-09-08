@@ -3,13 +3,7 @@
 
 }
 <style>
-    .background-login {
-        background-image:url("~/img/LoginBackground/Background.png");
-        background-size: cover;
-        height: 100%;
-        width: 100%;
-        position: absolute;
-    }
+
 
     .caixa-login {
         position: absolute;
@@ -17,17 +11,23 @@
         left: 30%;
         height: 40%;
         width: 40%;
-        background: linear-gradient(rgba(255,255,255,0.6),rgba(255,255,255,0.6));
+        background: linear-gradient(rgba(255,255,255,0.3),rgba(255,255,255,0.3));
         text-align: center;
-        border-radius:5%;
+        border-radius: 5%;
+        padding:10%;
     }
 
     body, html {
         overflow-y: hidden !important;
     }
-  .caixa-login >  #filho-da-caixa{
-       
-        top:12%;
+
+    .caixa-login > #filho-da-caixa {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        display: inline-block;
+        top: 20%;
+        left:0%;
     }
 </style>
 
@@ -35,14 +35,11 @@
     <div class=" caixa-login">
         <div id="filho-da-caixa">
             <h1 class="display-4">Login</h1>
-            <form action="/Login/Login" id="form" class="form-group" method="post">
+            <form action="/Login/Login" id="form" method="post">
                 <div class="col-form-label">
-                    <label for="loginusr">Usuario:</label>
                     <input type="text" id="loginusr" placeholder="Usuario" name="Login" value="" />
                 </div>
                 <div class="col-form-label">
-
-                    <label for="loginsenha">Senha:</label>
                     <input type="password" id="loginsenha" placeholder="Senha" name="Senha" value="" />
                 </div>
                 <button type="button" id="login" class="btn btn-success">Entrar</button>
