@@ -21,5 +21,12 @@ namespace Expoceep.Controllers
             else
                 return this.RedirectToAction("Login", "Login");
         }
+        public IActionResult NovaVenda()
+        {
+            if (_login.GetUsuarioSession() != null)
+                return View();
+            else
+                return this.RedirectToAction("Login", "Login");
+        }
     }
 }
