@@ -32,10 +32,27 @@ namespace Expoceep.Bibliotecas
             }
             return result;
         }
+        public bool AplicarBackup()
+        {
+            var result = false;
+            try
+            {
+                AplicarArquivo();
+                result = true;
 
-        public async void PegaTabela()
+            }
+            catch
+            {
+                result = false;
+            }
+            return result;
+        }
+
+
+        private void PegaTabela()
         {
             bool Conectou = _cont.Database.CanConnect();
+            List<string> tables = _cont.Tabelas;
             List<string> json = new List<string>();
             if (Conectou)
             {
@@ -44,11 +61,46 @@ namespace Expoceep.Bibliotecas
                 {
                     json.Add(GeraJson(item));
                 }
-                foreach (var tab in _cont.Tabelas)
+                int i = 0;
+                foreach (var j in json)
                 {
-                    foreach (var j in json)
+                    GerarArquivo(j, tables[i]);
+                    i++;
+                }
+            }
+
+        }
+        private async void AplicarArquivo()
+        {
+            bool Conectou = _cont.Database.CanConnect();
+            if (Conectou)
+            {
+                List<string> tables = _cont.Tabelas;
+                object obj = null;
+                foreach (var item in tables)
+                {
+                    switch (item)
                     {
-                        await GerarArquivo(j, $"{tab}Table");
+                        case "Usuario":
+                            //obj = new List<Usuario>();
+                            obj = LerArquivo<Usuario>(item);
+                            if (obj != null)
+                            {
+                                _cont.Usuarios.RemoveRange(_cont.Usuarios.ToList());
+                                await _cont.Usuarios.AddRangeAsync((List<Usuario>)obj);
+
+                            }
+                            break;
+                        case "Produto":
+                            obj = LerArquivo<Produto>(item);
+                            if (obj != null)
+                            {
+                                _cont.Produtos.RemoveRange(_cont.Produtos.ToList());
+                                await _cont.Produtos.AddRangeAsync((List<Produto>)obj);
+                            }
+                            break;
+                        default:
+                            throw new ArgumentException("Criar case da nova tabela!!!!!");
                     }
                 }
             }
@@ -78,32 +130,40 @@ namespace Expoceep.Bibliotecas
             return j;
         }
 
-        public async Task GerarArquivo(string content, string name)
+        private async void GerarArquivo(string content, string name)
         {
             string path = Directory.GetCurrentDirectory().ToString() + "\\Backup";
             DirectoryInfo dir = Directory.CreateDirectory(path);
-            using (StreamWriter stw = new StreamWriter(path + "\\" + name + ".json"))
+            using (StreamWriter stw = new StreamWriter(path + "\\" + name + "Table.json"))
             {
-                await stw.WriteLineAsync(content);
+                stw.WriteLine(content);
                 stw.Close();
             }
 
 
 
         }
-        public async Task<object> LerArquivo(string name)
+        private List<T> LerArquivo<T>(string name)
         {
-            
-            object obj = null;
+
+            object obj;
             string path = Directory.GetCurrentDirectory().ToString() + "\\Backup";
-            using (StreamReader str = new StreamReader(path + "\\" + name + ".json"))
+            using (StreamReader str = new StreamReader(path + "\\" + name + "Table.json"))
             {
-               obj = JsonConvert.DeserializeObject(await str.ReadLineAsync());
+                obj = JsonConvert.DeserializeObject<List<T>>(str.ReadLine()) as List<T>;
+
                 str.Close();
             }
 
-            return obj;
+            return (List<T>)obj;
 
         }
+        //private List<T> ConverteListaStringAsyncParaListGeneric<T>(object lista)
+        //{
+
+        //        object l = JsonConvert.DeserializeObject<T>(lista.ToString()) as List<T>;
+
+        //    return (List<T>)l;
+        //}
     }
 }
