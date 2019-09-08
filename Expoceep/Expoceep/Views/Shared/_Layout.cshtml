@@ -46,24 +46,24 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                                    <ul class="navbar-nav ">
-                                        <li class="nav-item">
-                                            <a class="nav-link text-dark" asp-area="" asp-controller="Vendas" asp-action="Index">Vendas</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link text-dark" asp-area="" asp-controller="Cadastros" asp-action="Index">Cadastros</a>
-                                        </li>
-                                        <li class="nav-item dropdown  ">
-                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                @Context.Session.GetString("USER")
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-left " aria-labelledby="navbarDropdown">
-                                                <a class="dropdown-item" asp-controller="Configuracoes" asp-action="Index" id="Config"><i class="fa fa-cog"></i> Configurações</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item pointer" id="Logout">Sair</a>
-                                            </div>
-                                        </li>
-                                    </ul>
+                            <ul class="navbar-nav ">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Vendas" asp-action="Index">Vendas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Cadastros" asp-action="Index">Cadastros</a>
+                                </li>
+                                <li class="nav-item dropdown  ">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        @Context.Session.GetString("USER")
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-left " aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" asp-controller="Configuracoes" asp-action="Index" id="Config"><i class="fa fa-cog"></i> Configurações</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item pointer" id="Logout">Sair</a>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </nav>
@@ -124,10 +124,16 @@
     <script src="~/lib/DataTable/datatables.min.js"></script>
     <script src="~/lib/fontawesome-free-5.10.2-web/js/all.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    @*/////////////////////////////////////////////////*@
+    @*AREA DE MENUS*@
+    @*////////////////////////////////////////////////*@
     <script type="text/javascript" src="~/js/Login/Login.js"></script>
     <script type="text/javascript" src="~/js/Cadastrar/MenuCadastrar.js"></script>
     <script type="text/javascript" src="~/js/Configuracoes/MenuConfiguracoes.js"></script>
-
+    <script type="text/javascript" src="~/js/Vendas/MenuVendas.js"></script>
+    @*/////////////////////////////////////////////////*@
+    @*FIM DA AREA DE MENUS*@
+    @*/////////////////////////////////////////////////*@
 
     @RenderSection("Scripts", required: false)
 </body>
