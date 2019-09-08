@@ -144,3 +144,17 @@ body {
     width: 100%;
     position: absolute;
 }
+.btn-success{
+    background:#3498db !important;
+    border:0 !important;
+    border-radius:0 !important;
+
+
+
+}
+.btn-success:hover {
+    background: #2d83bd !important;
+}
+.btn-danger{
+    border-radius:0 !important;
+}
