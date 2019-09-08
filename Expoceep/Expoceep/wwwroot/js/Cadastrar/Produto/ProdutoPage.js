@@ -85,14 +85,14 @@ $(document).on("click", "#btnDeletar", async () => {
             if (retorno) {
                 await $('#dtProduto').DataTable().ajax.reload();
                 Produto = null;
-                await toastr.success("Produto Apagado", "Sucesso", { timeOut: 2000 });
+                await toastr.success("Produto Apagado", "Sucesso", { timeOut: 2000, preventDuplicates: true, progressBar: true });
             }
             await DesbloquearTela();
         });
 
     }
     else
-        toastr.warning("Selecione um registro", "Deletar", { timeOut: 2000 });
+        toastr.warning("Selecione um registro", "Deletar", { timeOut: 2000, preventDuplicates: true, progressBar: true });
 
 });
 $(document).on("click", "#btnEditar", async () => {
