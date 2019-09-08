@@ -1,7 +1,52 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
+    //ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+
+<style>
+
+    .prod-box {
+        height: 55%;
+        width: 40%;
+        margin-top: 5%;
+    }
+
+    .box-prod-menu {
+        padding: 2px;
+        transition: all .2s ease-in-out;
+        padding: 10px;
+        margin: 10px;
+        font-weight: bolder;
+    }
+
+        .box-prod-menu:hover {
+            background: linear-gradient(rgba(0,0,0,0.1),rgba(0,0,0,0.1));
+            cursor: pointer;
+        }
+</style>
+<div class="col-12 p-0 m-0">
+    <div class="row alinharCentroPai p-0 m-0 ">
+
+        <div class="col-2 text-center box-prod-menu " id="menu-venda">
+            <img src="~/img/icons/cadastro/produtos.png" class=" prod-box" alt="Alternate Text" />
+            <p class="text-center">Nova venda</p>
+        </div>
+        <div class="col-2 text-center box-prod-menu " id="menu-venda-lista">
+            <img src="~/img/icons/cadastro/produtos.png" class=" prod-box" alt="Alternate Text" />
+            <p class="text-center">Vendas</p>
+        </div>
+
+        <div class="col-2 text-center box-prod-menu " id="menu-venda-lucros">
+            <img src="~/img/icons/cadastro/produtos.png" class=" prod-box" alt="Alternate Text" />
+            <p class="text-center">Lucro</p>
+        </div>
+        <div class="col-2 text-center box-prod-menu " id="menu-venda-contas-pendentes">
+            <img src="~/img/icons/cadastro/produtos.png" class=" prod-box" alt="Alternate Text" />
+            <p class="text-center">Contas pendentes</p>
+        </div>
+
+    </div>
+
+</div>
 
