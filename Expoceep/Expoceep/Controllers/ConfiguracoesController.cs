@@ -28,5 +28,10 @@ namespace Expoceep.Controllers
             bool result = _bkp.GerarBackup();
             return result;
         }
+        public bool CarregarBackup()
+        {
+            bool result = _bkp.AplicarBackup();
+            return result;
+        }
     }
 }

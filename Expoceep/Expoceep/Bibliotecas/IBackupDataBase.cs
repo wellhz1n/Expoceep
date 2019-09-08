@@ -7,7 +7,7 @@ namespace Expoceep.Bibliotecas
 {
    public interface IBackupDataBase
     {
-        void PegaTabela();
         bool GerarBackup();
+        bool AplicarBackup();
     }
 }
