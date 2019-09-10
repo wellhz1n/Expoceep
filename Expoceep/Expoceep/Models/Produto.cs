@@ -17,12 +17,17 @@ namespace Expoceep.Models
         public long Id { get; set; }
         public string Codigo { get; set; }
         public string Nome { get; set; }
+        public ICollection<ProdutoPropriedades> Propriedades { get; set; }
+    }
+   public class ProdutoPropriedades
+    {
+        public long Id { get; set; }
         public string Preco { get; set; }
         public int Unidades { get; set; }
         public tamanho Tamanho { get; set; }
+        public long ProdutoId { get; set; }
         [NotMapped]
         public string TamanhoString { get; set; }
     }
-   
 }
 

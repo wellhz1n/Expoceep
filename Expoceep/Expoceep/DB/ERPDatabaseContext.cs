@@ -12,6 +12,7 @@ namespace Expoceep.DB
         {
             Tabelas.Add(typeof(Usuario).Name);
             Tabelas.Add(typeof(Produto).Name);
+            Tabelas.Add(typeof(ProdutoPropriedades).Name);
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -26,6 +27,7 @@ namespace Expoceep.DB
         }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Produto> Produtos { get; set; }
+        public DbSet<ProdutoPropriedades> ProdutosPropriedadess { get; set; }
         public List<string> Tabelas = new List<string>();
     }
 

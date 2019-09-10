@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Expoceep.Migrations
 {
     [DbContext(typeof(ERPDatabaseContext))]
-    [Migration("20190901002231_DADOS")]
-    partial class DADOS
+    [Migration("20190910141549_StartV3")]
+    partial class StartV3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,11 +23,36 @@ namespace Expoceep.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Codigo");
+
                     b.Property<string>("Nome");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Codigo")
+                        .IsUnique();
+
                     b.ToTable("Produtos");
+                });
+
+            modelBuilder.Entity("Expoceep.Models.ProdutoPropriedades", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Preco");
+
+                    b.Property<long>("ProdutoId");
+
+                    b.Property<int>("Tamanho");
+
+                    b.Property<int>("Unidades");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.ToTable("ProdutosPropriedadess");
                 });
 
             modelBuilder.Entity("Expoceep.Models.Usuario", b =>
@@ -47,13 +72,21 @@ namespace Expoceep.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Email")
+                    b.HasIndex("Cpf")
                         .IsUnique();
 
                     b.HasIndex("Login")
                         .IsUnique();
 
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("Expoceep.Models.ProdutoPropriedades", b =>
+                {
+                    b.HasOne("Expoceep.Models.Produto")
+                        .WithMany("Propriedades")
+                        .HasForeignKey("ProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
