@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Expoceep.DB
 {
@@ -34,9 +35,10 @@ namespace Expoceep.DB
 
         public void GeraAdmin()
         {
-            var u = Usuarios.ToListAsync();
-            if (u.Result.Count < 1)
+            var u = Usuarios.ToList();
+            if (u.Count < 1)
                 Usuarios.Add(new Usuario { Nome = "Admin", Login = "admin", Senha = "admin" });
+            SaveChanges();
         }
     }
 
