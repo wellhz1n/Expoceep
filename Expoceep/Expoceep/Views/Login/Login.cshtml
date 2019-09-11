@@ -1,20 +1,75 @@
 ﻿@{
     ViewData["Title"] = "Login";
-    
+
 }
+<style>
 
-<div class="text-center">
-    <h1 class="display-4">Login</h1>
-    <form action="/Login/Login" id="form" class="form-group" method="post">
-        <div class="col-form-label">
-            <label for="loginusr">Usuario:</label>
-            <input type="text" id="loginusr" placeholder="Usuario" name="Login" value="" />
-        </div>
-        <div class="col-form-label">
 
-            <label for="loginsenha">Senha:</label>
-            <input type="password" id="loginsenha" placeholder="Senha" name="Senha" value="" />
+    .caixa-login {
+        position: absolute;
+        top: 30%;
+        left: 30%;
+        height: 40%;
+        width: 40%;
+        background: linear-gradient(rgba(255,255,255,0.3),rgba(255,255,255,0.3));
+        text-align: center;
+        border-radius: 5%;
+        padding: 10%;
+    }
+
+    body, html {
+        overflow-y: hidden !important;
+    }
+
+    .caixa-login > #filho-da-caixa {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        display:block;
+        top: 20%;
+        left: 0%;
+    }
+
+        .caixa-login > #filho-da-caixa > form > input {
+            border-radius: 25px;
+            display:block;
+            text-align:center;
+            border: 2px solid #726185;
+            padding: 20px;
+            margin:20px auto;
+            width: 200px;
+            height: 15px;
+            outline:none;
+        }
+         .caixa-login > #filho-da-caixa > form> input[type="button"]{
+            background :#3788cb;
+            border:0;
+            display:block;
+            border-radius: 25px;
+            text-align:center;
+            border: 2px solid #726185;
+            margin:20px auto;
+            padding: 20px;
+            width: 280px;
+            outline:none;
+            color: white;
+          
+         }
+</style>
+
+<div class="text-center background-login">
+    <div class=" caixa-login">
+        <div id="filho-da-caixa">
+            <h1 class="display-4">Login</h1>
+            <form action="/Login/Login" id="form" method="post" >
+             
+                    <input type="text" id="loginusr" placeholder="Usuario" name="Login" value="" />
+             
+                    <input type="password" id="loginsenha" placeholder="Senha" name="Senha" value="" />
+                
+                <input type="button" id="login" value="Entrar" class=""/>
+            </form>
         </div>
-            <button type="button" id="login" class="btn btn-success">Entrar</button>
-    </form>
+
+    </div>
 </div>

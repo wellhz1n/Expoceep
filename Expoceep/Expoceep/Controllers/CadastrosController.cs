@@ -74,7 +74,8 @@ namespace Expoceep.Controllers
             var a = _produtoDAO.SelectProdutos().ToList();
             foreach (var item in a)
             {
-                item.TamanhoString = item.Tamanho.ToString();
+                
+                item.Propriedades.ToList().ForEach(i=> i.TamanhoString = i.Tamanho.ToString());
             }
             var txt = new ConversorDeObjetos().ConverterParaString(a);
 

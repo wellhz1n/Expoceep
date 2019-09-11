@@ -10,9 +10,10 @@ a.navbar-brand {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
-  height:100%;
-  width:100%;
+    font-size: 14px;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
 }
 @media (min-width: 768px) {
   html {
@@ -132,3 +133,42 @@ body {
 .erroNoInput {
     box-shadow: 0 0 10px 3px red;
 }
+.pointer{
+    cursor: pointer !important;
+}
+.background-login {
+    background-image: url(../img/LoginBackground/Background.png) !important;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+.btn-primary{
+    background:#3498db !important;
+    border:0 !important;
+    border-radius:0 !important;
+
+
+
+}
+.btn-primary:hover {
+    background: #2d83bd !important;
+}
+.btn-danger{
+    border-radius:0 !important;
+}
+
+::-webkit-scrollbar{
+    width:10px;
+    transition:all ease-in-out .2s;
+}
+::-webkit-scrollbar-track{
+    background:#e5e5e5;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #3498db;
+    transition: all ease-in-out .2s;
+}
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(52, 152, 219, 0.4);
+    }

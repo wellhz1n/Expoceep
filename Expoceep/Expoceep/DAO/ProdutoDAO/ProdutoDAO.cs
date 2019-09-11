@@ -66,7 +66,9 @@ namespace Expoceep.DAO.ProdutoDAO
 
         public IEnumerable<Produto> SelectProdutos()
         {
-            return conn.Produtos.ToList();
+                var prod = conn.Produtos.ToList();
+            prod.ForEach(p => p.Propriedades = conn.ProdutosPropriedadess.ToList().Where(pp => pp.ProdutoId== p.Id).ToList());
+            return prod;
         }
         private static List<string> GerarCodigo(string c)
         {

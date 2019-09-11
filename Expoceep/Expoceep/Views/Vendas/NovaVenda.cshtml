@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "Produto";
+    ViewData["Title"] = "NovaVenda";
 }
 
 <style>
@@ -22,41 +22,14 @@
         <h5 class="p-2" id="title">Produtos</h5>
     </div>
     <div class=" float-right mt-1 ml-3 p-1 ">
-        <button class="btn btn-danger" id="btnCancelar" hidden>Cancelar</button>
-        <button class="btn btn-primary" id="btnSalvar" hidden>Cadastrar</button>
-        <button class="btn btn-primary" id="btnNovo">Novo</button>
-        <button class="btn btn-primary" id="btnEditar">Editar</button>
-        <button class="btn btn-danger" id="btnDeletar">Deletar</button>
+        <button class="btn btn-danger" id="btnCancelar">Cancelar</button>
+        <button class="btn btn-primary" id="btnSalvar">Salvar</button>
     </div>
-
-    <div id="Listagem" class="">
-        <table id="dtProduto" class="table table-striped  table-bordered table-sm" cellspacing="0" width="100%">
-            <thead>
-                <tr>
-
-                    <th class="th-sm" name="Codigo">
-                    </th>
-                    <th class="th-sm" name="Nome">
-                    </th>
-                    @*<th class="th-sm" name="Preco">
-                    </th>
-                    <th class="th-sm" name="Unidades">
-                    </th>
-                    <th class="th-sm" name="TamanhoString">
-                        Tamanho
-                    </th>*@
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-
-    </div>
-    <div id="Adicionar" class="ml-4" hidden>
+    <div id="Adicionar" class="ml-4">
 
         <form method="post" id="Produto" class="col-6">
             <div class="row mt-5">
-                <div class="col-12" id="tiraErro">
+                <div class="col-12">
                     <input type="hidden" name="id" value="0" class="form-control" />
                     <div id="CampoUsuarioCodigo" hidden>
                         <label for="codigo">Codigo</label>
@@ -75,17 +48,9 @@
                         <option value="2">G</option>
                     </select>
                 </div>
-            </div>
+            </div> 
         </form>
 
     </div>
-
-
-
-
-
 </div>
-@section scripts{
 
-    <script src="~/js/Cadastrar/Produto/ProdutoPage.js"></script>
-}

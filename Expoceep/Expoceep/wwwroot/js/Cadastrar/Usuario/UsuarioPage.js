@@ -104,14 +104,14 @@ $(document).on("click", "#btnDeletar", async () => {
             if (retorno) {
                 await $('#dtUsuario').DataTable().ajax.reload();
                 Usuario = null;
-                await toastr.success("Usuario Apagado", "Sucesso", { timeOut: 2000 });
+                await toastr.success("Usuario Apagado", "Sucesso", { timeOut: 2000, preventDuplicates: true, progressBar: true });
             }
         });
 
 
     }
     else
-        toastr.warning("Selecione um registro", "Deletar", { timeOut: 2000 });
+        toastr.warning("Selecione um registro", "Deletar", { timeOut: 2000, progressBar: true, preventDuplicates: true });
 
 });
 $(document).on("click", "#btnEditar", async () => {
