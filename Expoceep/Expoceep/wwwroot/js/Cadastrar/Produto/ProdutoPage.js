@@ -32,7 +32,9 @@ $(document).on("click", "#btnSalvar", async () => {
         Preco: produto[3].value,
         Unidades: produto[4].value,
         Tamanho: produto[5].value
-    }
+        
+        }
+        console.log(produto[5].value)
     await BloquearTela();
     await $.post("/" + GetController() + "/SalvarProduto", { prod: Produto, editando: Editando }, async (e) => {
         if (e) {
@@ -73,7 +75,6 @@ $('#dtProduto tbody').on('dblclick ', 'tr', function () {
     else
         toastr.warning("Selecione um registro", "Editar", { timeOut: 2000 });
 
-
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -103,6 +104,7 @@ $(document).on("click", "#btnEditar", async () => {
         $("#Tamanhoselect option:eq(" + Produto.Tamanho.value + ")").prop('selected', true);
         await Adicionar("#Adicionar", "#Listagem");
         Editando = true;
+        setaSelect(Produto, '#Tamanhoselect', 'Tamanho')
     }
     else
         toastr.warning("Selecione um registro", "Editar", { timeOut: 2000 });
@@ -112,3 +114,20 @@ $(document).on("click", "#btnEditar", async () => {
 
 
 });
+
+function setaSelect(obj, select) {
+    var seletorCriancas = $(select).children();
+    if (typeof select == 'object') {
+    } else if (typeof select == 'string') {
+        for (let i = 0; i < seletorCriancas.length; i++) {
+            if (seletorCriancas[i].value == obj['Tamanho']) {
+                seletorCriancas[i].selected = true;
+            } else {
+                seletorCriancas[i].selected = false;
+                console.log(seletorCriancas[i])
+            }
+        }
+    }
+    
+    
+}

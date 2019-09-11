@@ -181,12 +181,11 @@ function ValorInput(obj, form) {
     let objarray = []
     objarray = Object.values(obj);
 
-
     for (var i = 0; i < form.length; i++) {
 
 
         $("input[name =\'" + form[i].name + "\' ]").val(objarray[i]);
-
+        
     }
 
 
