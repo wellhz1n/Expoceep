@@ -52,20 +52,18 @@ $(document).on("click", "#btnSalvar", async () => {
 
         });
     }
-    var formAtual = $('.atualizaForm')[0].children[0].children;
-    for (let i1 = 0; i1 < formAtual.length; i1++) {
-        //if (formAtual[i1].tagName == "INPUT") {
-        //    //formAtual[i1].change(function() {
-        //    //    checarNulos(user, [0])
-        //    //});
-        //    debugger
-        //}
-        debugger
-        $('.atualizaForm')[0].children[0].children(".form-control").change(function () {
-            checarNulos(user, [0]);
-        });
-    }
-
+    //var formAtual = $('.atualizaForm')[0].children[0].children;
+    //for (let i1 = 0; i1 < formAtual.length; i1++) {
+    //    //if (formAtual[i1].tagName == "INPUT") {
+    //    //    //formAtual[i1].change(function() {
+    //    //    //    checarNulos(user, [0])
+    //    //    //});
+    //    //    debugger
+    //    //}
+    //    $('.atualizaForm')[0].children[0].children(".form-control").change(function () {
+    //        checarNulos(user, [0]);
+    //    });
+    //}
 
 
 
