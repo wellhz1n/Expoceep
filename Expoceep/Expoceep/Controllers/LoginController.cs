@@ -36,6 +36,8 @@ namespace Expoceep.Controllers
         [HttpPost]
         public IActionResult Login(string login, string senha)
         {
+            login.ToLower();
+            senha.ToLower();
             bool logou = _UsuarioDAO.Login(login,senha);
             if (logou)
             {
