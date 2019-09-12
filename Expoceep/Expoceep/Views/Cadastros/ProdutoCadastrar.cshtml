@@ -23,13 +23,13 @@
     </div>
     <div class=" float-right mt-1 ml-3 p-1 ">
         <button class="btn btn-danger" id="btnCancelar" hidden>Cancelar</button>
-        <button class="btn btn-primary" id="btnSalvar" >Cadastrar</button>
+        <button class="btn btn-primary" id="btnSalvar" hidden >Cadastrar</button>
         <button class="btn btn-primary" id="btnNovo">Novo</button>
         <button class="btn btn-primary" id="btnEditar">Editar</button>
         <button class="btn btn-danger" id="btnDeletar">Deletar</button>
     </div>
 
-    <div id="Listagem" class="" hidden>
+    <div id="Listagem" class="" >
         <table id="dtProduto" class="table table-striped  table-bordered table-sm" cellspacing="0" width="100%">
             <thead>
                 <tr>
@@ -52,7 +52,7 @@
         </table>
 
     </div>
-    <div id="Adicionar" class="ml-4 col-6">
+    <div id="Adicionar" class="ml-4 col-6" hidden>
 
         <form method="post" id="Produto">
             <div class="row mt-5">
@@ -72,7 +72,7 @@
         <form method="post" class="row Produtopropriedade" id="Produtopropriedade">
             <div class="col-3">
                 <label for="Tamanho">Tamanho</label>
-                <select name="Tamanho" class="form-control " id="Tamanhoselect">
+                <select name="Tamanho" class="form-control  bloqueado" id="Tamanhoselect" >
                     <option value="0" selected>P</option>
                     <option value="1">M</option>
                     <option value="2">G</option>
@@ -90,7 +90,7 @@
         <form method="post" class="row Produtopropriedade" id="Produtopropriedade">
             <div class="col-3">
                 <label for="Tamanho">Tamanho</label>
-                <select name="Tamanho" class="form-control " id="Tamanhoselect">
+                <select name="Tamanho" class="form-control bloqueado " id="Tamanhoselect" >
                     <option value="0">P</option>
                     <option value="1" selected>M</option>
                     <option value="2">G</option>
@@ -108,7 +108,7 @@
         <form method="post" class="row Produtopropriedade" id="Produtopropriedade">
             <div class="col-3">
                 <label for="Tamanho">Tamanho</label>
-                <select name="Tamanho" class="form-control " id="Tamanhoselect">
+                <select name="Tamanho" class="form-control bloqueado " id="Tamanhoselect">
                     <option value="0">P</option>
                     <option value="1" >M</option>
                     <option value="2" selected>G</option>
@@ -123,8 +123,6 @@
                 <input type="number" name="Unidades" class="form-control" />
             </div>
         </form>
-
-
     </div>
 
 

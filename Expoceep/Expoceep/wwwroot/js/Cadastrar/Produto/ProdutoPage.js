@@ -19,6 +19,7 @@ $(document).on("click", "#btnNovo", () => {
 });
 $(document).on("click", "#btnCancelar", async () => {
     await Cancelar("#Adicionar", "#Listagem");
+    ResetaGrupoFormulario($(".Produtopropriedade"))
     Editando = false;
     Produto = null;
 });
@@ -40,7 +41,8 @@ $(document).on("click", "#btnSalvar", async () => {
     Produto = {
         Id: produto[0].value,
         Codigo: produto[1].value,
-        Nome: produto[2].value
+        Nome: produto[2].value,
+        propriedades: propriedadestemp
         //Preco: produto[3].value,
         //Unidades: produto[4].value,
         //Tamanho: produto[5].value
@@ -113,13 +115,18 @@ $(document).on("click", "#btnEditar", async () => {
     AparecerElemento("#CampoUsuarioCodigo");
     if (Produto != null) {
         ValorInput(Produto, "Produto");
-        $("#Tamanhoselect option:eq(" + Produto.Tamanho.value + ")").prop('selected', true);
         await Adicionar("#Adicionar", "#Listagem");
         Editando = true;
-        setaSelect(Produto, '#Tamanhoselect', 'Tamanho')
+        let prop = $(".Produtopropriedade");
+        for (var i = 0; i < prop.length; i++) {
+            prop[i].Tamanho.value = Produto.Propriedades[i].Tamanho;
+            prop[i].Preco.value = Produto.Propriedades[i].Preco;
+            prop[i].Unidades.value = Produto.Propriedades[i].Unidades;
+        }
     }
     else
         toastr.warning("Selecione um registro", "Editar", { timeOut: 2000 });
+
 
     //DesbloquearTela();
 

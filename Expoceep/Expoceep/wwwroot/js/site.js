@@ -3,7 +3,7 @@ var Produto = {
     Id: null,
     Codigo: null,
     Nome: null,
-    propriedades : []
+    propriedades: []
 
 }
 var ProdutoPropriedades = {
@@ -209,4 +209,11 @@ function SerialiazaGrupoForm(grupoform) {
         formserialized.push($(grupoatual).serializeArray());
     }
     return formserialized;
+}
+function ResetaGrupoFormulario(grupoform) {
+    debugger
+    for (var i = 0; i <= grupoform.length; i++) {
+        $(grupoform)[i].reset();
+
+    }
 }

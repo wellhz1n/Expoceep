@@ -106,6 +106,17 @@ namespace Expoceep.Bibliotecas
                                   
                                 }
                                 break;
+                            case "ProdutoPropriedades":
+
+                                obj = LerArquivo<ProdutoPropriedades>(item);
+
+                                if (obj != null)
+                                {
+                                    _cont.ProdutosPropriedadess.RemoveRange(_cont.ProdutosPropriedadess.ToList());
+                                    _cont.ProdutosPropriedadess.AddRange((List<ProdutoPropriedades>)obj);
+
+                                }
+                                break;
                             default:
                                 throw new Exception("Criar case da nova tabela!!!!!");
                         }
@@ -136,6 +147,14 @@ namespace Expoceep.Bibliotecas
             {
 
                 list = _cont.Produtos.ToList();
+                j = new ConversorDeObjetos().ConverterParaString(list);
+                list = null;
+
+            }
+            else if (item == "ProdutoPropriedades")
+            {
+
+                list = _cont.ProdutosPropriedadess.ToList();
                 j = new ConversorDeObjetos().ConverterParaString(list);
                 list = null;
 
