@@ -3,11 +3,15 @@ var Produto = {
     Id: null,
     Codigo: null,
     Nome: null,
-    Preco: null,
-    Unidades: null,
-    Tamanho: null
-}
+    propriedades: []
 
+}
+var ProdutoPropriedades = {
+    Tamanho: null,
+    Preco: null,
+    Unidades: null
+
+}
 //FIM OBJECTS
 function GetController() {
     return window.location.href.split(window.location.host)[1].split("/")[1];
@@ -78,7 +82,7 @@ function checarNulos(array, arrayOpcionalDeExcessoes) {
     //Caso tiver um array de excessões:
     if (arrayOpcionalDeExcessoes !== undefined) {
         if (typeof arrayOpcionalDeExcessoes[0] == "number") {
-            
+
             for (let c in array) {
                 $("input[name =\'" + array[c].name + "\' ]").removeClass("erroNoInput");
                 for (let itemInterno in arrayOpcionalDeExcessoes) {
@@ -103,8 +107,8 @@ function checarNulos(array, arrayOpcionalDeExcessoes) {
                 $("input[name =\'" + array[c].name + "\' ]").addClass("erroNoInput");
                 naoTemNulo = false;
             }
-            
-            
+
+
             if (!naoTemNulo) {
                 toastr.options.preventDuplicates = true;
                 toastr.error("Preencha os Campos", "Ops!", { timeOut: 2000 });
@@ -185,7 +189,7 @@ function ValorInput(obj, form) {
 
 
         $("input[name =\'" + form[i].name + "\' ]").val(objarray[i]);
-        
+
     }
 
 
@@ -198,3 +202,18 @@ function DesbloquearTela() {
 
 }
 
+function SerialiazaGrupoForm(grupoform) {
+    let formserialized = [];
+    for (var i = 0; i <= grupoform.length; i++) {
+        let grupoatual = grupoform[i];
+        formserialized.push($(grupoatual).serializeArray());
+    }
+    return formserialized;
+}
+function ResetaGrupoFormulario(grupoform) {
+    debugger
+    for (var i = 0; i <= grupoform.length; i++) {
+        $(grupoform)[i].reset();
+
+    }
+}

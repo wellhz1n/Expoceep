@@ -36,8 +36,8 @@ namespace Expoceep.DAO.ProdutoDAO
                 produto.Codigo = code;
             if (SelectProdutos().Where(p => p.Codigo == produto.Codigo).FirstOrDefault() != null)
             {
-                codigo.RemoveRange(0,codigo.Count());
-                    codigo= GerarCodigo((int.Parse(c) * 180).ToString());
+                codigo.RemoveRange(0, codigo.Count());
+                codigo = GerarCodigo((int.Parse(c) * 180).ToString());
                 code = $"{codigo[0]}{codigo[1]}{codigo[2]}{codigo[3]}";
                 if (code.Length > 4)
                 {
@@ -46,6 +46,7 @@ namespace Expoceep.DAO.ProdutoDAO
                 else
                     produto.Codigo = code;
             }
+
 
             conn.Produtos.Add(produto);
             conn.SaveChanges();
@@ -66,8 +67,8 @@ namespace Expoceep.DAO.ProdutoDAO
 
         public IEnumerable<Produto> SelectProdutos()
         {
-                var prod = conn.Produtos.ToList();
-            prod.ForEach(p => p.Propriedades = conn.ProdutosPropriedadess.ToList().Where(pp => pp.ProdutoId== p.Id).ToList());
+            var prod = conn.Produtos.ToList();
+            prod.ForEach(p => p.Propriedades = conn.ProdutosPropriedadess.ToList().Where(pp => pp.ProdutoId == p.Id).ToList());
             return prod;
         }
         private static List<string> GerarCodigo(string c)
