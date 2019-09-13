@@ -37,11 +37,11 @@ $(document).on("click", "#btnSalvar", async () => {
 
     /* Começo da validação adicional */
     var variavelValidacao = true;
-    if (validar('email', ["O email deve conter um @ e nenhum caracter especial depois do mesmo.", "Preencha o campo de e-mail corretamente."]) ||
-        validar('cpf', ["Preencha todo o campo de cpf para continuar.", "O cpf deve ser preenchido!"])) {
-        variavelValidao = false;
+    if (await validar('email', ["O email deve conter um @ e nenhum caracter especial depois do mesmo.", "Preencha o campo de e-mail corretamente."]) ||
+        await validar('cpf', ["Preencha todo o campo de cpf para continuar.", "O cpf deve ser preenchido!"])) {
+        variavelValidacao = false;
     }
-    
+    debugger
     /* Fim da validação adicional 
      */
 

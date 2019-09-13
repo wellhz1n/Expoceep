@@ -97,7 +97,6 @@ function checarNulos(array, arrayOpcionalDeExcessoes) {
                     } else if ((array[c].value == null || array[c].value == "") && $("input[name =\'" + array[c].name + "\' ]").name != "__RequestVerificationToken") {
                         $("input[name =\'" + array[c].name + "\' ]").addClass("erroNoInput");
                         naoTemNulo = false;
-                        console.log()
                     }
                 }
 
