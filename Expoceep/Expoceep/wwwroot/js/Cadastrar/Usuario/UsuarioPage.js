@@ -8,6 +8,11 @@
 }
 var tabela;
 var Editando = false;
+
+
+var cpf = $('#cpf');
+
+
 $(document).ready(async () => {
     await BloquearTela();
     tabela = await Tabela("dtUsuario", "GetUsuariosTable");
@@ -29,7 +34,19 @@ $(document).on("click", "#btnCancelar", async () => {
 });
 $(document).on("click", "#btnSalvar", async () => {
     let user = $("#Usuario").serializeArray();
-    if (checarNulos(user, [0]) || Editando) {
+
+    /* Começo da validação adicional */
+    var variavelValidacao = true;
+    if (!cpf.parsley().isValid()) {
+        cpf.addClass("erroNoInput2");
+        variavelValidacao = false;
+    } else {
+        cpf.removeClass("erroNoInput2");
+    }
+    /* Fim da validação adicional 
+     TODO Fazer uma função unica para tudo isso. */
+
+    if ((checarNulos(user, [0]) || Editando) && variavelValidacao) {
         Usuario = {
             id: user[0].value,
             Nome: user[1].value,

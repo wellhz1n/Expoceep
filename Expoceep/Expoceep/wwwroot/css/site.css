@@ -133,6 +133,12 @@ body {
 .erroNoInput {
     box-shadow: 0 0 10px 3px red;
 }
+
+.erroNoInput2 {
+    box-shadow: 0 0 10px 3px red;
+}
+
+
 .pointer{
     cursor: pointer !important;
 }
