@@ -238,3 +238,15 @@ function ImprimirNoConsole(msg,tipo ="error") {
         default:
     }
 }
+
+function validar(seletor, arrayMensagemErro) {
+    
+    var seletor = $('#'+seletor);
+    if (!seletor.parsley().isValid()) {
+        seletor.addClass("erroNoInput2");
+        toastr.error(arrayMensagemErro[0], arrayMensagemErro[1]);
+        return true;
+    } else {
+        seletor.removeClass("erroNoInput2");
+    }
+}

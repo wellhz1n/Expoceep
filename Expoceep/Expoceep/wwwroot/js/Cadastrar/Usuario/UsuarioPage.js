@@ -10,7 +10,7 @@ var tabela;
 var Editando = false;
 
 
-var cpf = $('#cpf');
+
 
 
 $(document).ready(async () => {
@@ -37,14 +37,13 @@ $(document).on("click", "#btnSalvar", async () => {
 
     /* Começo da validação adicional */
     var variavelValidacao = true;
-    if (!cpf.parsley().isValid()) {
-        cpf.addClass("erroNoInput2");
-        variavelValidacao = false;
-    } else {
-        cpf.removeClass("erroNoInput2");
+    if (validar('email', ["O email deve conter um @ e nenhum caracter especial depois do mesmo.", "Preencha o campo de e-mail corretamente."]) ||
+        validar('cpf', ["Preencha todo o campo de cpf para continuar.", "O cpf deve ser preenchido!"])) {
+        variavelValidao = false;
     }
+    
     /* Fim da validação adicional 
-     TODO Fazer uma função unica para tudo isso. */
+     */
 
     if ((checarNulos(user, [0]) || Editando) && variavelValidacao) {
         Usuario = {
