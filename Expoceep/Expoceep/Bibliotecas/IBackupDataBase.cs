@@ -8,6 +8,6 @@ namespace Expoceep.Bibliotecas
    public interface IBackupDataBase
     {
         bool GerarBackup();
-        bool AplicarBackup();
+        Resultado AplicarBackup();
     }
 }

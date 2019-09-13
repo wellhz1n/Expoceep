@@ -12,6 +12,10 @@ var ProdutoPropriedades = {
     Unidades: null
 
 }
+var Resultado = {
+    resultado: null,
+    erro: null
+}
 //FIM OBJECTS
 function GetController() {
     return window.location.href.split(window.location.host)[1].split("/")[1];
@@ -118,7 +122,7 @@ function checarNulos(array, arrayOpcionalDeExcessoes) {
     }
     
     return naoTemNulo;
-    
+
 }
 ////
 ////
@@ -217,5 +221,20 @@ function ResetaGrupoFormulario(grupoform) {
     for (var i = 0; i <= grupoform.length; i++) {
         $(grupoform)[i].reset();
 
+    }
+}
+function ImprimirNoConsole(msg,tipo ="error") {
+    switch (tipo) {
+        case "error":
+            console.error("❌ ERRO NO C#: " + msg);
+            break;
+        case "warn":
+            console.warn("⚠️ Ops: " + msg);
+            break;
+        case "default":
+            console.log("✌️ Console: " + msg);
+            break;
+
+        default:
     }
 }

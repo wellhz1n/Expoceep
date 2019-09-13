@@ -32,20 +32,23 @@ namespace Expoceep.Bibliotecas
             }
             return result;
         }
-        public bool AplicarBackup()
+        public Resultado AplicarBackup()
         {
             var result = false;
+            string msg;
             try
             {
                 AplicarArquivo();
                 result = true;
+                msg = "";
 
             }
-            catch
+            catch(Exception e)
             {
                 result = false;
+                msg = e.Message;
             }
-            return result;
+            return new Resultado{resultado = result, erro = msg };
         }
 
 
@@ -198,5 +201,10 @@ namespace Expoceep.Bibliotecas
 
         //    return (List<T>)l;
         //}
+    }
+    public class Resultado
+    {
+        public bool resultado { get; set; }
+        public string erro { get; set; }
     }
 }
