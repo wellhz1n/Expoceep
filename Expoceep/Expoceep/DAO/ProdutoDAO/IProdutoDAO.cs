@@ -10,7 +10,7 @@ namespace Expoceep.DAO.ProdutoDAO
     {
         void AdicionarProduto(Produto produto);
         void AtualizarProduto(Produto produto);
-        void ApagarProduto(Produto produto);
+        void ApagarProduto(List<Produto> produto);
         IEnumerable<Produto> SelectProdutos();
 
     }

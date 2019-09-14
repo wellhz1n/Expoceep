@@ -41,7 +41,6 @@ $(document).on("click", "#btnSalvar", async () => {
         await validar('cpf', ["Preencha todo o campo de cpf para continuar.", "O cpf deve ser preenchido!"])) {
         variavelValidacao = false;
     }
-    debugger
     /* Fim da validação adicional 
      */
 
@@ -86,7 +85,9 @@ $(document).on("click", "#btnSalvar", async () => {
 
 });
 ///POR HORA TEM QUE COLOCAR ISSO EM TODOS,NAO CONSEGUI AUTOMATIZAR ENTAO E OBRIGATORIO PARA DELETAR E EDITAR
-$('#dtUsuario tbody').on('click', 'tr', function () {
+
+$('#dtUsuario tbody').on('click', 'tr', function () { //
+    
     if ($(this).hasClass('selected')) {
         $(this).removeClass('selected');
         Usuario = null;

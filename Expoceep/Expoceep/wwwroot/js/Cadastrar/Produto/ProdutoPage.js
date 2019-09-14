@@ -1,5 +1,7 @@
 ﻿var tabela;
 var Editando = false;
+var produtoArray = [];
+
 $(document).ready(async () => {
     await BloquearTela();
     tabela = await Tabela("dtProduto", "GetProdutosTable");
@@ -36,7 +38,6 @@ $(document).on("click", "#btnSalvar", async () => {
         propriedadestemp.push(copia);
     }
 
-    debugger;
     //if (checarNulos(produto,[0, 1, 5]) || Editando) {
     Produto = {
         Id: produto[0].value,
@@ -46,9 +47,9 @@ $(document).on("click", "#btnSalvar", async () => {
         //Preco: produto[3].value,
         //Unidades: produto[4].value,
         //Tamanho: produto[5].value
-        
-        }
-        
+
+    }
+
     await BloquearTela();
     await $.post("/" + GetController() + "/SalvarProduto", { prod: Produto, editando: Editando }, async (e) => {
         if (e) {
@@ -66,36 +67,48 @@ $(document).on("click", "#btnSalvar", async () => {
 
 });
 ///POR HORA TEM QUE COLOCAR ISSO EM TODOS,NAO CONSEGUI AUTOMATIZAR ENTAO E OBRIGATORIO PARA DELETAR E EDITAR
+
 $('#dtProduto tbody').on('click', 'tr', function () {
     if ($(this).hasClass('selected')) {
         $(this).removeClass('selected');
-        Produto = null;
+        for (let i = 0; i < produtoArray.length; i++) {
+            if (tabela.row(this).data()['Id'] == produtoArray[i]['Id']) {
+                produtoArray[i] = null;
+
+            }
+
+        }
+        produtoArray = produtoArray.filter(function (el) {
+            return el != null;
+        });
+
     }
     else {
-        tabela.$('tr.selected').removeClass('selected');
+        if (!event.ctrlKey) {
+            tabela.$('tr.selected').removeClass('selected');
+            produtoArray = [tabela.row(this).data()];
+        } else {
+            produtoArray.push(tabela.row(this).data());
+        }
         $(this).addClass('selected');
-        Produto = tabela.row(this).data();
     }
 });
 $('#dtProduto tbody').on('dblclick ', 'tr', function () {
-    Produto = tabela.row(this).data();
+    produtoArray[0] = tabela.row(this).data();
     AparecerElemento("#CampoUsuarioCodigo");
-    if (Produto != null) {
-        ValorInput(Produto, "Produto");
-        $("#Tamanhoselect option:eq(" + Produto.Tamanho.value + ")").prop('selected', true);
+    if (produtoArray[0] != null) {
+        ValorInput(produtoArray[0], "Produto");
         Adicionar("#Adicionar", "#Listagem");
         Editando = true;
     }
     else
-        toastr.warning("Selecione um registro", "Editar", { timeOut: 2000 });
-
+        toastr.warning("Selecione um registro", "Editar", { timeOut: 2000 }); 
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $(document).on("click", "#btnDeletar", async () => {
-
-    if (Produto != null) {
-        $.post("/" + GetController() + "/DeletarProduto", { prod: Produto }, async (retorno) => {
+    if (produtoArray != null) {
+        $.post("/" + GetController() + "/DeletarProduto", { prod: produtoArray }, async (retorno) => {
             await BloquearTela();
             if (retorno) {
                 await $('#dtProduto').DataTable().ajax.reload();
@@ -111,21 +124,25 @@ $(document).on("click", "#btnDeletar", async () => {
 
 });
 $(document).on("click", "#btnEditar", async () => {
-    //BloquearTela();
-    AparecerElemento("#CampoUsuarioCodigo");
-    if (Produto != null) {
-        ValorInput(Produto, "Produto");
-        await Adicionar("#Adicionar", "#Listagem");
-        Editando = true;
-        let prop = $(".Produtopropriedade");
-        for (var i = 0; i < prop.length; i++) {
-            prop[i].Tamanho.value = Produto.Propriedades[i].Tamanho;
-            prop[i].Preco.value = Produto.Propriedades[i].Preco;
-            prop[i].Unidades.value = Produto.Propriedades[i].Unidades;
+    if (produtoArray.length > 1) {
+        toastr.error("Selecione apenas um registro", "Muitas Seleções");
+    } else if (produtoArray.length < 1) {
+        toastr.warning("Selecione um registro", "Editar", { timeOut: 2000 });
+    } else {
+        AparecerElemento("#CampoUsuarioCodigo");
+        if (produtoArray != null) {
+            ValorInput(produtoArray[0], "Produto");
+            await Adicionar("#Adicionar", "#Listagem");
+            Editando = true;
+            let prop = $(".Produtopropriedade");
+            for (var i = 0; i < prop.length; i++) {
+                prop[i].Tamanho.value = produtoArray[0].Propriedades[i].Tamanho;
+                prop[i].Preco.value = produtoArray[0].Propriedades[i].Preco;
+                prop[i].Unidades.value = produtoArray[0].Propriedades[i].Unidades;
+            }
         }
     }
-    else
-        toastr.warning("Selecione um registro", "Editar", { timeOut: 2000 });
+
 
 
     //DesbloquearTela();
@@ -147,6 +164,6 @@ function setaSelect(obj, select) {
             }
         }
     }
-    
-    
+
+
 }

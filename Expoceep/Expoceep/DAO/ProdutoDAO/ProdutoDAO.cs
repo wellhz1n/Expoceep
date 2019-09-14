@@ -53,9 +53,9 @@ namespace Expoceep.DAO.ProdutoDAO
         }
 
 
-        public void ApagarProduto(Produto produto)
+        public void ApagarProduto(List<Produto> produto)
         {
-            conn.Remove(produto);
+            conn.Produtos.RemoveRange(produto);
             conn.SaveChanges();
 
         }
