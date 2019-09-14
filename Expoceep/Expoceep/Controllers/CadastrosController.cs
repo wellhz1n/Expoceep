@@ -82,7 +82,7 @@ namespace Expoceep.Controllers
             string json = "{ \"data\" : " + txt+ "}";
             return json;
         }
-        public bool DeletarProduto(Produto prod)
+        public bool DeletarProduto(List<Produto> prod)
         {
             bool resultado = true;
             try
