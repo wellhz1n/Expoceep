@@ -62,7 +62,8 @@ namespace Expoceep.DAO.ProdutoDAO
 
         public void AtualizarProduto(Produto produto)
         {
-            throw new NotImplementedException();
+            var produtodb = conn.Produtos.SingleOrDefault(p => p.Id == produto.Id);
+            conn.Entry(produtodb).CurrentValues.SetValues(produto);
         }
 
         public IEnumerable<Produto> SelectProdutos()

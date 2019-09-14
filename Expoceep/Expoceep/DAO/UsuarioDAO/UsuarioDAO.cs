@@ -38,8 +38,10 @@ namespace Expoceep
         public void AtualizaUsuario(Usuario u)
         {
             var user = conn.Usuarios.SingleOrDefault(o => o.Id.ToString() == u.Id.ToString());
-            conn.Entry(user).CurrentValues.SetValues(u);
-
+            user.Login = u.Login;
+            user.Nome = u.Nome;
+            user.Email = u.Email;
+            user.Cpf = u.Cpf;
             conn.SaveChanges();
         }
 

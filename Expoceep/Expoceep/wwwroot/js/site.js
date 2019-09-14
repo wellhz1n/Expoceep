@@ -1,4 +1,14 @@
 ﻿//OBJECTS
+var Usuario = {
+    Novo: null,
+    Editando: null,
+    id: null,
+    Nome: null,
+    Login: null,
+    Senha: null,
+    Email: null,
+    Cpf: null
+}
 var Produto = {
     Id: null,
     Codigo: null,
@@ -217,7 +227,7 @@ function SerialiazaGrupoForm(grupoform) {
 }
 function ResetaGrupoFormulario(grupoform) {
     debugger
-    for (var i = 0; i <= grupoform.length; i++) {
+    for (var i = 0; i < grupoform.length; i++) {
         $(grupoform)[i].reset();
 
     }
@@ -248,4 +258,26 @@ function validar(seletor, arrayMensagemErro) {
     } else {
         seletor.removeClass("erroNoInput2");
     }
+}
+function ResetarObjeto(obj) {
+    let objarray = Object.entries(obj);
+    let newobj = {};
+    for (var i = 0; i < objarray.length; i++) {
+        objarray[i][1] = null;
+        newobj[objarray[i][0]] = objarray[i][1];
+    }
+     //= JSON.stringify(Object.assign({}, objarray));
+    return newobj;
+
+
+}
+function ObjetoENulo(obj) {
+    var state = true;
+    for (var key in obj) {
+        if (!(obj[key] === null || obj[key] === "")) {
+            state = false;
+            break;
+        }
+    }
+    return state;
 }

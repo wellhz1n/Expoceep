@@ -1,5 +1,7 @@
 ﻿
 
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Expoceep.Models
 {
   
@@ -14,6 +16,11 @@ namespace Expoceep.Models
         public string Email { get; set; }
         public string Cpf { get; set; }
 
+
+        [NotMapped]
+        public bool Novo { get; set; }
+        [NotMapped]
+        public bool Editando { get; set; }
 
     }
 }
