@@ -3,7 +3,8 @@ var Editando = false;
 var produtoArray = [];
 
 $(document).ready(async () => {
-    await BloquearTela();
+    Produto = ResetarObjeto(Produto);
+    Produto.Editando = false;
     tabela = await Tabela("dtProduto", "GetProdutosTable");
     Produto = tabela[1];
     $(".cpf").mask('000.000.000-00');
@@ -17,13 +18,15 @@ $(document).ready(async () => {
 $(document).on("click", "#btnNovo", () => {
     Adicionar("#Adicionar", "#Listagem");
     EscondeElemento("#CampoUsuarioCodigo");
+    Produto.Novo = true;
 
 });
 $(document).on("click", "#btnCancelar", async () => {
     await Cancelar("#Adicionar", "#Listagem");
     ResetaGrupoFormulario($(".Produtopropriedade"))
-    Editando = false;
-    Produto = null;
+    Produto = ResetarObjeto(Produto);
+    Produto.Editando = false;
+    Produto.Novo = false;
 });
 $(document).on("click", "#btnSalvar", async () => {
     let produto = $("#Produto").serializeArray();
@@ -99,7 +102,7 @@ $('#dtProduto tbody').on('dblclick ', 'tr', function () {
     if (produtoArray[0] != null) {
         ValorInput(produtoArray[0], "Produto");
         Adicionar("#Adicionar", "#Listagem");
-        Editando = true;
+        Produto.Editando = true;
     }
     else
         toastr.warning("Selecione um registro", "Editar", { timeOut: 2000 }); 
@@ -107,21 +110,7 @@ $('#dtProduto tbody').on('dblclick ', 'tr', function () {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $(document).on("click", "#btnDeletar", async () => {
-    if (produtoArray != null) {
-        $.post("/" + GetController() + "/DeletarProduto", { prod: produtoArray }, async (retorno) => {
-            await BloquearTela();
-            if (retorno) {
-                await $('#dtProduto').DataTable().ajax.reload();
-                Produto = null;
-                await toastr.success("Produto Apagado", "Sucesso", { timeOut: 2000, preventDuplicates: true, progressBar: true });
-            }
-            await DesbloquearTela();
-        });
-
-    }
-    else
-        toastr.warning("Selecione um registro", "Deletar", { timeOut: 2000, preventDuplicates: true, progressBar: true });
-
+    Deletar();
 });
 $(document).on("click", "#btnEditar", async () => {
     if (produtoArray.length > 1) {
@@ -130,10 +119,10 @@ $(document).on("click", "#btnEditar", async () => {
         toastr.warning("Selecione um registro", "Editar", { timeOut: 2000 });
     } else {
         AparecerElemento("#CampoUsuarioCodigo");
-        if (produtoArray != null) {
+        if (!ObjetoENulo(Produto)) {
             ValorInput(produtoArray[0], "Produto");
             await Adicionar("#Adicionar", "#Listagem");
-            Editando = true;
+            Produto.Editando = true;
             let prop = $(".Produtopropriedade");
             for (var i = 0; i < prop.length; i++) {
                 prop[i].Tamanho.value = produtoArray[0].Propriedades[i].Tamanho;
@@ -147,23 +136,44 @@ $(document).on("click", "#btnEditar", async () => {
 
     //DesbloquearTela();
 
-
+    
 
 });
+$(document).keydown((k) => {
+    ImprimirNoConsole(k.keyCode + "-" + k.key, "default");
+    if ((k.keyCode == 46 || k.keyCode == 8) && (!Produto.Novo && !Produto.Editando))
+        Deletar();
+})
 
-function setaSelect(obj, select) {
-    var seletorCriancas = $(select).children();
-    if (typeof select == 'object') {
-    } else if (typeof select == 'string') {
-        for (let i = 0; i < seletorCriancas.length; i++) {
-            if (seletorCriancas[i].value == obj['Tamanho']) {
-                seletorCriancas[i].selected = true;
-            } else {
-                seletorCriancas[i].selected = false;
-                console.log(seletorCriancas[i])
+
+function Deletar() {
+    if (produtoArray != null) {
+        $.post("/" + GetController() + "/DeletarProduto", { prod: produtoArray }, async (retorno) => {
+            await BloquearTela();
+            if (retorno) {
+                await $('#dtProduto').DataTable().ajax.reload();
+                Produto = ResetarObjeto(Produto);
+                await toastr.success("Produto Apagado", "Sucesso", { timeOut: 2000, preventDuplicates: true, progressBar: true });
             }
-        }
+            await DesbloquearTela();
+        });
     }
-
-
+    else
+        toastr.warning("Selecione um registro", "Deletar", { timeOut: 2000, preventDuplicates: true, progressBar: true });
 }
+//function setaSelect(obj, select) {
+//    var seletorCriancas = $(select).children();
+//    if (typeof select == 'object') {
+//    } else if (typeof select == 'string') {
+//        for (let i = 0; i < seletorCriancas.length; i++) {
+//            if (seletorCriancas[i].value == obj['Tamanho']) {
+//                seletorCriancas[i].selected = true;
+//            } else {
+//                seletorCriancas[i].selected = false;
+//                console.log(seletorCriancas[i])
+//            }
+//        }
+//    }
+
+
+//}

@@ -10,6 +10,8 @@ var Usuario = {
     Cpf: null
 }
 var Produto = {
+    Novo: null,
+    Editando: null,
     Id: null,
     Codigo: null,
     Nome: null,
