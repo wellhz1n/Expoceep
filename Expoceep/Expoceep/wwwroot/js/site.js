@@ -164,7 +164,11 @@ async function Tabela(idtabela, action, controller) {
         ajax: {
             url: "/" + controller + "/" + action,
             type: "POST",
-            datatype: "json"
+            datatype: "json",
+            cache: true,
+            complete: function (e) {
+                ImprimirNoConsole(e.responseText, "default");
+            }
         },
         columns: colunas
     });

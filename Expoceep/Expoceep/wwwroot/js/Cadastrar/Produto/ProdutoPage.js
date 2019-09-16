@@ -3,11 +3,9 @@ var Editando = false;
 var produtoArray = [];
 
 $(document).ready(async () => {
-    Produto = ResetarObjeto(Produto);
+    debugger;
     Produto.Editando = false;
     tabela = await Tabela("dtProduto", "GetProdutosTable");
-    Produto = tabela[1];
-    $(".cpf").mask('000.000.000-00');
     await DesbloquearTela();
     //toastr.info('Implementar notificações', "Info", { timeOut: 2000 });
 
