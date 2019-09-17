@@ -24,6 +24,7 @@ namespace Expoceep
 
         public void AdicionarUsuario(Usuario u)
         {
+            u.Login = u.Login.ToLower();
             conn.Usuarios.Add(u);
             conn.SaveChanges();
         }
@@ -38,7 +39,7 @@ namespace Expoceep
         public void AtualizaUsuario(Usuario u)
         {
             var user = conn.Usuarios.SingleOrDefault(o => o.Id.ToString() == u.Id.ToString());
-            user.Login = u.Login;
+            user.Login = u.Login.ToLower();
             user.Nome = u.Nome;
             user.Email = u.Email;
             user.Cpf = u.Cpf;

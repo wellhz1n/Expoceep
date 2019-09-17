@@ -7,67 +7,100 @@
 
     .caixa-login {
         position: absolute;
+        display: flex;
+        align-content: center;
+        align-items: center;
         top: 30%;
         left: 30%;
-        height: 40%;
+        height: 50%;
         width: 40%;
-        background: linear-gradient(rgba(255,255,255,0.3),rgba(255,255,255,0.3));
+        background: linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5));
         text-align: center;
         border-radius: 5%;
-        padding: 10%;
+        transition:all 1s ease-in-out;
     }
 
     body, html {
         overflow-y: hidden !important;
     }
 
-    .caixa-login > #filho-da-caixa {
+    *{
+        transition:all .3s ease-in-out;
+        will-change:transition;
+        will-change:auto;
+
+
+    }
+
+    .caixa-login > div > form > input {
+        position:relative;
+        left:0% !important;
+        display:block;
+        text-align: center;
+        border: 2px solid #726185;
+        margin:2% auto ;
+        width: 50%;
+        height: 8vh!important;
+        background-color:rgba(255, 255, 255, 0.54);
+        outline: none;
+        font-weight:bolder;
+        transition:all .2s ease-in-out;
+    }
+     .caixa-login > div > form > input[name="Login"]:focus{
+         background:rgba(31, 31, 31, 0.85);
+         width:80%;
+         color:#ffffff;
+         font-weight:bolder;
+     }
+     .caixa-login > div > form > input[name="Senha"]:focus{
+         background:rgba(31, 31, 31, 0.85);
+         color:#ffffff;
+         width:80%;
+         font-weight:bolder;
+     }
+     .caixa-login > div > form > input[type=button]{
+        width: 30%;
+        height: 7.5vh !important;
+        background-color:rgba(52, 152, 219, 0.84);
+        color:white;
+        font-weight:bolder;
+        transition:all .1s ease-in-out;
+
+
+     }
+      .caixa-login > div > form > input[type=button]:hover{
+        background-color:#2977aa;
+        width: 40%;
+
+      }
+      .caixa-login > div > form > input[type=button]:focus{
+        background-color:#2977aa;
+        width: 40%;
+
+      }
+
+    #box-input {
+        margin-top:5vh;
         position: absolute;
         height: 100%;
         width: 100%;
-        display:block;
-        top: 20%;
-        left: 0%;
     }
-
-        .caixa-login > #filho-da-caixa > form > input {
-            border-radius: 25px;
-            display:block;
-            text-align:center;
-            border: 2px solid #726185;
-            padding: 20px;
-            margin:20px auto;
-            width: 200px;
-            height: 15px;
-            outline:none;
-        }
-         .caixa-login > #filho-da-caixa > form> input[type="button"]{
-            background :#3788cb;
-            border:0;
-            display:block;
-            border-radius: 25px;
-            text-align:center;
-            border: 2px solid #726185;
-            margin:20px auto;
-            padding: 20px;
-            width: 280px;
-            outline:none;
-            color: white;
-          
-         }
+    .caixa-login.anim{
+        position:relative;
+        transform:translateY(-2000px);
+    }
+ 
 </style>
-
 <div class="text-center background-login">
     <div class=" caixa-login">
-        <div id="filho-da-caixa">
-            <h1 class="display-4">Login</h1>
-            <form action="/Login/Login" id="form" method="post" >
-             
-                    <input type="text" id="loginusr" placeholder="Usuario" name="Login" value="" />
-             
-                    <input type="password" id="loginsenha" placeholder="Senha" name="Senha" value="" />
-                
-                <input type="button" id="login" value="Entrar" class=""/>
+        <div id="box-input">
+            <h1 class="">Login</h1>
+            <form action="/Login/Login" id="form" method="post">
+
+                <input type="text" id="loginusr" autocomplete="off"  placeholder="Usuario" name="Login" value="" />
+
+                <input type="password" id="loginsenha" placeholder="Senha" name="Senha" value="" />
+                <input type="button" id="login" value="Entrar" class="" />
             </form>
         </div>
 

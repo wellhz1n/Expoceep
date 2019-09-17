@@ -10,6 +10,8 @@ var Usuario = {
     Cpf: null
 }
 var Produto = {
+    Novo: null,
+    Editando: null,
     Id: null,
     Codigo: null,
     Nome: null,
@@ -162,7 +164,11 @@ async function Tabela(idtabela, action, controller) {
         ajax: {
             url: "/" + controller + "/" + action,
             type: "POST",
-            datatype: "json"
+            datatype: "json",
+            cache: true,
+            complete: function (e) {
+                ImprimirNoConsole(e.responseText, "default");
+            }
         },
         columns: colunas
     });
