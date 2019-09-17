@@ -226,7 +226,6 @@ function SerialiazaGrupoForm(grupoform) {
     return formserialized;
 }
 function ResetaGrupoFormulario(grupoform) {
-    debugger
     for (var i = 0; i < grupoform.length; i++) {
         $(grupoform)[i].reset();
 
