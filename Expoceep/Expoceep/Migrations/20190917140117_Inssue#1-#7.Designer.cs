@@ -3,14 +3,16 @@ using System;
 using Expoceep.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expoceep.Migrations
 {
     [DbContext(typeof(ERPDatabaseContext))]
-    partial class ERPDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20190917140117_Inssue#1-#7")]
+    partial class Inssue17
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
