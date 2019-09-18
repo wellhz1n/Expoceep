@@ -29,6 +29,8 @@ namespace Expoceep.DAO.ClienteDAO
         public void ApagarCliente(long id)
         {
             _conn.Clientes.Remove(SelectClientes().Where(c => c.Id == id).First());
+            _conn.SaveChanges();
+
         }
 
         public void AtualizaCliente(Cliente c)

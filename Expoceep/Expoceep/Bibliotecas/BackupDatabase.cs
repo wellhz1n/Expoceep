@@ -120,6 +120,17 @@ namespace Expoceep.Bibliotecas
 
                                 }
                                 break;
+                            case "Cliente":
+
+                                obj = LerArquivo<ProdutoPropriedades>(item);
+
+                                if (obj != null)
+                                {
+                                    _cont.Clientes.RemoveRange(_cont.Clientes.ToList());
+                                    _cont.Clientes.AddRange((List<Cliente>)obj);
+
+                                }
+                                break;
                             default:
                                 throw new Exception("Criar case da nova tabela!!!!!");
                         }

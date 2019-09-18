@@ -1,10 +1,10 @@
 ﻿var tabela;
 $(document).ready(async () => {
-    Cliente = ResetarObjeto(Cliente);
-    Cliente.Editando = false;
+    Usuario = ResetarObjeto(Usuario);
+    Usuario.Editando = false;
     await BloquearTela();
     tabela = await Tabela("dtUsuario", "GetUsuariosTable");
-    Cliente = tabela[1];
+    Usuario = tabela[1];
     $(".cpf").mask('000.000.000-00');
     //toastr.info('Implementar notificações', "Info", { timeOut: 2000 });
     await DesbloquearTela();
@@ -14,11 +14,11 @@ $(document).ready(async () => {
 
 $(document).on("click", "#btnNovo", () => {
     Adicionar("#Adicionar", "#Listagem");
-    Cliente.Novo = true;
+    Usuario.Novo = true;
 });
 $(document).on("click", "#btnCancelar", async () => {
     await Cancelar("#Adicionar", "#Listagem");
-    Cliente = ResetarObjeto(Cliente);
+    Usuario = ResetarObjeto(Usuario);
     AparecerElemento("#camposenha");
 
 });
@@ -35,7 +35,7 @@ $(document).on("click", "#btnSalvar", async () => {
      */
 
     if (checarNulos(user, [0]) && variavelValidacao) {
-        Cliente = {
+        Usuario = {
             id: user[0].value,
             Nome: user[1].value,
             Login: user[2].value,
@@ -44,7 +44,7 @@ $(document).on("click", "#btnSalvar", async () => {
             Cpf: user[5].value
         }
         await BloquearTela();
-        await $.post("/" + GetController() + "/SalvarUsuario", { usuario: Cliente}, async (e) => {
+        await $.post("/" + GetController() + "/SalvarUsuario", { usuario: Usuario}, async (e) => {
             if (e) {
                 await $('#dtUsuario').DataTable().ajax.reload();
                 toastr.success("Salvo Com Sucesso", "Sucesso", { timeOut: 2000 })
@@ -79,20 +79,20 @@ $('#dtUsuario tbody').on('click', 'tr', function () { //
     
     if ($(this).hasClass('selected')) {
         $(this).removeClass('selected');
-        Cliente = ResetarObjeto(Cliente);
+        Usuario = ResetarObjeto(Usuario);
     }
     else {
         tabela.$('tr.selected').removeClass('selected');
         $(this).addClass('selected');
-        Cliente = tabela.row(this).data();
+        Usuario = tabela.row(this).data();
     }
 });
 $('#dtUsuario tbody').on('dblclick ', 'tr', function () {
-    Cliente = tabela.row(this).data();
-    if (!ObjetoENulo(Cliente)) {
-        ValorInput(Cliente, "Usuario");
+    Usuario = tabela.row(this).data();
+    if (!ObjetoENulo(Usuario)) {
+        ValorInput(Usuario, "Usuario");
         Adicionar("#Adicionar", "#Listagem");
-        Cliente.Editando = true;
+        Usuario.Editando = true;
     }
     else
         toastr.warning("Selecione um registro", "Editar", { timeOut: 2000 });
@@ -102,12 +102,12 @@ $('#dtUsuario tbody').on('dblclick ', 'tr', function () {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $(document).on("click", "#btnDeletar", async () => {
 
-    if (!ObjetoENulo(Cliente)) {
+    if (!ObjetoENulo(Usuario)) {
 
-        $.post("/" + GetController() + "/DeletarUsuario", { usuario: Cliente }, async (retorno) => {
+        $.post("/" + GetController() + "/DeletarUsuario", { usuario: Usuario }, async (retorno) => {
             if (retorno) {
                 await $('#dtUsuario').DataTable().ajax.reload();
-                Cliente = null;
+                Usuario = null;
                 await toastr.success("Usuario Apagado", "Sucesso", { timeOut: 2000, preventDuplicates: true, progressBar: true });
             }
         });
@@ -121,11 +121,11 @@ $(document).on("click", "#btnDeletar", async () => {
 $(document).on("click", "#btnEditar", async () => {
     //BloquearTela();
     debugger
-    if (!ObjetoENulo(Cliente)) {
-        ValorInput(Cliente, "Usuario");
+    if (!ObjetoENulo(Usuario)) {
+        ValorInput(Usuario, "Usuario");
         Adicionar("#Adicionar", "#Listagem");
         EscondeElemento("#camposenha");
-        Cliente.Editando = true;
+        Usuario.Editando = true;
     }
     else
         toastr.warning("Selecione um registro", "Editar", { timeOut: 2000 });

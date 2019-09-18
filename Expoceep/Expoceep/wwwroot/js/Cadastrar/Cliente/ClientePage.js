@@ -38,8 +38,9 @@ $(document).on("click", "#btnSalvar", async () => {
         Cliente = {
             id: client[0].value,
             Nome: client[1].value,
-            Email: client[2].value,
-            Cpf: client[3].value
+            Sobrenome: client[2].value,
+            Email: client[3].value,
+            Cpf: client[4].value
         }
         await BloquearTela();
         await $.post("/" + GetController() + "/SalvarCliente", { cliente: Cliente }, async (e) => {
@@ -54,7 +55,7 @@ $(document).on("click", "#btnSalvar", async () => {
 });
 ///POR HORA TEM QUE COLOCAR ISSO EM TODOS,NAO CONSEGUI AUTOMATIZAR ENTAO E OBRIGATORIO PARA DELETAR E EDITAR
 
-$('#Cliente tbody').on('click', 'tr', function () { //
+$('#dtCliente tbody').on('click', 'tr', function () { //
 
     if ($(this).hasClass('selected')) {
         $(this).removeClass('selected');
@@ -66,7 +67,7 @@ $('#Cliente tbody').on('click', 'tr', function () { //
         Cliente = tabela.row(this).data();
     }
 });
-$('#Cliente tbody').on('dblclick ', 'tr', function () {
+$('#dtCliente tbody').on('dblclick ', 'tr', function () {
     Cliente = tabela.row(this).data();
     if (!ObjetoENulo(Cliente)) {
         ValorInput(Cliente, "Cliente");
