@@ -89,7 +89,10 @@
         position:relative;
         transform:translateY(-2000px);
     }
- 
+
+    .inputLogin {
+        font-size: 4vh;
+    }
 </style>
 <div class="text-center background-login">
     <div class=" caixa-login">
@@ -97,10 +100,9 @@
             <h1 class="">Login</h1>
             <form action="/Login/Login" id="form" method="post">
 
-                <input type="text" id="loginusr" autocomplete="off"  placeholder="Usuario" name="Login" value="" />
-
-                <input type="password" id="loginsenha" placeholder="Senha" name="Senha" value="" />
-                <input type="button" id="login" value="Entrar" class="" />
+                <input class="inputLogin" type="text" id="loginusr" autocomplete="off"  placeholder="Usuario" name="Login" value="" />
+                <input class="inputLogin" type="password" id="loginsenha" placeholder="Senha" name="Senha" value="" />
+                <input class="inputLogin" type="button" id="login" value="Entrar" />
             </form>
         </div>
 
