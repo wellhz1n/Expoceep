@@ -4,7 +4,6 @@ $(document).ready(async () => {
     Cliente.Editando = false;
     await BloquearTela();
     tabela = await Tabela("dtCliente", "GetClientesTable");
-    Cliente = tabela[1];
     $(".cpf").mask('000.000.000-00');
     //toastr.info('Implementar notificações', "Info", { timeOut: 2000 });
     await DesbloquearTela();
@@ -23,6 +22,7 @@ $(document).on("click", "#btnCancelar", async () => {
 
 });
 $(document).on("click", "#btnSalvar", async () => {
+    debugger
     let client = $("#Cliente").serializeArray();
 
     /* Começo da validação adicional */
@@ -50,6 +50,7 @@ $(document).on("click", "#btnSalvar", async () => {
                 await Cancelar("#Adicionar", "#Listagem");
             }
             await DesbloquearTela();
+            Cliente = ResetarObjeto(Cliente);
         });
     }
 });
@@ -87,7 +88,7 @@ $(document).on("click", "#btnDeletar", async () => {
         $.post("/" + GetController() + "/DeletarCliente", { cliente: Cliente }, async (retorno) => {
             if (retorno) {
                 await $('#dtCliente').DataTable().ajax.reload();
-                Cliente = null;
+                Cliente = ResetarObjeto(Cliente);
                 await toastr.success("Cliente Apagado", "Sucesso", { timeOut: 2000, preventDuplicates: true, progressBar: true });
             }
         });
