@@ -3,7 +3,6 @@ var Editando = false;
 var produtoArray = [];
 
 $(document).ready(async () => {
-    debugger;
     Produto.Editando = false;
     tabela = await Tabela("dtProduto", "GetProdutosTable");
     await DesbloquearTela();
@@ -101,6 +100,12 @@ $('#dtProduto tbody').on('dblclick ', 'tr', function () {
         ValorInput(produtoArray[0], "Produto");
         Adicionar("#Adicionar", "#Listagem");
         Produto.Editando = true;
+        let prop = $(".Produtopropriedade");
+        for (var i = 0; i < prop.length; i++) {
+            prop[i].Tamanho.value = produtoArray[0].Propriedades[i].Tamanho;
+            prop[i].Preco.value = produtoArray[0].Propriedades[i].Preco;
+            prop[i].Unidades.value = produtoArray[0].Propriedades[i].Unidades;
+        }
     }
     else
         toastr.warning("Selecione um registro", "Editar", { timeOut: 2000 }); 
@@ -138,14 +143,13 @@ $(document).on("click", "#btnEditar", async () => {
 
 });
 $(document).keydown((k) => {
-    ImprimirNoConsole(k.keyCode + "-" + k.key, "default");
     if ((k.keyCode == 46 || k.keyCode == 8) && (!Produto.Novo && !Produto.Editando))
         Deletar();
 })
 
 
 function Deletar() {
-    if (produtoArray != null) {
+    if (produtoArray[0] != null) {
         $.post("/" + GetController() + "/DeletarProduto", { prod: produtoArray }, async (retorno) => {
             await BloquearTela();
             if (retorno) {
@@ -158,6 +162,7 @@ function Deletar() {
     }
     else
         toastr.warning("Selecione um registro", "Deletar", { timeOut: 2000, preventDuplicates: true, progressBar: true });
+    produtoArray = [];
 }
 //function setaSelect(obj, select) {
 //    var seletorCriancas = $(select).children();
