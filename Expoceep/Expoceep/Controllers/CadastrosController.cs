@@ -9,6 +9,7 @@ using Expoceep.DAO.UsuarioDAO;
 using Expoceep.Models;
 using NToastNotify;
 using Expoceep.DAO.ProdutoDAO;
+using Expoceep.DAO.ClienteDAO;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,14 +21,16 @@ namespace Expoceep.Controllers
         private IUsuarioDAO _usuarioDAO;
         private IProdutoDAO _produtoDAO;
         private readonly IToastNotification _toastNotification;
+        private IClienteDAO _clienteDAO;
 
         // GET: /<controller>/
-        public CadastrosController(LoginSession loginSession, IUsuarioDAO usuarioDAO, IProdutoDAO produtoDAO, IToastNotification toast)
+        public CadastrosController(LoginSession loginSession, IUsuarioDAO usuarioDAO, IProdutoDAO produtoDAO, IToastNotification toast, IClienteDAO cliente)
         {
             _loginSession = loginSession;
             _usuarioDAO = usuarioDAO;
             _produtoDAO = produtoDAO;
             _toastNotification = toast;
+            _clienteDAO = cliente;
         }
         public IActionResult Index()
         {
@@ -74,12 +77,12 @@ namespace Expoceep.Controllers
             var a = _produtoDAO.SelectProdutos().ToList();
             foreach (var item in a)
             {
-                
-                item.Propriedades.ToList().ForEach(i=> i.TamanhoString = i.Tamanho.ToString());
+
+                item.Propriedades.ToList().ForEach(i => i.TamanhoString = i.Tamanho.ToString());
             }
             var txt = new ConversorDeObjetos().ConverterParaString(a);
 
-            string json = "{ \"data\" : " + txt+ "}";
+            string json = "{ \"data\" : " + txt + "}";
             return json;
         }
         public bool DeletarProduto(List<Produto> prod)
@@ -123,7 +126,7 @@ namespace Expoceep.Controllers
                     return (_usuarioDAO.SelectUsuarios().Where(u => u.Nome == usuario.Nome).FirstOrDefault() != null);
                 }
             }
-            catch (Exception e )
+            catch (Exception e)
             {
                 _toastNotification.AddErrorToastMessage(e.Message, new ToastrOptions { Title = "Ops!", TimeOut = 2000 });
                 return false;
@@ -178,6 +181,50 @@ namespace Expoceep.Controllers
                 return View();
             else
                 return this.RedirectToAction("Login", "Login");
+        }
+        [HttpPost]
+        public bool SalvarCliente(Cliente cliente)
+        {
+            try
+            {
+
+                if (!cliente.Editando)
+                {
+                    _clienteDAO.AdicionarCliente(cliente);
+                    return (_clienteDAO.SelectClientes().Where(u => u.Cpf == cliente.Cpf).FirstOrDefault() != null);
+                }
+                else
+                {
+                    _clienteDAO.AtualizaCliente(cliente);
+                    return (_clienteDAO.SelectClientes().Where(u => u.Cpf == cliente.Cpf).FirstOrDefault() != null);
+
+                }
+            }
+            catch (Exception e)
+            {
+                _toastNotification.AddErrorToastMessage(e.Message, new ToastrOptions { Title = "Ops!", TimeOut = 2000, ProgressBar = true });
+                return false;
+            }
+        }
+        [HttpPost]
+        public string GetClientesTable()
+        {
+            string json = "{ \"data\" : " + new ConversorDeObjetos().ConverterParaString(_clienteDAO.SelectClientes()) + "}";
+            return json;
+        }
+        public bool DeletarCliente(Cliente cliente)
+        {
+            bool resultado = true;
+            try
+            {
+                _clienteDAO.ApagarCliente(cliente.Id);
+            }
+            catch (Exception e)
+            {
+                _toastNotification.AddErrorToastMessage(e.Message, new ToastrOptions { Title = "Ops", TimeOut = 2000 });
+                return false;
+            }
+            return resultado;
         }
         #endregion
         #region CategoriaProduto

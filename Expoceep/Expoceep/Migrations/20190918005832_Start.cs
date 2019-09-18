@@ -8,6 +8,22 @@ namespace Expoceep.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Clientes",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Nome = table.Column<string>(nullable: true),
+                    Sobrenome = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Cpf = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clientes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Produtos",
                 columns: table => new
                 {
@@ -47,8 +63,7 @@ namespace Expoceep.Migrations
                     Preco = table.Column<string>(nullable: true),
                     Unidades = table.Column<int>(nullable: false),
                     Tamanho = table.Column<int>(nullable: false),
-                    ProdutoId = table.Column<long>(nullable: true),
-                    IdProduto = table.Column<long>(nullable: false)
+                    ProdutoId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -58,8 +73,14 @@ namespace Expoceep.Migrations
                         column: x => x.ProdutoId,
                         principalTable: "Produtos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Clientes_Cpf",
+                table: "Clientes",
+                column: "Cpf",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Produtos_Codigo",
@@ -87,6 +108,9 @@ namespace Expoceep.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Clientes");
+
             migrationBuilder.DropTable(
                 name: "ProdutosPropriedadess");
 

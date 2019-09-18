@@ -19,6 +19,7 @@ namespace Expoceep
             {
                 Usuario u = new Usuario() { Login = "admin", Senha = "admin", Email = "admin@gmail.com" };
                 conn.Usuarios.Add(u);
+                conn.SaveChanges();
             }
         }
 

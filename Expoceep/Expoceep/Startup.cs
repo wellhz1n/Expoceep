@@ -13,6 +13,9 @@ using Expoceep.DAO.UsuarioDAO;
 using Expoceep.Bibliotecas;
 using NToastNotify;
 using Expoceep.DAO.ProdutoDAO;
+using Expoceep.Models;
+using Expoceep.DAO.ClienteDAO;
+using System.Linq;
 
 namespace Expoceep
 {
@@ -36,6 +39,7 @@ namespace Expoceep
             #region DAO
             services.AddScoped<IUsuarioDAO, UsuarioDAO>();
             services.AddScoped<IProdutoDAO, ProdutoDAO>();
+            services.AddScoped<IClienteDAO, ClienteDAO>();
             #endregion
             #region Backup
             services.AddScoped<IBackupDataBase, BackupDatabase>();

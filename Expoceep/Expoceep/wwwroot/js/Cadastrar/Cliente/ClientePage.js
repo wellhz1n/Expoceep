@@ -3,7 +3,7 @@ $(document).ready(async () => {
     Cliente = ResetarObjeto(Cliente);
     Cliente.Editando = false;
     await BloquearTela();
-    tabela = await Tabela("dtUsuario", "GetUsuariosTable");
+    tabela = await Tabela("dtCliente", "GetClientesTable");
     Cliente = tabela[1];
     $(".cpf").mask('000.000.000-00');
     //toastr.info('Implementar notificações', "Info", { timeOut: 2000 });
@@ -23,7 +23,7 @@ $(document).on("click", "#btnCancelar", async () => {
 
 });
 $(document).on("click", "#btnSalvar", async () => {
-    let user = $("#Usuario").serializeArray();
+    let client = $("#Cliente").serializeArray();
 
     /* Começo da validação adicional */
     var variavelValidacao = true;
@@ -34,49 +34,28 @@ $(document).on("click", "#btnSalvar", async () => {
     /* Fim da validação adicional 
      */
 
-    if (checarNulos(user, [0]) && variavelValidacao) {
+    if (checarNulos(client, [0]) && variavelValidacao) {
         Cliente = {
-            id: user[0].value,
-            Nome: user[1].value,
-            Login: user[2].value,
-            Senha: user[3].value,
-            Email: user[4].value,
-            Cpf: user[5].value
+            id: client[0].value,
+            Nome: client[1].value,
+            Email: client[2].value,
+            Cpf: client[3].value
         }
         await BloquearTela();
-        await $.post("/" + GetController() + "/SalvarUsuario", { usuario: Cliente}, async (e) => {
+        await $.post("/" + GetController() + "/SalvarCliente", { cliente: Cliente }, async (e) => {
             if (e) {
-                await $('#dtUsuario').DataTable().ajax.reload();
+                await $('#dtCliente').DataTable().ajax.reload();
                 toastr.success("Salvo Com Sucesso", "Sucesso", { timeOut: 2000 })
                 await Cancelar("#Adicionar", "#Listagem");
-                //await DesbloquearTela();
             }
-
             await DesbloquearTela();
-
         });
     }
-    //var formAtual = $('.atualizaForm')[0].children[0].children;
-    //for (let i1 = 0; i1 < formAtual.length; i1++) {
-    //    //if (formAtual[i1].tagName == "INPUT") {
-    //    //    //formAtual[i1].change(function() {
-    //    //    //    checarNulos(user, [0])
-    //    //    //});
-    //    //    debugger
-    //    //}
-    //    $('.atualizaForm')[0].children[0].children(".form-control").change(function () {
-    //        checarNulos(user, [0]);
-    //    });
-    //}
-
-
-
-
 });
 ///POR HORA TEM QUE COLOCAR ISSO EM TODOS,NAO CONSEGUI AUTOMATIZAR ENTAO E OBRIGATORIO PARA DELETAR E EDITAR
 
-$('#dtUsuario tbody').on('click', 'tr', function () { //
-    
+$('#Cliente tbody').on('click', 'tr', function () { //
+
     if ($(this).hasClass('selected')) {
         $(this).removeClass('selected');
         Cliente = ResetarObjeto(Cliente);
@@ -87,10 +66,10 @@ $('#dtUsuario tbody').on('click', 'tr', function () { //
         Cliente = tabela.row(this).data();
     }
 });
-$('#dtUsuario tbody').on('dblclick ', 'tr', function () {
+$('#Cliente tbody').on('dblclick ', 'tr', function () {
     Cliente = tabela.row(this).data();
     if (!ObjetoENulo(Cliente)) {
-        ValorInput(Cliente, "Usuario");
+        ValorInput(Cliente, "Cliente");
         Adicionar("#Adicionar", "#Listagem");
         Cliente.Editando = true;
     }
@@ -104,11 +83,11 @@ $(document).on("click", "#btnDeletar", async () => {
 
     if (!ObjetoENulo(Cliente)) {
 
-        $.post("/" + GetController() + "/DeletarUsuario", { usuario: Cliente }, async (retorno) => {
+        $.post("/" + GetController() + "/DeletarCliente", { cliente: Cliente }, async (retorno) => {
             if (retorno) {
-                await $('#dtUsuario').DataTable().ajax.reload();
+                await $('#dtCliente').DataTable().ajax.reload();
                 Cliente = null;
-                await toastr.success("Usuario Apagado", "Sucesso", { timeOut: 2000, preventDuplicates: true, progressBar: true });
+                await toastr.success("Cliente Apagado", "Sucesso", { timeOut: 2000, preventDuplicates: true, progressBar: true });
             }
         });
 
@@ -122,7 +101,7 @@ $(document).on("click", "#btnEditar", async () => {
     //BloquearTela();
     debugger
     if (!ObjetoENulo(Cliente)) {
-        ValorInput(Cliente, "Usuario");
+        ValorInput(Cliente, "Cliente");
         Adicionar("#Adicionar", "#Listagem");
         EscondeElemento("#camposenha");
         Cliente.Editando = true;

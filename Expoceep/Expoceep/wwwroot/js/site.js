@@ -1,11 +1,19 @@
 ﻿//OBJECTS
-var Usuario = {
+var Cliente = {
     Novo: null,
     Editando: null,
     id: null,
     Nome: null,
     Login: null,
     Senha: null,
+    Email: null,
+    Cpf: null
+}
+var Cliente = {
+    Novo: null,
+    Editando: null,
+    id: null,
+    Nome: null,
     Email: null,
     Cpf: null
 }
