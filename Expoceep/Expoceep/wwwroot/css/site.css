@@ -1,6 +1,6 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
-
+@import url('https://fonts.googleapis.com/css?family=Istok+Web:400,700&display=swap');
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -156,6 +156,12 @@ body {
 
 
 
+}
+.btn{
+    font-weight:bold!important;
+    font-family:'Istok Web',sans-serif;
+    font-display:auto;
+    -webkit-font-smoothing:subpixel-antialiased!important;
 }
 .btn-primary:hover {
     background: #2d83bd !important;

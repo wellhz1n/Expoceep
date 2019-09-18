@@ -4,7 +4,6 @@ $(document).ready(async () => {
     Usuario.Editando = false;
     await BloquearTela();
     tabela = await Tabela("dtUsuario", "GetUsuariosTable");
-    Usuario = tabela[1];
     $(".cpf").mask('000.000.000-00');
     //toastr.info('Implementar notificações', "Info", { timeOut: 2000 });
     await DesbloquearTela();
@@ -35,27 +34,21 @@ $(document).on("click", "#btnSalvar", async () => {
      */
 
     if (checarNulos(user, [0]) && variavelValidacao) {
-        Usuario = {
-            id: user[0].value,
-            Nome: user[1].value,
-            Login: user[2].value,
-            Senha: user[3].value,
-            Email: user[4].value,
-            Cpf: user[5].value
-        }
-        await BloquearTela();
-        await $.post("/" + GetController() + "/SalvarUsuario", { usuario: Usuario}, async (e) => {
-            if (e) {
-                await $('#dtUsuario').DataTable().ajax.reload();
-                toastr.success("Salvo Com Sucesso", "Sucesso", { timeOut: 2000 })
-                await Cancelar("#Adicionar", "#Listagem");
-                //await DesbloquearTela();
-            }
-
-            await DesbloquearTela();
-
-        });
+        ColocarValorUsuario(user);
     }
+    await BloquearTela();
+    await $.post("/" + GetController() + "/SalvarUsuario", { usuario: Usuario }, async (e) => {
+        if (e) {
+            await $('#dtUsuario').DataTable().ajax.reload();
+            toastr.success("Salvo Com Sucesso", "Sucesso", { timeOut: 2000 })
+            await Cancelar("#Adicionar", "#Listagem");
+            //await DesbloquearTela();
+        }
+
+        await DesbloquearTela();
+
+    });
+});
     //var formAtual = $('.atualizaForm')[0].children[0].children;
     //for (let i1 = 0; i1 < formAtual.length; i1++) {
     //    //if (formAtual[i1].tagName == "INPUT") {
@@ -72,11 +65,11 @@ $(document).on("click", "#btnSalvar", async () => {
 
 
 
-});
+
 ///POR HORA TEM QUE COLOCAR ISSO EM TODOS,NAO CONSEGUI AUTOMATIZAR ENTAO E OBRIGATORIO PARA DELETAR E EDITAR
 
 $('#dtUsuario tbody').on('click', 'tr', function () { //
-    
+
     if ($(this).hasClass('selected')) {
         $(this).removeClass('selected');
         Usuario = ResetarObjeto(Usuario);
@@ -93,6 +86,7 @@ $('#dtUsuario tbody').on('dblclick ', 'tr', function () {
         ValorInput(Usuario, "Usuario");
         Adicionar("#Adicionar", "#Listagem");
         Usuario.Editando = true;
+        $("#btnSalvar").text("Salvar");
     }
     else
         toastr.warning("Selecione um registro", "Editar", { timeOut: 2000 });
@@ -126,6 +120,8 @@ $(document).on("click", "#btnEditar", async () => {
         Adicionar("#Adicionar", "#Listagem");
         EscondeElemento("#camposenha");
         Usuario.Editando = true;
+        $("#btnSalvar").text("Salvar");
+
     }
     else
         toastr.warning("Selecione um registro", "Editar", { timeOut: 2000 });
@@ -135,3 +131,12 @@ $(document).on("click", "#btnEditar", async () => {
 
 
 });
+
+function ColocarValorUsuario(user) {
+    Usuario.id = user[0].value;
+    Usuario.Nome = user[1].value;
+    Usuario.Login = user[2].value;
+    Usuario.Senha = user[3].value;
+    Usuario.Email = user[4].value;
+    Usuario.Cpf = user[5].value;
+}
