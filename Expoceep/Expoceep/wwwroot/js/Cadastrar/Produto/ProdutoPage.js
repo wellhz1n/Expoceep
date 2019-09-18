@@ -63,7 +63,8 @@ $(document).on("click", "#btnSalvar", async () => {
         }
     });
     //}
-
+    Produto.Editando = false;
+    Produto.Novo = false;
 
 });
 ///POR HORA TEM QUE COLOCAR ISSO EM TODOS,NAO CONSEGUI AUTOMATIZAR ENTAO E OBRIGATORIO PARA DELETAR E EDITAR
