@@ -1,5 +1,5 @@
 ﻿//OBJECTS
-var Cliente = {
+var Usuario = {
     Novo: null,
     Editando: null,
     id: null,
@@ -14,6 +14,7 @@ var Cliente = {
     Editando: null,
     id: null,
     Nome: null,
+    Sobrenome: null,
     Email: null,
     Cpf: null
 }
