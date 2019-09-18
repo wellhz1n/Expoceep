@@ -149,7 +149,7 @@ $(document).keydown((k) => {
 
 
 function Deletar() {
-    if (produtoArray != null) {
+    if (produtoArray[0] != null) {
         $.post("/" + GetController() + "/DeletarProduto", { prod: produtoArray }, async (retorno) => {
             await BloquearTela();
             if (retorno) {
@@ -162,6 +162,7 @@ function Deletar() {
     }
     else
         toastr.warning("Selecione um registro", "Deletar", { timeOut: 2000, preventDuplicates: true, progressBar: true });
+    produtoArray = [];
 }
 //function setaSelect(obj, select) {
 //    var seletorCriancas = $(select).children();
