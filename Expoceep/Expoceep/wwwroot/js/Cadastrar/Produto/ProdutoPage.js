@@ -63,6 +63,8 @@ $(document).on("click", "#btnSalvar", async () => {
         }
     });
     //}
+    ResetaGrupoFormulario($(".Produtopropriedade"))
+    Produto = ResetarObjeto(Produto);
     Produto.Editando = false;
     Produto.Novo = false;
 
