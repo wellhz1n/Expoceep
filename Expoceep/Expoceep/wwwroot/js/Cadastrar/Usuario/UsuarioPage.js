@@ -140,3 +140,10 @@ function ColocarValorUsuario(user) {
     Usuario.Email = user[4].value;
     Usuario.Cpf = user[5].value;
 }
+
+
+// Validação JS -/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/
+tiraEspacoDosInputs("Usuario", false)
+
+
+// -/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/

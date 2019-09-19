@@ -183,3 +183,18 @@ function Deletar() {
 
 
 //}
+
+
+
+
+
+
+// VALIDAÇÃO JS -/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/
+tiraEspacoDosInputs("Produto", false)
+tiraEspacoDosInputs("Produtopropriedade", false)
+
+
+
+
+
+// -/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-
