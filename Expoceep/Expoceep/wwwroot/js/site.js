@@ -295,12 +295,3 @@ function ObjetoENulo(obj) {
     }
     return state;
 }
-function CopiaEntidade(obj) {
-    let o = $.extend(true, {}, obj);
-    return o;
-}
- async function ExecutaAjax(metodo, dados) {
-    let resultado;
-    await $.post('/' + GetController() + "/" + metodo, dados, (result) => { resultado =  result; });
-    return resultado;
-}

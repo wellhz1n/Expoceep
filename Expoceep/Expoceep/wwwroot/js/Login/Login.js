@@ -16,3 +16,7 @@
     //});
 
 });
+
+
+// Validação que tira espaço
+tiraEspacoDosInputs("form", true);
