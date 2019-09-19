@@ -29,5 +29,10 @@ namespace Expoceep.Models
         [NotMapped]
         public string TamanhoString { get; set; }
     }
+    public class Select2
+    {
+        public long id { get; set; }
+        public string text { get; set; }
+    }
 }
 

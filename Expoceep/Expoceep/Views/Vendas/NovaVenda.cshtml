@@ -27,30 +27,24 @@
     </div>
     <div id="Adicionar" class="ml-4">
 
-        <form method="post" id="Produto" class="col-6">
-            <div class="row mt-5">
-                <div class="col-12">
-                    <input type="hidden" name="id" value="0" class="form-control" />
-                    <div id="CampoUsuarioCodigo" hidden>
-                        <label for="codigo">Codigo</label>
-                        <input type="text" value="0" name="codigo" class="form-control bloqueado" />
-                    </div>
-                    <label for="nome">Nome</label>
-                    <input type="text" name="nome" class="form-control" />
-                    <label for="login">Preço</label>
-                    <input type="text" name="Preco" class="form-control" />
-                    <label for="nome">Unidades</label>
-                    <input type="number" name="Unidades" class="form-control" />
-                    <label for="nome">Tamanho</label>
-                    <select name="Tamanho" class="form-control " id="Tamanhoselect">
-                        <option value="0" selected>P</option>
-                        <option value="1">M</option>
-                        <option value="2">G</option>
-                    </select>
-                </div>
-            </div> 
+
+   
+        <form>
         </form>
+        <div class="row">
+            <div class="container1 alert-dark col-8 p-3">
+                <button class="add_form_field">
+                    <i style="font-size:16px; font-weight:bold;">+ </i>
+                </button>
+                <select id="Produtoselect"></select>
+                <select id="Produtoselecttamanho"></select>
+            </div>
+
+        </div>
+        <div><h1>Teste</h1></div>
 
     </div>
 </div>
-
+@section scripts{
+    <script src="~/js/Vendas/Venda/VendaPage.js" type="text/javascript"></script>
+}
