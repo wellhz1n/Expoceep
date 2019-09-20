@@ -114,7 +114,6 @@ $(document).on("click", "#btnDeletar", async () => {
 });
 $(document).on("click", "#btnEditar", async () => {
     //BloquearTela();
-    debugger
     if (!ObjetoENulo(Usuario)) {
         ValorInput(Usuario, "Usuario");
         Adicionar("#Adicionar", "#Listagem");
