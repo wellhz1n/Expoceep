@@ -28,16 +28,18 @@
     <div id="Adicionar" class="ml-4">
 
 
-   
-        <form>
-        </form>
+
+
         <div class="row">
-            <div class="container1 alert-dark col-8 p-3">
-                <button class="add_form_field">
-                    <i style="font-size:16px; font-weight:bold;">+ </i>
-                </button>
-                <select id="Produtoselect"></select>
-                <select id="Produtoselecttamanho"></select>
+            <div class="container1 alert-dark col-10 p-3">
+                <form id="Produtoform">
+                    <select id="Produtoselect" name="ProdutoId"></select>
+                    <select id="Produtoselecttamanho" name="TamnhoId"></select>
+                    <input class="col-2"  type="number" min="1" name="Unidades" placeholder="Unidades" />
+                    <button class="add_form_field">
+                        <i style="font-size:16px; font-weight:bold;">+</i>
+                    </button>
+                </form>
             </div>
 
         </div>

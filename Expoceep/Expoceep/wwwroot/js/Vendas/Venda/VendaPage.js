@@ -1,19 +1,15 @@
 ﻿let template = '<div class="col-12"id="bloco"><div><form method="post" class="row Produtopropriedade" id="Produtopropriedade">' +
     '<div class="col-3" >' +
     '<label for="Tamanho">Tamanho</label>' +
-    '<select name="Tamanho" class="form-control  " id="Tamanhoselect" >' +
-    '<option value="0">P</option>' +
-    '<option value="1" >M</option>' +
-    '<option value="2">G</option>' +
-    '</select>' +
+    '<input name="Tamanho" class="form-control  " id="Tamanhoselect" disabled="disabled" />' +
     '</div >' +
     ' <div class="col-3">' +
     '<label for="Preco">Preço</label>' +
-    '<input type="text" name="Preco" class="form-control" />' +
+    '<input type="text" name="Preco" class="form-control" disabled="disabled" />' +
     '</div>' +
     '<div class="col-3">' +
     '<label for="Unidades">Unidades</label>' +
-    ' <input type="number" name="Unidades" class="form-control" />' +
+    ' <input type="number" name="Unidades" class="form-control" disabled="disabled" />' +
     '</div><a href="#" class="delete p-4 my-3"><i class="fa fa-trash"></i></a>' +
     '</form >' + '</div>';
 let listaProduto = []
@@ -24,6 +20,7 @@ let seletortamanho = {
     allowClear: true,
     data: ProdutoTamanhosSelectData(),
 }
+var prop;
 $(document).ready(function () {
 
     $("#Produtoselect").select2({
@@ -55,7 +52,8 @@ $(document).ready(function () {
         if (e.target.selectedOptions[0] != undefined) {
             if (e.target.selectedOptions[0].value != null) {
                 VProduto = await ExecutaAjax("GetProdutoCompleto", { idproduto: e.target.selectedOptions[0].value });
-                $("#Produtoselecttamanho").select2({
+                $("#Produtoselecttamanho").html('').select2('destroy');
+                $("#Produtoselecttamanho").html('').select2({
                     placeholder: "Selecione Um Tamanho",
                     width: "30%",
                     allowClear: true,
@@ -66,13 +64,8 @@ $(document).ready(function () {
             debugger
             VProduto = Produto;
             ResetaSelect();
-            $("#Produtoselecttamanho").select2({
-                placeholder: "Selecione Um Tamanho",
-                width: "30%",
-                allowClear: true,
-                data: '',
-                value:''
-            });
+            $("#Produtoselecttamanho").html('').select2(seletortamanho);
+            $("#Produtoform")[0].reset();
         }
 
     });
@@ -85,12 +78,25 @@ $(document).ready(function () {
     var x = 0;
     $(add_button).click(function (e) {
         e.preventDefault();
+
         if (x < max_fields) {
+            $(wrapper).append(template);
             x++;
-            $(wrapper).append(template); //add input box
+            prop = $(".Produtopropriedade")[x - 1];
+            for (var i = 0; i < prop.length; i++) {
+                prop[0].value = $("#Produtoselecttamanho").select2('data')[0].text;
+                if (VProduto.propriedades[i].id == $("#Produtoselecttamanho").select2('data')[0].id) {
+                    prop[1].value = "R$:" + VProduto.propriedades[i].preco;
+
+                }
+
+                prop[2].value = $("#Produtoform")[0][2].value;
+            }
+            //add input box
         } else {
             alert('You Reached the limits')
         }
+
     });
 
     $(wrapper).on("click", ".delete", function (e) {
@@ -143,7 +149,7 @@ function ResetaSelect(execao = []) {
         if (execao[i] != i) {
 
             var self = $(s[i]);
-            self.select2('val','');
+            self.select2('val', '');
             debugger;
         }
     }
