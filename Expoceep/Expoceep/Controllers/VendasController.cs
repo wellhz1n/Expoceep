@@ -44,7 +44,7 @@ namespace Expoceep.Controllers
             if (q != "" && q != null)
             {
 
-                foreach (var item in _produtoDAO.SelectProdutos().Where(p => p.Nome.ToLower().Contains(q.ToLower())).ToList())
+                foreach (var item in _produtoDAO.SelectProdutos().Where(p => p.Nome.ToLower().Any(pn=> pn.ToString().Contains(q.ToLower()))).ToList())
                 {
                     prod.Add(item.Id, item.Nome);
 
@@ -79,7 +79,11 @@ namespace Expoceep.Controllers
 
 
         }
-
+        [HttpPost]
+        public object GetProdutoCompleto(long idproduto)
+        {
+            return _produtoDAO.SelectProdutos().ToList().Where(p => p.Id == idproduto).FirstOrDefault();
+        }
         #endregion
     }
 }

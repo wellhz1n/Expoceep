@@ -140,7 +140,7 @@ function checarNulos(array, arrayOpcionalDeExcessoes) {
             }
         }
     }
-    
+
     return naoTemNulo;
 
 }
@@ -246,7 +246,7 @@ function ResetaGrupoFormulario(grupoform) {
 
     }
 }
-function ImprimirNoConsole(msg,tipo ="error") {
+function ImprimirNoConsole(msg, tipo = "error") {
     switch (tipo) {
         case "error":
             console.error("❌ ERRO NO C#: " + msg);
@@ -263,8 +263,8 @@ function ImprimirNoConsole(msg,tipo ="error") {
 }
 
 function validar(seletor, arrayMensagemErro) {
-    
-    var seletor = $('#'+seletor);
+
+    var seletor = $('#' + seletor);
     if (!seletor.parsley().isValid()) {
         seletor.addClass("erroNoInput2");
         toastr.error(arrayMensagemErro[0], arrayMensagemErro[1]);
@@ -280,7 +280,7 @@ function ResetarObjeto(obj) {
         objarray[i][1] = null;
         newobj[objarray[i][0]] = objarray[i][1];
     }
-     //= JSON.stringify(Object.assign({}, objarray));
+    //= JSON.stringify(Object.assign({}, objarray));
     return newobj;
 
 
@@ -295,27 +295,12 @@ function ObjetoENulo(obj) {
     }
     return state;
 }
-
-
-// Função que tira espaço do input.
-// 1-- O primeiro parâmetro é o id do form
-// 2-- O segundo parâmetro é se vai tirar todos os espaços ou só espaço no começo (trye ou false)
-// Obs.: Mateus seu preguiçoso, melhora essa função dps para ela permitir inputs de exceção.
-
-function tiraEspacoDosInputs(idDoForm, todosEspacos) {
-    if (todosEspacos) {
-        $("form#" + idDoForm + " :input").each(function () {
-            var input = $(this);
-            input.bind('input', function () {
-                input[0].value = input[0].value.trim();
-            });
-        });      
-    } else {
-        $("form#" + idDoForm + " :input").each(function () {
-            var input = $(this);
-            input.bind('input', function () {
-                input[0].value = input[0].value.trimLeft();
-            });
-        });
-    }
+function CopiaEntidade(obj) {
+    let o = $.extend(true, {}, obj);
+    return o;
+}
+async function ExecutaAjax(metodo, dados) {
+    let resultado;
+    await $.post('/' + GetController() + "/" + metodo, dados, (result) => { resultado = result; });
+    return resultado;
 }

@@ -18,6 +18,10 @@ namespace Expoceep.Models
         public string Codigo { get; set; }
         public string Nome { get; set; }
         public ICollection<ProdutoPropriedades> Propriedades { get; set; }
+        [NotMapped]
+        public bool Novo { get; set; }
+        [NotMapped]
+        public bool Editando { get; set; }
     }
    public class ProdutoPropriedades
     {
