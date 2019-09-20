@@ -51,7 +51,7 @@ $(document).on("click", "#btnSalvar", async () => {
     }
 
     await BloquearTela();
-    await $.post("/" + GetController() + "/SalvarProduto", { prod: Produto, editando: Editando }, async (e) => {
+    await $.post("/" + GetController() + "/SalvarProduto", { prod: Produto }, async (e) => {
         if (e) {
             toastr.success("Salvo Com Sucesso", "Sucesso", { timeOut: 2000 })
             await $('#dtProduto').DataTable().ajax.reload();
@@ -128,13 +128,13 @@ $(document).on("click", "#btnEditar", async () => {
         if (!ObjetoENulo(Produto)) {
             ValorInput(produtoArray[0], "Produto");
             await Adicionar("#Adicionar", "#Listagem");
-            Produto.Editando = true;
             let prop = $(".Produtopropriedade");
             for (var i = 0; i < prop.length; i++) {
                 prop[i].Tamanho.value = produtoArray[0].Propriedades[i].Tamanho;
                 prop[i].Preco.value = produtoArray[0].Propriedades[i].Preco;
                 prop[i].Unidades.value = produtoArray[0].Propriedades[i].Unidades;
             }
+            Produto.Editando = true;
         }
     }
 

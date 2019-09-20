@@ -50,9 +50,9 @@ namespace Expoceep.Controllers
         }
         #region CRUD
         [HttpPost]
-        public bool SalvarProduto(Produto prod, bool editando)
+        public bool SalvarProduto(Produto prod)
         {
-            if (!editando)
+            if (!prod.Editando)
             {
                 try
                 {
