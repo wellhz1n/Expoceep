@@ -36,6 +36,7 @@ $(document).on("click", "#btnSalvar", async () => {
     if (checarNulos(user, [0]) && variavelValidacao) {
         ColocarValorUsuario(user);
     }
+    
     await BloquearTela();
     await $.post("/" + GetController() + "/SalvarUsuario", { usuario: Usuario }, async (e) => {
         if (e) {

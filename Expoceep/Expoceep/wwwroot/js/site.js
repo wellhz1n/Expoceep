@@ -115,12 +115,11 @@ function checarNulos(array, arrayOpcionalDeExcessoes) {
                         $("input[name =\'" + array[c].name + "\' ]").removeClass("erroNoInput");
 
                         break;
-                    } else if ((array[c].value == null || array[c].value == "") && $("input[name =\'" + array[c].name + "\' ]").name != "__RequestVerificationToken") {
+                    } else if ((array[c].value == null || array[c].value == "") && $("input[name =\'" + array[c].name + "\' ]")[0].name != "__RequestVerificationToken") {
                         $("input[name =\'" + array[c].name + "\' ]").addClass("erroNoInput");
                         naoTemNulo = false;
                     }
                 }
-
             }
 
         }
@@ -128,7 +127,7 @@ function checarNulos(array, arrayOpcionalDeExcessoes) {
     } else { //Caso não tiver
         for (let c in array) {
             $("input[name =\'" + array[c].name + "\' ]").removeClass("erroNoInput");
-            if ((array[c].value == null || array[c].value == "") && $("input[name =\'" + array[c].name + "\' ]").name != "__RequestVerificationToken") {
+            if ((array[c].value == null || array[c].value == "") && $("input[name =\'" + array[c].name + "\' ]")[0].name != "__RequestVerificationToken") {
                 $("input[name =\'" + array[c].name + "\' ]").addClass("erroNoInput");
                 naoTemNulo = false;
             }
@@ -141,8 +140,8 @@ function checarNulos(array, arrayOpcionalDeExcessoes) {
         }
     }
 
+    
     return naoTemNulo;
-
 }
 ////
 ////
