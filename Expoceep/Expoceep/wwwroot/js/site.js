@@ -304,3 +304,27 @@ async function ExecutaAjax(metodo, dados) {
     await $.post('/' + GetController() + "/" + metodo, dados, (result) => { resultado = result; });
     return resultado;
 }
+
+
+// Função que tira espaço do input.
+// 1-- O primeiro parâmetro é o id do form
+// 2-- O segundo parâmetro é se vai tirar todos os espaços ou só espaço no começo (trye ou false)
+// Obs.: Mateus seu preguiçoso, melhora essa função dps para ela permitir inputs de exceção.
+
+function tiraEspacoDosInputs(idDoForm, todosEspacos) {
+    if (todosEspacos) {
+        $("form#" + idDoForm + " :input").each(function () {
+            var input = $(this);
+            input.bind('input', function () {
+                input[0].value = input[0].value.trim();
+            });
+        });
+    } else {
+        $("form#" + idDoForm + " :input").each(function () {
+            var input = $(this);
+            input.bind('input', function () {
+                input[0].value = input[0].value.trimLeft();
+            });
+        });
+    }
+}
