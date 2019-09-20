@@ -18,6 +18,12 @@
     '</form >' + '</div>';
 let listaProduto = []
 let VProduto = Produto;
+let seletortamanho = {
+    placeholder: "Selecione Um Tamanho",
+    width: "30%",
+    allowClear: true,
+    data: ProdutoTamanhosSelectData(),
+}
 $(document).ready(function () {
 
     $("#Produtoselect").select2({
@@ -46,18 +52,32 @@ $(document).ready(function () {
     }).on("change", async (e) => {
         debugger
         $("#Produtoselect").select2("close");
-        if (e.target.selectedOptions[0].value != null) {
-            VProduto = await ExecutaAjax("GetProdutoCompleto", { idproduto: e.target.selectedOptions[0].value });
+        if (e.target.selectedOptions[0] != undefined) {
+            if (e.target.selectedOptions[0].value != null) {
+                VProduto = await ExecutaAjax("GetProdutoCompleto", { idproduto: e.target.selectedOptions[0].value });
+                $("#Produtoselecttamanho").select2({
+                    placeholder: "Selecione Um Tamanho",
+                    width: "30%",
+                    allowClear: true,
+                    data: ProdutoTamanhosSelectData(),
+                });
+            }
+        } else if (e.target.selectedOptions[0] == undefined) {
+            debugger
+            VProduto = Produto;
+            ResetaSelect();
+            $("#Produtoselecttamanho").select2({
+                placeholder: "Selecione Um Tamanho",
+                width: "30%",
+                allowClear: true,
+                data: '',
+                value:''
+            });
         }
+
     });
 
-    $("#Produtoselecttamanho").select2({
-        placeholder: "Selecione Um Tamanho",
-        width: "30%",
-        data: () => {
-            return { results: " { results: " +  + "}" }
-        },
-    });
+    $("#Produtoselecttamanho").select2(seletortamanho);
     var max_fields = 10;
     var wrapper = $(".container1");
     var add_button = $(".add_form_field");
@@ -88,11 +108,47 @@ function ProdutoTamanhosSelectData() {
     let arry = [];
     for (var i = 0; i < pr.length; i++) {
         if (pr[i].tamanho == 0)
-            arry.push(data.id = pr[i].id, data.text = "P");
+            arry.push({ id: pr[i].id, text: "P" });
         if (pr[i].tamanho == 1)
-            arry.push(data.id = pr[i].id, data.text = "M");
+            arry.push({ id: pr[i].id, text: "M" });
         if (pr[i].tamanho == 2)
-            arry.push(data.id = pr[i].id, data.text = "G");
+            arry.push({ id: pr[i].id, text: "G" });
     }
-    return JSON.stringify(arry);
+    return arry;
+}
+//function ResetaSelect(execao = [],model = []) {
+//    debugger
+//    let s = $("select");
+//    for (var i = 0; i < s.length; i++) {
+//        if (execao[i] != i) {
+
+//            var self = $(s[i]);
+//            var select2Instance = self.data("select2");
+//            var resetOptions = select2Instance.options.options;
+//            self.select2("destroy")
+//            self.select2(resetOptions);
+//            self.data("select2").options.options.data = ProdutoTamanhosSelectData();
+//            debugger;
+//        }
+//    }
+//    debugger;
+
+
+//    debugger
+//}
+function ResetaSelect(execao = []) {
+    debugger
+    let s = $("select");
+    for (var i = 0; i < s.length; i++) {
+        if (execao[i] != i) {
+
+            var self = $(s[i]);
+            self.select2('val','');
+            debugger;
+        }
+    }
+    debugger;
+
+
+    debugger
 }
