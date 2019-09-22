@@ -1,17 +1,28 @@
 ﻿let template = '<div class="col-12"id="bloco"><div><form method="post" class="row Produtopropriedade" id="Produtopropriedade">' +
-    '<div class="col-3" >' +
+    '<div class="col-2" >' +
+    '<label for="Nome">Produto:</label>' +
+    '<input type="hidden" name="ProdutoId" class="form-control  " disabled="disabled" />' +
+    '<input name ="Produto" class="form-control  " disabled ="disabled" /> ' +
+    '</div >' +
+    '<div class="col-2" >' +
     '<label for="Tamanho">Tamanho</label>' +
     '<input name="Tamanho" class="form-control  " id="Tamanhoselect" disabled="disabled" />' +
     '</div >' +
-    ' <div class="col-3">' +
+    ' <div class="col-2">' +
     '<label for="Preco">Preço</label>' +
     '<input type="text" name="Preco" class="form-control" disabled="disabled" />' +
     '</div>' +
-    '<div class="col-3">' +
+    '<div class="col-2">' +
     '<label for="Unidades">Unidades</label>' +
     ' <input type="number" name="Unidades" class="form-control" disabled="disabled" />' +
-    '</div><a href="#" class="delete p-4 my-3"><i class="fa fa-trash"></i></a>' +
+    '</div>'
+    + ' <div class="col-2">' +
+    '<label for="Total">Total:</label>' +
+    '<input type="text" name="Total" class="form-control" style="color:red;" disabled="disabled" />' +
+    '</div>' + '<a href = "#" class="delete btn btn-danger text-center " style="margin-top:4%;"><i class="fa fa-trash"></i></a > ' +
     '</form >' + '</div>';
+let totalfinal = $("#total");
+let totalitens = $("#itens");
 let listaProduto = []
 let VProduto = Produto;
 let seletortamanho = {
@@ -20,9 +31,12 @@ let seletortamanho = {
     allowClear: true,
     data: ProdutoTamanhosSelectData(),
 }
+let VendasProdutos = [];
 var prop;
 $(document).ready(function () {
-
+    $("#title").text("Nova Venda");
+    totalitens.html('0');
+    totalfinal.html('0');
     $("#Produtoselect").select2({
         placeholder: "Selecione Um Produto",
         width: "30%",
@@ -82,27 +96,47 @@ $(document).ready(function () {
         if (x < max_fields) {
             $(wrapper).append(template);
             x++;
+            totalitens.html(x);
             prop = $(".Produtopropriedade")[x - 1];
+       
             for (var i = 0; i < prop.length; i++) {
-                prop[0].value = $("#Produtoselecttamanho").select2('data')[0].text;
+                prop[0].value = VProduto.id;
+                prop[1].value = VProduto.nome;
+                prop[2].value = $("#Produtoselecttamanho").select2('data')[0].text;
+                prop[4].value = $("#Produtoform")[0][2].value;
                 if (VProduto.propriedades[i].id == $("#Produtoselecttamanho").select2('data')[0].id) {
-                    prop[1].value = "R$:" + VProduto.propriedades[i].preco;
-
+                    prop[3].value = "R$:" + VProduto.propriedades[i].preco;
+                    prop[5].value = "R$:" + VProduto.propriedades[i].preco * $("#Produtoform")[0][2].value;
+                    VendasProdutos.push({ id: prop[0].value, nome: prop[1].value, tamanho: prop[2].value, preco: prop[3].value, unidade: prop[4].value, precototal: prop[5].value });
+                    totalfinal.html(PrecoTotal());
                 }
 
-                prop[2].value = $("#Produtoform")[0][2].value;
             }
+            debugger
+            debugger
+
             //add input box
         } else {
             alert('You Reached the limits')
         }
-
     });
 
     $(wrapper).on("click", ".delete", function (e) {
         e.preventDefault();
+        prop = $(this).parent($('.Produtopropriedade'))[0];
+        debugger;
+        for (var i = 0; i < VendasProdutos.length; i++) {
+            if (VendasProdutos[i].id == prop[0].value && VendasProdutos[i].tamanho == prop[2].value ) {
+                ImprimirNoConsole(VendasProdutos[i].id, "default");
+                VendasProdutos.splice(i, 1);
+
+            }
+            ImprimirNoConsole(VendasProdutos, "default");
+        }
         $(this).parent($('#bloco')).remove();
         x--;
+        totalitens.html(x);
+        totalfinal.html(PrecoTotal());
     })
 });
 function ProdutoTamanhosSelectData() {
@@ -157,4 +191,13 @@ function ResetaSelect(execao = []) {
 
 
     debugger
+}
+function PrecoTotal() {
+    let total = 0;
+    for (var i = 0; i < VendasProdutos.length; i++) {
+        total += parseInt(VendasProdutos[i].precototal.substr(3));
+        debugger;
+    }
+    return total;
+
 }

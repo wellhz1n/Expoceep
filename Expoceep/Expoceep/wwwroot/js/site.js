@@ -1,4 +1,5 @@
-﻿//OBJECTS
+﻿var titulo = $("#title");
+//OBJECTS
 var Usuario = {
     Novo: null,
     Editando: null,
@@ -40,6 +41,9 @@ var Resultado = {
 //FIM OBJECTS
 function GetController() {
     return window.location.href.split(window.location.host)[1].split("/")[1];
+}
+function GetPage() {
+    return window.location.href.split(window.location.host)[1].split("/")[2];
 }
 function MudaUrl(controller, action) {
     if (controller == null)
@@ -327,3 +331,9 @@ function tiraEspacoDosInputs(idDoForm, todosEspacos) {
         });
     }
 }
+$(document).ready(() => {
+
+    if ($("#title").html() != undefined)
+        if (titulo.text() === "")
+            titulo.text(GetPage());
+});

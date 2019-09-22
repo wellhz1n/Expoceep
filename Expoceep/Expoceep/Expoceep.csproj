@@ -29,6 +29,7 @@
 
 
   <ItemGroup>
+    <None Include="wwwroot\Iframe.html" />
     <None Include="wwwroot\js\Login\Login.js" />
   </ItemGroup>
 
