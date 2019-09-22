@@ -1,4 +1,5 @@
-﻿let template = '<div class="col-12"id="bloco"><div><form method="post" class="row Produtopropriedade" id="Produtopropriedade">' +
+﻿//Template========================================================================================================================
+let template = '<div class="col-12"id="bloco"><div><form method="post" class="row Produtopropriedade" id="Produtopropriedade">' +
     '<div class="col-2" >' +
     '<label for="Nome">Produto:</label>' +
     '<input type="hidden" name="ProdutoId" class="form-control  " disabled="disabled" />' +
@@ -21,23 +22,27 @@
     '<input type="text" name="Total" class="form-control" style="color:red;" disabled="disabled" />' +
     '</div>' + '<a href = "#" class="delete btn btn-danger text-center " style="margin-top:4%;"><i class="fa fa-trash"></i></a > ' +
     '</form >' + '</div>';
+
+//===================================================================================================================================
 let totalfinal = $("#total");
 let totalitens = $("#itens");
+//Listas=============================================================================================================================
 let listaProduto = []
 let VProduto = Produto;
-let seletortamanho = {
-    placeholder: "Selecione Um Tamanho",
-    width: "30%",
-    allowClear: true,
-    data: ProdutoTamanhosSelectData(),
-}
 let VendasProdutos = [];
 var prop;
-$(document).ready(function () {
-    $("#title").text("Nova Venda");
-    totalitens.html('0');
-    totalfinal.html('0');
-    $("#Produtoselect").select2({
+//====================================================================================================================================
+$(document).ready(async function () {
+    await BloquearTela();
+    //SELETORES=======================================================================================================================
+    $("#UnidadesId").on("change", (e) => {
+        debugger
+        ImprimirNoConsole("Unidades: " + e.target.value, "default");
+        if (e.target.value != '') {
+            $(e.target).removeClass("border-error");
+        }
+    });
+    await $("#Produtoselect").select2({
         placeholder: "Selecione Um Produto",
         width: "30%",
         closeOnSelect: true,
@@ -65,6 +70,7 @@ $(document).ready(function () {
         $("#Produtoselect").select2("close");
         if (e.target.selectedOptions[0] != undefined) {
             if (e.target.selectedOptions[0].value != null) {
+                $("#Produtoselect").next().removeClass('border-error');
                 VProduto = await ExecutaAjax("GetProdutoCompleto", { idproduto: e.target.selectedOptions[0].value });
                 $("#Produtoselecttamanho").html('').select2('destroy');
                 $("#Produtoselecttamanho").html('').select2({
@@ -73,6 +79,8 @@ $(document).ready(function () {
                     allowClear: true,
                     data: ProdutoTamanhosSelectData(),
                 });
+                $("#UnidadesId").val(1);
+                $("#UnidadesId").removeClass("border-error");
             }
         } else if (e.target.selectedOptions[0] == undefined) {
             debugger
@@ -80,44 +88,69 @@ $(document).ready(function () {
             ResetaSelect();
             $("#Produtoselecttamanho").html('').select2(seletortamanho);
             $("#Produtoform")[0].reset();
+            $("#UnidadesId").val('');
+
+
         }
 
     });
 
-    $("#Produtoselecttamanho").select2(seletortamanho);
+    await $("#Produtoselecttamanho").select2({
+        placeholder: "Selecione Um Tamanho",
+        width: "30%",
+        allowClear: true,
+        data: ProdutoTamanhosSelectData(),
+    }).on("change", (e) => {
+
+        $("#Produtoselecttamanho").select2("close");
+        if (e.target.selectedOptions[0] != undefined) {
+            if (e.target.selectedOptions[0].value != null) {
+                $("#Produtoselecttamanho").next().removeClass('border-error');
+                $("#UnidadesId").val(1);
+                $("#UnidadesId").removeClass("border-error");
+
+            }
+        }
+        else if (e.target.selectedOptions[0] == undefined) {
+            $("#UnidadesId").val('');
+        }
+    });
+    //FIM========================================================================================================================
+    //SISTEMa-DINAMICO_DE_PRODUTO================================================================================================
     var max_fields = 10;
     var wrapper = $(".container1");
     var add_button = $(".add_form_field");
 
     var x = 0;
-    $(add_button).click(function (e) {
+    $(add_button).click(async function (e) {
         e.preventDefault();
+        if (ValidaSeletores($("#Produtoform")[0]) && verificaEstoque()) {
+            if (x < max_fields) {
+                $(wrapper).append(template);
+                x++;
+                totalitens.html(x);
+                prop = $(".Produtopropriedade")[x - 1];
 
-        if (x < max_fields) {
-            $(wrapper).append(template);
-            x++;
-            totalitens.html(x);
-            prop = $(".Produtopropriedade")[x - 1];
-       
-            for (var i = 0; i < prop.length; i++) {
-                prop[0].value = VProduto.id;
-                prop[1].value = VProduto.nome;
-                prop[2].value = $("#Produtoselecttamanho").select2('data')[0].text;
-                prop[4].value = $("#Produtoform")[0][2].value;
-                if (VProduto.propriedades[i].id == $("#Produtoselecttamanho").select2('data')[0].id) {
-                    prop[3].value = "R$:" + VProduto.propriedades[i].preco;
-                    prop[5].value = "R$:" + VProduto.propriedades[i].preco * $("#Produtoform")[0][2].value;
-                    VendasProdutos.push({ id: prop[0].value, nome: prop[1].value, tamanho: prop[2].value, preco: prop[3].value, unidade: prop[4].value, precototal: prop[5].value });
-                    totalfinal.html(PrecoTotal());
+                for (var i = 0; i < prop.length; i++) {
+                    prop[0].value = VProduto.id;
+                    prop[1].value = VProduto.nome;
+                    prop[2].value = $("#Produtoselecttamanho").select2('data')[0].text;
+                    prop[4].value = $("#Produtoform")[0][2].value;
+                    if (VProduto.propriedades[i].id == $("#Produtoselecttamanho").select2('data')[0].id) {
+                        prop[3].value = "R$:" + VProduto.propriedades[i].preco;
+                        prop[5].value = "R$:" + VProduto.propriedades[i].preco * $("#Produtoform")[0][2].value;
+                        VendasProdutos.push({ id: prop[0].value, nome: prop[1].value, tamanho: prop[2].value, preco: prop[3].value, unidade: prop[4].value, precototal: prop[5].value });
+                        totalfinal.html(PrecoTotal());
+                    }
+
                 }
+                debugger
+                debugger
 
+                //add input box
+            } else {
+                alert('You Reached the limits')
             }
-            debugger
-            debugger
-
-            //add input box
-        } else {
-            alert('You Reached the limits')
         }
     });
 
@@ -126,7 +159,7 @@ $(document).ready(function () {
         prop = $(this).parent($('.Produtopropriedade'))[0];
         debugger;
         for (var i = 0; i < VendasProdutos.length; i++) {
-            if (VendasProdutos[i].id == prop[0].value && VendasProdutos[i].tamanho == prop[2].value ) {
+            if (VendasProdutos[i].id == prop[0].value && VendasProdutos[i].tamanho == prop[2].value) {
                 ImprimirNoConsole(VendasProdutos[i].id, "default");
                 VendasProdutos.splice(i, 1);
 
@@ -137,8 +170,14 @@ $(document).ready(function () {
         x--;
         totalitens.html(x);
         totalfinal.html(PrecoTotal());
-    })
+    });
+    //FIM====================================================================================================================
+    $("#title").text("Nova Venda");
+    totalitens.html('0');
+    totalfinal.html('0');
+    await DesbloquearTela();
 });
+
 function ProdutoTamanhosSelectData() {
     let pr = VProduto.propriedades;
     let data = {
@@ -147,12 +186,15 @@ function ProdutoTamanhosSelectData() {
     }
     let arry = [];
     for (var i = 0; i < pr.length; i++) {
-        if (pr[i].tamanho == 0)
-            arry.push({ id: pr[i].id, text: "P" });
-        if (pr[i].tamanho == 1)
-            arry.push({ id: pr[i].id, text: "M" });
-        if (pr[i].tamanho == 2)
-            arry.push({ id: pr[i].id, text: "G" });
+        if (pr[i].preco != null && pr[i].unidades > 0) {
+            debugger
+            if (pr[i].tamanho == 0)
+                arry.push({ id: pr[i].id, text: "P" });
+            if (pr[i].tamanho == 1)
+                arry.push({ id: pr[i].id, text: "M" });
+            if (pr[i].tamanho == 2)
+                arry.push({ id: pr[i].id, text: "G" });
+        }
     }
     return arry;
 }
@@ -192,6 +234,22 @@ function ResetaSelect(execao = []) {
 
     debugger
 }
+function verificaEstoque() {
+    let prod = VProduto.propriedades;
+    for (var i = 0; i < prod.length; i++) {
+        if (prod[i].id == $("#Produtoform")[0][1].value) {
+            if (prod[i].unidades < $("#Produtoform")[0][2].value) {
+                toastr.warning("Insira um numero Inferior ou Igual a " + prod[i].unidades, titulo.text() + ", Estoque Insuficiente", { preventDuplicates: true, progressBar: true, timeOut: 2500 });
+                return false;
+            }
+            else
+                return true;
+
+        }
+    }
+
+
+}
 function PrecoTotal() {
     let total = 0;
     for (var i = 0; i < VendasProdutos.length; i++) {
@@ -200,4 +258,7 @@ function PrecoTotal() {
     }
     return total;
 
+}
+function VerificaSeElementoJaestaAdicionado() {
+    return true;
 }

@@ -184,3 +184,6 @@ body {
 ::-webkit-scrollbar-thumb:hover {
         background-color: rgba(52, 152, 219, 0.4);
 }
+.border-error{
+    border : 2px solid red !important;
+}

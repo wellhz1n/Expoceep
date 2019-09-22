@@ -39,6 +39,13 @@ var Resultado = {
     erro: null
 }
 //FIM OBJECTS
+$(document).ready(() => {
+
+    if ($("#title").html() != undefined)
+        if (titulo.text() === "")
+            titulo.text(GetPage());
+});
+//FUNCOES
 function GetController() {
     return window.location.href.split(window.location.host)[1].split("/")[1];
 }
@@ -144,7 +151,7 @@ function checarNulos(array, arrayOpcionalDeExcessoes) {
         }
     }
 
-    
+
     return naoTemNulo;
 }
 ////
@@ -331,9 +338,34 @@ function tiraEspacoDosInputs(idDoForm, todosEspacos) {
         });
     }
 }
-$(document).ready(() => {
+function ValidaSeletores(campos) {
+    let camposvazios = getCamposVazios(campos);
+    for (var i = 0; i < camposvazios.length; i++) {
+        if (camposvazios[i].tagName == "SELECT" && i == 0) {
+            debugger
+            $(camposvazios[i]).select2('open');
+            $("#" + camposvazios[i].id).next().addClass('border-error');
+        }
+        else if (camposvazios[i].tagName != "BUTTON" && camposvazios[i].tagName == "INPUT") {
+            $(camposvazios[i]).addClass('border-error');
+        }
+    }
+    debugger
+    if (camposvazios.length == 0)
+        return true
+    else {
+        toastr.error("Por favor, Preencha os Campos", titulo, { preventDuplicates: true, timeOut: 2500, progressBar: true });
+        return false
+    }
+}
+function getCamposVazios(campos) {
 
-    if ($("#title").html() != undefined)
-        if (titulo.text() === "")
-            titulo.text(GetPage());
-});
+    let camposvazios = [];
+    for (var i = 0; i < campos.length; i++) {
+        if (campos[i].value == '' && campos[i].tagName != "BUTTON") {
+            camposvazios.push(campos[i]);
+
+        }
+    }
+    return camposvazios;
+}
