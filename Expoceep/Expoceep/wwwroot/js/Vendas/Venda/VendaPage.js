@@ -260,5 +260,11 @@ function PrecoTotal() {
 
 }
 function VerificaSeElementoJaestaAdicionado() {
+    let prod = VProduto.propriedades;
+    for (var i = 0; i < VendasProdutos.length; i++) {
+        if (VendasProdutos[i].id == VProduto.Id && VendasProdutos[i].tamanho == $("#Produtoform")[0][1].text ) {
+
+        }
+    }
     return true;
 }
