@@ -21,7 +21,7 @@
     <div class="header-table">
         <h5 class="p-2" id="title"></h5>
     </div>
-    <div class=" float-right mt-1 ml-3 p-1 ">
+    <div class=" float-right mt-1 ml-2 mr-2 p-1 ">
         <button class="btn btn-danger" id="btnCancelar">Cancelar</button>
         <button class="btn btn-primary" id="btnSalvar">Salvar</button>
     </div>
@@ -31,7 +31,7 @@
 
 
         <div class="row">
-            <div class="container1 alert-dark col-10 p-5 h-50" style="left:3%;margin-top:10%; top:0%;">
+            <div class="container1 alert-dark col-9 p-5 h-50" style="left:-1%;margin-top:0%; top:0%;">
                 <form id="Produtoform">
                     <select id="Produtoselect" name="ProdutoId"></select>
                     <select id="Produtoselecttamanho" name="TamnhoId"></select>
@@ -45,17 +45,21 @@
 
                         <div class="text-danger row mx-3 font-weight-bolder"> <p>Total: R$:<p id="total"></p></p></div>
                         <div class="text-black-50 row mx-3"> <p>Itens:<p id="itens"></p></p></div>
+                        <div><input type="text" name="dinheiro" id="TrocoInput" placeholder="Valor Recebido" /></div>
+                        <div><input type="text" name="dinheiro" id="Troco" placeholder="Troco" disabled="disabled" /></div>
 
                     </div>
 
                 </div>
+                <div id="conteudo" style="overflow-y:auto; height:55vh;">
+                </div>
             </div>
 
         </div>
-        <div><h1>Teste</h1></div>
 
     </div>
-  
+
+
 </div>
 @section scripts{
     <script src="~/js/Vendas/Venda/VendaPage.js" type="text/javascript"></script>

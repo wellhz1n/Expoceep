@@ -34,6 +34,12 @@ var prop;
 //====================================================================================================================================
 $(document).ready(async function () {
     await BloquearTela();
+    $("#TrocoInput").maskMoney({
+        prefix: "R$:",
+        decimal: ",",
+        thousands: "."
+    });
+
     //SELETORES=======================================================================================================================
     $("#UnidadesId").on("change", (e) => {
         debugger
@@ -118,7 +124,7 @@ $(document).ready(async function () {
     //FIM========================================================================================================================
     //SISTEMa-DINAMICO_DE_PRODUTO================================================================================================
     var max_fields = 10;
-    var wrapper = $(".container1");
+    var wrapper = $("#conteudo");
     var add_button = $(".add_form_field");
 
     var x = 0;
@@ -176,6 +182,13 @@ $(document).ready(async function () {
     totalitens.html('0');
     totalfinal.html('0');
     await DesbloquearTela();
+    //CamposMONETARIOS
+    $("#TrocoInput").on('change', () => {
+        let value = $("#TrocoInput").val().replace(/Rp\s|[.,]/g, '').substr(3);
+        if (value >= totalfinal.html()) {
+            $('#Troco').maskMoney('mask', parseInt(value) - parseInt(totalfinal));
+        }
+    });
 });
 
 function ProdutoTamanhosSelectData() {
