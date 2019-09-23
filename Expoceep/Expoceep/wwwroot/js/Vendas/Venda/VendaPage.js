@@ -84,11 +84,11 @@ $(document).ready(async function () {
             }
         } else if (e.target.selectedOptions[0] == undefined) {
             debugger
+            $("#UnidadesId").val('');
             VProduto = Produto;
             ResetaSelect();
             $("#Produtoselecttamanho").html('').select2(seletortamanho);
             $("#Produtoform")[0].reset();
-            $("#UnidadesId").val('');
 
 
         }
@@ -124,7 +124,7 @@ $(document).ready(async function () {
     var x = 0;
     $(add_button).click(async function (e) {
         e.preventDefault();
-        if (ValidaSeletores($("#Produtoform")[0]) && verificaEstoque()) {
+        if (ValidaSeletores($("#Produtoform")[0]) && verificaEstoque() && VerificaSeElementoJaestaAdicionado()) {
             if (x < max_fields) {
                 $(wrapper).append(template);
                 x++;
@@ -262,8 +262,11 @@ function PrecoTotal() {
 function VerificaSeElementoJaestaAdicionado() {
     let prod = VProduto.propriedades;
     for (var i = 0; i < VendasProdutos.length; i++) {
-        if (VendasProdutos[i].id == VProduto.Id && VendasProdutos[i].tamanho == $("#Produtoform")[0][1].text ) {
+        debugger
+        if (VendasProdutos[i].id == VProduto.id && VendasProdutos[i].tamanho == $("#Produtoselecttamanho")[0].selectedOptions[0].text ) {
+            toastr.warning("Produto ja Inserido", titulo.text() + ", Produto ja esta na lista", { preventDuplicates: true, progressBar: true, timeOut: 2500 });
 
+            return false;
         }
     }
     return true;
