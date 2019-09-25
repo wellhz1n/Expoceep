@@ -43,12 +43,12 @@ namespace Expoceep.Bibliotecas
                 msg = "";
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 result = false;
                 msg = e.Message;
             }
-            return new Resultado{resultado = result, erro = msg };
+            return new Resultado { resultado = result, erro = msg };
         }
 
 
@@ -73,7 +73,7 @@ namespace Expoceep.Bibliotecas
             }
 
         }
-        private  void AplicarArquivo()
+        private void AplicarArquivo()
         {
             bool Conectou = _cont.Database.CanConnect();
             if (Conectou)
@@ -88,25 +88,27 @@ namespace Expoceep.Bibliotecas
                         {
                             case "Usuario":
                                 //obj = new List<Usuario>();
-                                obj =  LerArquivo<Usuario>(item);
+                                obj = LerArquivo<Usuario>(item);
                                 if (obj != null)
                                 {
                                     _cont.Usuarios.RemoveRange(_cont.Usuarios.ToList());
                                     _cont.Usuarios.AddRange((List<Usuario>)obj);
-                                   
+
+                                    _cont.SaveChanges();
 
 
                                 }
                                 break;
                             case "Produto":
 
-                                obj =  LerArquivo<Produto>(item);
-                               
+                                obj = LerArquivo<Produto>(item);
+
                                 if (obj != null)
                                 {
                                     _cont.Produtos.RemoveRange(_cont.Produtos.ToList());
-                                      _cont.Produtos.AddRange((List<Produto>)obj);
-                                  
+                                    _cont.Produtos.AddRange((List<Produto>)obj);
+                                    _cont.SaveChanges();
+
                                 }
                                 break;
                             case "ProdutoPropriedades":
@@ -117,17 +119,19 @@ namespace Expoceep.Bibliotecas
                                 {
                                     _cont.ProdutosPropriedadess.RemoveRange(_cont.ProdutosPropriedadess.ToList());
                                     _cont.ProdutosPropriedadess.AddRange((List<ProdutoPropriedades>)obj);
+                                    _cont.SaveChanges();
 
                                 }
                                 break;
                             case "Cliente":
 
-                                obj = LerArquivo<ProdutoPropriedades>(item);
+                                obj = LerArquivo<Cliente>(item);
 
                                 if (obj != null)
                                 {
                                     _cont.Clientes.RemoveRange(_cont.Clientes.ToList());
                                     _cont.Clientes.AddRange((List<Cliente>)obj);
+                                    _cont.SaveChanges();
 
                                 }
                                 break;
@@ -173,6 +177,15 @@ namespace Expoceep.Bibliotecas
                 list = null;
 
             }
+            else if (item == "Cliente")
+            {
+
+                list = _cont.Clientes.ToList();
+                j = new ConversorDeObjetos().ConverterParaString(list);
+                list = null;
+
+            }
+
 
             return j;
         }
@@ -183,7 +196,7 @@ namespace Expoceep.Bibliotecas
             DirectoryInfo dir = Directory.CreateDirectory(path);
             using (StreamWriter stw = new StreamWriter(path + "\\" + name + "Table.json"))
             {
-               await stw.WriteLineAsync(content);
+                await stw.WriteLineAsync(content);
                 stw.Close();
             }
 
