@@ -39,16 +39,16 @@ $(document).on("click", "#btnSalvar", async () => {
     }
 
     //if (checarNulos(produto,[0, 1, 5]) || Editando) {
-    Produto = {
-        Id: produto[0].value,
-        Codigo: produto[1].value,
-        Nome: produto[2].value,
-        propriedades: propriedadestemp
-        //Preco: produto[3].value,
-        //Unidades: produto[4].value,
-        //Tamanho: produto[5].value
+    Produto.Id = produto[0].value;
+    Produto.Codigo = produto[1].value;
+    Produto.Nome = produto[2].value;
+    Produto.propriedades = propriedadestemp;
+    //Produto.Editando = Produto.Editando;
+    //Preco: produto[3].value,
+    //Unidades: produto[4].value,
+    //Tamanho: produto[5].value
 
-    }
+    //}
 
     await BloquearTela();
     await $.post("/" + GetController() + "/SalvarProduto", { prod: Produto }, async (e) => {
@@ -111,7 +111,7 @@ $('#dtProduto tbody').on('dblclick ', 'tr', function () {
         }
     }
     else
-        toastr.warning("Selecione um registro", "Editar", { timeOut: 2000 }); 
+        toastr.warning("Selecione um registro", "Editar", { timeOut: 2000 });
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -126,6 +126,7 @@ $(document).on("click", "#btnEditar", async () => {
     } else {
         AparecerElemento("#CampoUsuarioCodigo");
         if (!ObjetoENulo(Produto)) {
+            Produto.Editando = true;
             ValorInput(produtoArray[0], "Produto");
             await Adicionar("#Adicionar", "#Listagem");
             let prop = $(".Produtopropriedade");
@@ -134,7 +135,6 @@ $(document).on("click", "#btnEditar", async () => {
                 prop[i].Preco.value = produtoArray[0].Propriedades[i].Preco;
                 prop[i].Unidades.value = produtoArray[0].Propriedades[i].Unidades;
             }
-            Produto.Editando = true;
         }
     }
 
@@ -142,7 +142,7 @@ $(document).on("click", "#btnEditar", async () => {
 
     //DesbloquearTela();
 
-    
+
 
 });
 $(document).keydown((k) => {
