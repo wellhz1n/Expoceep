@@ -1,1 +1,1 @@
-[]
+[{"Id":1,"Preco":"20","Unidades":21,"Tamanho":0,"ProdutoId":1,"TamanhoString":null},{"Id":2,"Preco":null,"Unidades":0,"Tamanho":1,"ProdutoId":1,"TamanhoString":null},{"Id":3,"Preco":null,"Unidades":0,"Tamanho":2,"ProdutoId":1,"TamanhoString":null},{"Id":4,"Preco":"20,99","Unidades":3,"Tamanho":0,"ProdutoId":2,"TamanhoString":null},{"Id":5,"Preco":"40,90","Unidades":4,"Tamanho":1,"ProdutoId":2,"TamanhoString":null},{"Id":6,"Preco":null,"Unidades":0,"Tamanho":2,"ProdutoId":2,"TamanhoString":null}]

@@ -6,6 +6,14 @@ $(document).ready(async () => {
     Produto.Editando = false;
     tabela = await Tabela("dtProduto", "GetProdutosTable");
     await DesbloquearTela();
+
+  
+     $('input[name="Preco"]').maskMoney({
+          allowNegative: false,
+          thousands: '.',
+          decimal: ',',
+          affixesStay: false
+        }).attr('maxlength', maxLength).trigger('mask.maskMoney');
     //toastr.info('Implementar notificações', "Info", { timeOut: 2000 });
 
 
@@ -33,7 +41,7 @@ $(document).on("click", "#btnSalvar", async () => {
     for (var i = 0; i < produtopropriedade.length; i++) {
         let copia = $.extend(true, {}, ProdutoPropriedades);
         copia.Tamanho = produtopropriedade[i][0].value;
-        copia.Preco = produtopropriedade[i][1].value;
+        copia.Preco = produtopropriedade[i][1];
         copia.Unidades = produtopropriedade[i][2].value;
         propriedadestemp.push(copia);
     }
