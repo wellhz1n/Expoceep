@@ -42,8 +42,8 @@ namespace Expoceep.Controllers
             Select2 select;
             string json;
             if (q != "" && q != null)
-            {
-
+            {   
+                    
                 foreach (var item in _produtoDAO.SelectProdutos().Where(p => p.Nome.ToLower().Any(pn=> pn.ToString().Contains(q.ToLower()))).ToList())
                 {
                     prod.Add(item.Id, item.Nome);
