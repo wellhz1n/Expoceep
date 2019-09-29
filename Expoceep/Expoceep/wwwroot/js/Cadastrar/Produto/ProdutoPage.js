@@ -12,8 +12,8 @@ $(document).ready(async () => {
           allowNegative: false,
           thousands: '.',
           decimal: ',',
-          affixesStay: false
-        }).attr('maxlength', maxLength).trigger('mask.maskMoney');
+         affixesStay: false
+     }).attr('maxlength', '0.000.000.000,00'.length).trigger('mask.maskMoney');
     //toastr.info('Implementar notificações', "Info", { timeOut: 2000 });
 
 
@@ -51,6 +51,7 @@ $(document).on("click", "#btnSalvar", async () => {
     Produto.Codigo = produto[1].value;
     Produto.Nome = produto[2].value;
     Produto.propriedades = propriedadestemp;
+    debugger;
     //Produto.Editando = Produto.Editando;
     //Preco: produto[3].value,
     //Unidades: produto[4].value,
