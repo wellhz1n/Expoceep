@@ -1,7 +1,7 @@
 ﻿var tabela;
 var Editando = false;
 var produtoArray = [];
-
+var propriedades = [];
 $(document).ready(async () => {
     Produto.Editando = false;
     tabela = await Tabela("dtProduto", "GetProdutosTable");
@@ -32,6 +32,7 @@ $(document).on("click", "#btnCancelar", async () => {
     Produto = ResetarObjeto(Produto);
     Produto.Editando = false;
     Produto.Novo = false;
+    propriedades = [];
 });
 $(document).on("click", "#btnSalvar", async () => {
     let produto = $("#Produto").serializeArray();
@@ -41,8 +42,10 @@ $(document).on("click", "#btnSalvar", async () => {
     for (var i = 0; i < produtopropriedade.length; i++) {
         let copia = $.extend(true, {}, ProdutoPropriedades);
         copia.Tamanho = produtopropriedade[i][0].value;
-        copia.Preco = produtopropriedade[i][1];
+        copia.Preco = produtopropriedade[i][1].value;
         copia.Unidades = produtopropriedade[i][2].value;
+        copia.Id = propriedades[i].Id;
+        copia.ProdutoId = propriedades[i].ProdutoId;
         propriedadestemp.push(copia);
     }
 
@@ -60,11 +63,13 @@ $(document).on("click", "#btnSalvar", async () => {
     //}
 
     await BloquearTela();
+    debugger;
     await $.post("/" + GetController() + "/SalvarProduto", { prod: Produto }, async (e) => {
         if (e) {
             toastr.success("Salvo Com Sucesso", "Sucesso", { timeOut: 2000 })
             await $('#dtProduto').DataTable().ajax.reload();
             await Cancelar("#Adicionar", "#Listagem");
+            propriedades = [];
             await DesbloquearTela();
         }
         else {
@@ -114,9 +119,11 @@ $('#dtProduto tbody').on('dblclick ', 'tr', function () {
         Produto.Editando = true;
         let prop = $(".Produtopropriedade");
         for (var i = 0; i < prop.length; i++) {
+            propriedades.push({ Id: produtoArray[0].Propriedades[i].Id, ProdutoId: produtoArray[0].Propriedades[i].ProdutoId });
             prop[i].Tamanho.value = produtoArray[0].Propriedades[i].Tamanho;
             prop[i].Preco.value = produtoArray[0].Propriedades[i].Preco;
             prop[i].Unidades.value = produtoArray[0].Propriedades[i].Unidades;
+
         }
     }
     else
@@ -140,9 +147,11 @@ $(document).on("click", "#btnEditar", async () => {
             await Adicionar("#Adicionar", "#Listagem");
             let prop = $(".Produtopropriedade");
             for (var i = 0; i < prop.length; i++) {
+                propriedades.push({ Id: produtoArray[0].Propriedades[i].Id, ProdutoId: produtoArray[0].Propriedades[i].ProdutoId });
                 prop[i].Tamanho.value = produtoArray[0].Propriedades[i].Tamanho;
                 prop[i].Preco.value = produtoArray[0].Propriedades[i].Preco;
                 prop[i].Unidades.value = produtoArray[0].Propriedades[i].Unidades;
+
             }
         }
     }
