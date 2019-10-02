@@ -66,19 +66,15 @@ namespace Expoceep.DAO.ProdutoDAO
             var prodprop = conn.ProdutosPropriedadess.Where(ps => ps.ProdutoId == produto.Id).ToList();
             if (prodprop.Count < 1)
                 prodprop = produto.Propriedades.ToList();
-            foreach (var itemp in prodprop)
-            {
+         
                 foreach (var item in produto.Propriedades)
                 {
-
-                    item.Id = itemp.Id;
-                    item.ProdutoId = itemp.ProdutoId;
                     var prodp = conn.ProdutosPropriedadess.SingleOrDefault(p => p.Id == item.Id);
-                     conn.Entry(prodp).CurrentValues.SetValues(item);
-
-
+                    prodp.Preco = item.Preco;
+                    prodp.Unidades = item.Unidades;
+                    conn.SaveChanges();
                 }
-            }
+            
 
             conn.Entry(produtodb).CurrentValues.SetValues(produto);
             conn.SaveChanges();

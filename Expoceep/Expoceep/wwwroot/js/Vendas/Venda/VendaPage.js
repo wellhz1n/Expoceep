@@ -9,7 +9,7 @@ let template = '<div class="col-12"id="bloco"><div><form method="post" class="ro
     '<label for="Tamanho">Tamanho</label>' +
     '<input name="Tamanho" class="form-control  " id="Tamanhoselect" disabled="disabled" />' +
     '</div >' +
-    ' <div class="col-2">' +
+    ' <div class="col-2 px-2">' +
     '<label for="Preco">Preço</label>' +
     '<input type="text" name="Preco" class="form-control" disabled="disabled" />' +
     '</div>' +
@@ -17,7 +17,7 @@ let template = '<div class="col-12"id="bloco"><div><form method="post" class="ro
     '<label for="Unidades">Unidades</label>' +
     ' <input type="number" name="Unidades" class="form-control" disabled="disabled" />' +
     '</div>'
-    + ' <div class="col-2">' +
+    + ' <div class="col-3">' +
     '<label for="Total">Total:</label>' +
     '<input type="text" name="Total" class="form-control" style="color:red;" disabled="disabled" />' +
     '</div>' + '<a href = "#" class="delete btn btn-danger text-center " style="margin-top:4%;"><i class="fa fa-trash"></i></a > ' +
@@ -143,11 +143,17 @@ $(document).ready(async function () {
                     prop[2].value = $("#Produtoselecttamanho").select2('data')[0].text;
                     prop[4].value = $("#Produtoform")[0][2].value;
                     if (VProduto.propriedades[i].id == $("#Produtoselecttamanho").select2('data')[0].id) {
+                        debugger;
+
                         prop[3].value = "R$:" + VProduto.propriedades[i].preco;
-                        prop[5].value = "R$:" + VProduto.propriedades[i].preco * $("#Produtoform")[0][2].value;
+                        let tot = (Number(VProduto.propriedades[i].preco.replace(',', '.').replace(/[^0-9\.-]+/g, "") * $("#Produtoform")[0][2].value)).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                        let subtot = tot.substr(tot.length - (tot.length + 3)).replace('.', ',');
+                        let totalformated = tot.substr(0, tot.length - 3).replace(',', '.') + subtot;
+                        prop[5].value = "R$:" + totalformated;
                         VendasProdutos.push({ id: prop[0].value, nome: prop[1].value, tamanho: prop[2].value, preco: prop[3].value, unidade: prop[4].value, precototal: prop[5].value });
                         totalfinal.html(PrecoTotal());
                     }
+                    debugger;
 
                 }
                 debugger
@@ -175,6 +181,7 @@ $(document).ready(async function () {
         $(this).parent($('#bloco')).remove();
         x--;
         totalitens.html(x);
+
         totalfinal.html(PrecoTotal());
     });
     //FIM====================================================================================================================
@@ -266,10 +273,15 @@ function verificaEstoque() {
 function PrecoTotal() {
     let total = 0;
     for (var i = 0; i < VendasProdutos.length; i++) {
-        total += parseInt(VendasProdutos[i].precototal.substr(3));
+        let tot = Number((VendasProdutos[i].precototal.substr(3)).replace(',', '.').replace(/[^0-9\.-]+/g,""));
+        total += tot;
+        ImprimirNoConsole(total, 'default');
         debugger;
     }
-    return total;
+    let tota = (Number(total.toString().replace(/[^0-9\.-]+/g, ""))).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    let subtot = tota.substr(tota.length - (tota.length + 3)).replace('.', ',');
+    let totalformated = tota.substr(0, tot.length - 3).replace(',', '.') + subtot;
+    return totalformated;
 
 }
 function VerificaSeElementoJaestaAdicionado() {
