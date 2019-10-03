@@ -273,14 +273,14 @@ function verificaEstoque() {
 function PrecoTotal() {
     let total = 0;
     for (var i = 0; i < VendasProdutos.length; i++) {
-        let tot = Number((VendasProdutos[i].precototal.substr(3)).replace(',', '.').replace(/[^0-9\.-]+/g,""));
+        let tot = Number((VendasProdutos[i].precototal.substr(3).replace(',', '.').replace('.','')).replace(/[^0-9\.-]+/g, ""));
         total += tot;
         ImprimirNoConsole(total, 'default');
         debugger;
     }
     let tota = (Number(total.toString().replace(/[^0-9\.-]+/g, ""))).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
     let subtot = tota.substr(tota.length - (tota.length + 3)).replace('.', ',');
-    let totalformated = tota.substr(0, tot.length - 3).replace(',', '.') + subtot;
+    let totalformated = tota.substr(0, tota.length - 3).replace(',', '.') + subtot;
     return totalformated;
 
 }
