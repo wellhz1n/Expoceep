@@ -7,13 +7,13 @@ $(document).ready(async () => {
     tabela = await Tabela("dtProduto", "GetProdutosTable");
     await DesbloquearTela();
 
-  
-     $('input[name="Preco"]').maskMoney({
-          allowNegative: false,
-          thousands: '.',
-          decimal: ',',
-         affixesStay: false
-     }).attr('maxlength', '0.000.000.000,00'.length).trigger('mask.maskMoney');
+
+    $('input[name="Preco"]').maskMoney({
+        allowNegative: false,
+        thousands: '.',
+        decimal: ',',
+        affixesStay: false
+    }).attr('maxlength', '0.000.000.000,00'.length).trigger('mask.maskMoney');
     //toastr.info('Implementar notificações', "Info", { timeOut: 2000 });
 
 
@@ -44,8 +44,8 @@ $(document).on("click", "#btnSalvar", async () => {
         copia.Tamanho = produtopropriedade[i][0].value;
         copia.Preco = produtopropriedade[i][1].value;
         copia.Unidades = produtopropriedade[i][2].value;
-        copia.Id = propriedades[i].Id;
-        copia.ProdutoId = propriedades[i].ProdutoId;
+        copia.Id = Produto.Novo ? null : propriedades[i].Id;
+        copia.ProdutoId = Produto.Novo ? null : propriedades[i].ProdutoId;
         propriedadestemp.push(copia);
     }
 
