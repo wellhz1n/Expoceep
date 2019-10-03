@@ -369,3 +369,20 @@ function getCamposVazios(campos) {
     }
     return camposvazios;
 }
+//MONETARIO+++++++++++++++++++++++++++++++++++++++++++++++++++++
+function ConverteDinheiroToNumber(dinheiro) {
+    let cifra = dinheiro.split(':').length >= 2;
+    let milhar = cifra ? dinheiro.substr(3).split('.').length >= 2 : dinheiro.split('.').length >= 2;
+    let dinheironum;
+    if (cifra)
+        dinheironum = milhar ? Number((dinheiro.substr(3).replace(',', '.').replace('.', '')).replace(/[^0-9\.-]+/g, "")) : Number((dinheiro.substr(3).replace(',', '.')).replace(/[^0-9\.-]+/g, ""));
+    else
+        dinheironum = milhar ? Number((dinheiro.replace(',', '.').replace('.', '')).replace(/[^0-9\.-]+/g, "")) : Number((dinheiro.replace(',', '.')).replace(/[^0-9\.-]+/g, ""));
+    return dinheironum;
+}
+function ConverteNumEmDinheiro(dinheiroNum, comcifrao = false) {
+    let casas = (Number(dinheiroNum.toString().replace(/[^0-9\.-]+/g, ""))).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    let subcasas = casas.substr(casas.length - (casas.length + 3)).replace('.', ',');
+    let dinheiroformated = !comcifrao ? casas.substr(0, casas.length - 3).replace(',', '.') + subcasas : "R$:" + casas.substr(0, casas.length - 3).replace(',', '.') + subcasas;
+    return dinheiroformated;
+}

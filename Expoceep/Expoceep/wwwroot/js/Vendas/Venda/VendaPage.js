@@ -126,14 +126,22 @@ $(document).ready(async function () {
     var max_fields = 10;
     var wrapper = $("#conteudo");
     var add_button = $(".add_form_field");
+    $("#TrocoInput").attr('disabled', true);
 
     var x = 0;
     $(add_button).click(async function (e) {
         e.preventDefault();
         if (ValidaSeletores($("#Produtoform")[0]) && verificaEstoque() && VerificaSeElementoJaestaAdicionado()) {
             if (x < max_fields) {
+
+
                 $(wrapper).append(template);
                 x++;
+                if (x > 0) {
+                    $("#TrocoInput").attr('disabled', false);
+                    CalcularTroco();
+                }
+
                 totalitens.html(x);
                 prop = $(".Produtopropriedade")[x - 1];
 
@@ -142,23 +150,18 @@ $(document).ready(async function () {
                     prop[1].value = VProduto.nome;
                     prop[2].value = $("#Produtoselecttamanho").select2('data')[0].text;
                     prop[4].value = $("#Produtoform")[0][2].value;
-                    if (VProduto.propriedades[i].id == $("#Produtoselecttamanho").select2('data')[0].id) {
-                        debugger;
-
-                        prop[3].value = "R$:" + VProduto.propriedades[i].preco;
-                        let tot = (Number(VProduto.propriedades[i].preco.replace(',', '.').replace(/[^0-9\.-]+/g, "") * $("#Produtoform")[0][2].value)).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-                        let subtot = tot.substr(tot.length - (tot.length + 3)).replace('.', ',');
-                        let totalformated = tot.substr(0, tot.length - 3).replace(',', '.') + subtot;
-                        prop[5].value = "R$:" + totalformated;
-                        VendasProdutos.push({ id: prop[0].value, nome: prop[1].value, tamanho: prop[2].value, preco: prop[3].value, unidade: prop[4].value, precototal: prop[5].value });
-                        totalfinal.html(PrecoTotal());
+                    try {
+                        if (VProduto.propriedades[i].id == $("#Produtoselecttamanho").select2('data')[0].id) {
+                            prop[3].value = "R$:" + VProduto.propriedades[i].preco;
+                            prop[5].value = "R$:" + ConverteNumEmDinheiro(ConverteDinheiroToNumber(VProduto.propriedades[i].preco) * $("#Produtoform")[0][2].value);
+                            VendasProdutos.push({ id: prop[0].value, nome: prop[1].value, tamanho: prop[2].value, preco: prop[3].value, unidade: prop[4].value, precototal: prop[5].value });
+                            totalfinal.html(PrecoTotal());
+                        }
                     }
-                    debugger;
-
+                    catch (e) {
+                        ImprimirNoConsole(e.message + "------_______--------" + e.stack, 'warn');
+                    }
                 }
-                debugger
-                debugger
-
                 //add input box
             } else {
                 alert('You Reached the limits')
@@ -180,9 +183,16 @@ $(document).ready(async function () {
         }
         $(this).parent($('#bloco')).remove();
         x--;
+
         totalitens.html(x);
 
         totalfinal.html(PrecoTotal());
+        CalcularTroco();
+        if (x < 1) {
+            $("#TrocoInput").attr('disabled', true);
+            $("#TrocoInput").val('');
+            $("#Troco").val('');
+        }
     });
     //FIM====================================================================================================================
     $("#title").text("Nova Venda");
@@ -190,13 +200,25 @@ $(document).ready(async function () {
     totalfinal.html('0');
     await DesbloquearTela();
     //CamposMONETARIOS
-    $("#TrocoInput").on('change', () => {
-        let value = $("#TrocoInput").val().replace(/Rp\s|[.,]/g, '').substr(3);
-        if (value >= totalfinal.html()) {
-            $('#Troco').maskMoney('mask', parseInt(value) - parseInt(totalfinal));
-        }
+    $("#TrocoInput").keyup(() => {
+        debugger
+        CalcularTroco();
+
     });
 });
+
+function CalcularTroco() {
+    let value = ConverteDinheiroToNumber($("#TrocoInput").val());
+    if (value >= ConverteDinheiroToNumber(totalfinal.html())) {
+        $("#Troco").css('color', 'green');
+        $('#Troco').val(ConverteNumEmDinheiro(value - ConverteDinheiroToNumber(totalfinal.html()), true));
+    }
+    else {
+        $("#Troco").css('color', 'red');
+        $('#Troco').val('Dinheiro Insuficiente');
+    }
+    return ConverteNumEmDinheiro(value - ConverteDinheiroToNumber(totalfinal.html()), true);
+}
 
 function ProdutoTamanhosSelectData() {
     let pr = VProduto.propriedades;
@@ -273,22 +295,18 @@ function verificaEstoque() {
 function PrecoTotal() {
     let total = 0;
     for (var i = 0; i < VendasProdutos.length; i++) {
-        let tot = Number((VendasProdutos[i].precototal.substr(3).replace(',', '.').replace('.','')).replace(/[^0-9\.-]+/g, ""));
+        let tot = ConverteDinheiroToNumber(VendasProdutos[i].precototal)
         total += tot;
         ImprimirNoConsole(total, 'default');
         debugger;
     }
-    let tota = (Number(total.toString().replace(/[^0-9\.-]+/g, ""))).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-    let subtot = tota.substr(tota.length - (tota.length + 3)).replace('.', ',');
-    let totalformated = tota.substr(0, tota.length - 3).replace(',', '.') + subtot;
-    return totalformated;
-
+    return ConverteNumEmDinheiro(total);
 }
 function VerificaSeElementoJaestaAdicionado() {
     let prod = VProduto.propriedades;
     for (var i = 0; i < VendasProdutos.length; i++) {
         debugger
-        if (VendasProdutos[i].id == VProduto.id && VendasProdutos[i].tamanho == $("#Produtoselecttamanho")[0].selectedOptions[0].text ) {
+        if (VendasProdutos[i].id == VProduto.id && VendasProdutos[i].tamanho == $("#Produtoselecttamanho")[0].selectedOptions[0].text) {
             toastr.warning("Produto ja Inserido", titulo.text() + ", Produto ja esta na lista", { preventDuplicates: true, progressBar: true, timeOut: 2500 });
 
             return false;
