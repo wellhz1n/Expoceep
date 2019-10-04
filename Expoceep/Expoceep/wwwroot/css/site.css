@@ -1,10 +1,11 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 @import url('https://fonts.googleapis.com/css?family=Istok+Web:400,700&display=swap');
+
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Sticky footer styles
@@ -15,33 +16,35 @@ html {
     width: 100%;
     overflow-x: hidden;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
@@ -50,19 +53,19 @@ body {
     min-height: 100vh;
     width: 100%;
 }
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
 }
 
 /*MEU CSS+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-.Logout-canto{
-
+.Logout-canto {
     position: relative;
     /*left:990px;*/
 }
@@ -74,10 +77,11 @@ body {
     left: 0;
     position: fixed;
     display: block;
-    text-align:center;
+    text-align: center;
     z-index: 200;
     background: rgba(150, 150, 150, 0.33);
 }
+
 .loader {
     position: absolute;
     top: 50%;
@@ -100,6 +104,7 @@ body {
         transform: rotate(360deg);
     }
 }
+
 .loader-page > p {
     position: absolute;
     top: 60%;
@@ -107,10 +112,10 @@ body {
 }
 
 
-.bloqueado{
-    opacity:0.8 !important;
-    pointer-events:none !important;
-    background:rgba(227, 227, 227, 0.79) !important;
+.bloqueado {
+    opacity: 0.8 !important;
+    pointer-events: none !important;
+    background: rgba(227, 227, 227, 0.79) !important;
 }
 
 
@@ -118,8 +123,7 @@ body {
 
 
 .alinharCentroPai {
-    text-align:center;
-
+    text-align: center;
 }
 
 .alinharCentroFilho {
@@ -139,9 +143,10 @@ body {
 }
 
 
-.pointer{
+.pointer {
     cursor: pointer !important;
 }
+
 .background-login {
     background-image: url(../img/LoginBackground/Background.png) !important;
     background-size: cover;
@@ -149,41 +154,94 @@ body {
     width: 100%;
     position: absolute;
 }
-.btn-primary{
-    background:#3498db !important;
-    border:0 !important;
-    border-radius:0 !important;
 
-
-
+.btn-primary {
+    background: #3498db !important;
+    border: 0 !important;
+    border-radius: 0 !important;
 }
-.btn{
-    font-weight:bold!important;
-    font-family:'Istok Web',sans-serif;
-    font-display:auto;
-    -webkit-font-smoothing:subpixel-antialiased!important;
+
+.btn {
+    font-weight: bold !important;
+    font-family: 'Istok Web',sans-serif;
+    font-display: auto;
+    -webkit-font-smoothing: subpixel-antialiased !important;
 }
+
 .btn-primary:hover {
     background: #2d83bd !important;
 }
-.btn-danger{
-    border-radius:0 !important;
+
+.btn-danger {
+    border-radius: 0 !important;
 }
 
-::-webkit-scrollbar{
-    width:10px;
-    transition:all ease-in-out .2s;
+::-webkit-scrollbar {
+    width: 10px;
+    transition: all ease-in-out .2s;
 }
-::-webkit-scrollbar-track{
-    background:#e5e5e5;
+
+::-webkit-scrollbar-track {
+    background: #e5e5e5;
 }
+
 ::-webkit-scrollbar-thumb {
     background-color: #3498db;
     transition: all ease-in-out .2s;
 }
-::-webkit-scrollbar-thumb:hover {
+
+    ::-webkit-scrollbar-thumb:hover {
         background-color: rgba(52, 152, 219, 0.4);
+    }
+
+.border-error {
+    border: 2px solid red !important;
 }
-.border-error{
-    border : 2px solid red !important;
+/*CAMPOS FORMULARIOS*/
+/*.campoform {
+    height: 6vh !important;
+    /*padding:2px;*/
+}*/
+/*SELEC2*/
+
+/*.select2-selection__rendered {
+    line-height: 6vh !important;
+   margin-left:10%;
 }
+
+.select2-container .select2-selection--single {
+    height: 6vh !important;
+    margin-left: 10%;
+}
+
+.select2-selection__arrow {
+    height: 6vh !important;
+    margin-left: 10%;
+}
+.select2-drop{
+    background:red !important;
+}
+.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+    border-color: transparent transparent #fff transparent !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    border-color: #fff transparent transparent transparent !important;
+}
+
+.select2-results {
+    background-color: red;
+    color: yellow;
+   
+}
+.select2-search--dropdown {
+    background-color: red;
+}
+
+.select2-search__field {
+    background-color: #e5e5e5;
+}
+.select2-dropdown.select2-dropdown--below {
+    width: 30%;
+    background-color: #e5e5e5;
+}*/
