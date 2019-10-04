@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Expoceep.Migrations
 {
     [DbContext(typeof(ERPDatabaseContext))]
-    [Migration("20191004141223_Venda")]
+    [Migration("20191004230314_Venda")]
     partial class Venda
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,22 +40,6 @@ namespace Expoceep.Migrations
                     b.ToTable("Clientes");
                 });
 
-            modelBuilder.Entity("Expoceep.Models.ListaVendaProduto", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<long>("ProdutoId");
-
-                    b.Property<long>("VendaId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("VendaId");
-
-                    b.ToTable("ListaVendaProdutos");
-                });
-
             modelBuilder.Entity("Expoceep.Models.Produto", b =>
                 {
                     b.Property<long>("Id")
@@ -65,10 +49,14 @@ namespace Expoceep.Migrations
 
                     b.Property<string>("Nome");
 
+                    b.Property<long?>("VendaId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Codigo")
                         .IsUnique();
+
+                    b.HasIndex("VendaId");
 
                     b.ToTable("Produtos");
                 });
@@ -128,21 +116,24 @@ namespace Expoceep.Migrations
 
                     b.Property<DateTime>("DataDaVenda");
 
+                    b.Property<long?>("ProdutoId");
+
                     b.Property<string>("ValorTotal");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
 
+                    b.HasIndex("ProdutoId");
+
                     b.ToTable("Vendas");
                 });
 
-            modelBuilder.Entity("Expoceep.Models.ListaVendaProduto", b =>
+            modelBuilder.Entity("Expoceep.Models.Produto", b =>
                 {
                     b.HasOne("Expoceep.Models.Venda")
-                        .WithMany("ListaVendaProduto")
-                        .HasForeignKey("VendaId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany("Produtos")
+                        .HasForeignKey("VendaId");
                 });
 
             modelBuilder.Entity("Expoceep.Models.ProdutoPropriedades", b =>
@@ -158,6 +149,10 @@ namespace Expoceep.Migrations
                     b.HasOne("Expoceep.Models.Cliente", "Cliente")
                         .WithMany()
                         .HasForeignKey("ClienteId");
+
+                    b.HasOne("Expoceep.Models.Produto")
+                        .WithMany("Vendas")
+                        .HasForeignKey("ProdutoId");
                 });
 #pragma warning restore 612, 618
         }

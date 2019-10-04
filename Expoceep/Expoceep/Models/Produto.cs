@@ -18,6 +18,7 @@ namespace Expoceep.Models
         public string Codigo { get; set; }
         public string Nome { get; set; }
         public ICollection<ProdutoPropriedades> Propriedades { get; set; }
+        public  ICollection<Venda> Vendas { get; set; }
         [NotMapped]
         public bool Novo { get; set; }
         [NotMapped]

@@ -16,6 +16,7 @@ using Expoceep.DAO.ProdutoDAO;
 using Expoceep.Models;
 using Expoceep.DAO.ClienteDAO;
 using System.Linq;
+using Expoceep.DAO.VendaDAO;
 
 namespace Expoceep
 {
@@ -40,6 +41,7 @@ namespace Expoceep
             services.AddScoped<IUsuarioDAO, UsuarioDAO>();
             services.AddScoped<IProdutoDAO, ProdutoDAO>();
             services.AddScoped<IClienteDAO, ClienteDAO>();
+            services.AddScoped<IVendaDAO, VendaDAO>();
             #endregion
             #region Backup
             services.AddScoped<IBackupDataBase, BackupDatabase>();
@@ -54,7 +56,7 @@ namespace Expoceep
             services.AddDistributedMemoryCache();
             services.AddSession();
             services.AddHttpContextAccessor();
-            services.AddScoped<Sessao>(); 
+            services.AddScoped<Sessao>();
             services.AddScoped<LoginSession>();
             #endregion
             #region Toastr
@@ -62,7 +64,7 @@ namespace Expoceep
             {
                 ProgressBar = false,
                 PositionClass = ToastPositions.TopRight
-            }); 
+            });
             #endregion
         }
 
