@@ -5,6 +5,17 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Migrations\20191004132920_Venda.cs" />
+    <Compile Remove="Migrations\20191004132920_Venda.Designer.cs" />
+    <Compile Remove="Migrations\20191004135230_Venda.cs" />
+    <Compile Remove="Migrations\20191004135230_Venda.Designer.cs" />
+    <Compile Remove="Migrations\20191004135909_Venda.cs" />
+    <Compile Remove="Migrations\20191004135909_Venda.Designer.cs" />
+    <Compile Remove="Migrations\20191004140351_Venda1.cs" />
+    <Compile Remove="Migrations\20191004140351_Venda1.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="4.3.1" />

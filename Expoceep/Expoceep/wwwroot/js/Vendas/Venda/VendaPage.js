@@ -139,7 +139,6 @@ $(document).ready(async function () {
                 x++;
                 if (x > 0) {
                     $("#TrocoInput").attr('disabled', false);
-                    CalcularTroco();
                 }
 
                 totalitens.html(x);
@@ -167,6 +166,8 @@ $(document).ready(async function () {
                 alert('You Reached the limits')
             }
         }
+        CalcularTroco();
+
     });
 
     $(wrapper).on("click", ".delete", function (e) {

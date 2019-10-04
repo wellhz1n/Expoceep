@@ -3,14 +3,16 @@ using System;
 using Expoceep.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expoceep.Migrations
 {
     [DbContext(typeof(ERPDatabaseContext))]
-    partial class ERPDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20191004141223_Venda")]
+    partial class Venda
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,8 +51,7 @@ namespace Expoceep.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("VendaId")
-                        .IsUnique();
+                    b.HasIndex("VendaId");
 
                     b.ToTable("ListaVendaProdutos");
                 });
@@ -139,8 +140,8 @@ namespace Expoceep.Migrations
             modelBuilder.Entity("Expoceep.Models.ListaVendaProduto", b =>
                 {
                     b.HasOne("Expoceep.Models.Venda")
-                        .WithOne("ListaVendaProdutoID")
-                        .HasForeignKey("Expoceep.Models.ListaVendaProduto", "VendaId")
+                        .WithMany("ListaVendaProduto")
+                        .HasForeignKey("VendaId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
