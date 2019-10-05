@@ -13,6 +13,8 @@ namespace Expoceep.Models
         public DateTime DataDaVenda { get; set; }
         public string ValorTotal { get; set; }
         public long ProdutoId { get; set; }
+        [NotMapped]
+        public List<ProdutoPropriedades> ListProduto { get; set; }
 
 
         [ForeignKey("ProdutoId")]

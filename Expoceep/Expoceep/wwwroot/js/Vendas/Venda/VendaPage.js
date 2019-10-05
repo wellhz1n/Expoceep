@@ -153,7 +153,7 @@ $(document).ready(async function () {
                         if (VProduto.propriedades[i].id == $("#Produtoselecttamanho").select2('data')[0].id) {
                             prop[3].value = "R$:" + VProduto.propriedades[i].preco;
                             prop[5].value = "R$:" + ConverteNumEmDinheiro(ConverteDinheiroToNumber(VProduto.propriedades[i].preco) * $("#Produtoform")[0][2].value);
-                            VendasProdutos.push({ id: prop[0].value, nome: prop[1].value, tamanho: prop[2].value, preco: prop[3].value, unidade: prop[4].value, precototal: prop[5].value });
+                            VendasProdutos.push({ id: prop[0].value, nome: prop[1].value, tamanho: prop[2].value, preco: prop[3].value, unidades: prop[4].value, precototal: prop[5].value, ProdutoId: $("#Produtoform")[0][0].value });
                             totalfinal.html(PrecoTotal());
                         }
                     }
@@ -206,6 +206,16 @@ $(document).ready(async function () {
         CalcularTroco();
 
     });
+
+//BOTOES+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    $('#btnSalvar').on('click', () => {
+        let vendae = Venda;
+        vendae.ListProduto = VendasProdutos;
+        vendae.DataDaVenda = new Date().toISOString();
+        vendae.ValorTotal = totalfinal.text();
+        ExecutaAjax('SalvarVenda', { venda: vendae });
+            
+    })
 });
 
 function CalcularTroco() {

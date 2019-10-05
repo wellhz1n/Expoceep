@@ -38,6 +38,13 @@ var Resultado = {
     resultado: null,
     erro: null
 }
+var Venda = {
+    Id: null,
+    Cliente: null,
+    DataDaVenda: '',
+    ValorTotal: '',
+    ListProduto: []
+}
 //FIM OBJECTS
 $(document).ready(() => {
 

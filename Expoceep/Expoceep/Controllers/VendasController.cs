@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Expoceep.Bibliotecas;
 using Expoceep.DAO.ProdutoDAO;
+using Expoceep.DAO.VendaDAO;
 using Expoceep.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,10 +14,12 @@ namespace Expoceep.Controllers
     {
         private LoginSession _login;
         private IProdutoDAO _produtoDAO;
-        public VendasController(LoginSession login, IProdutoDAO prod)
+        private IVendaDAO _vendaDAO;
+        public VendasController(LoginSession login, IProdutoDAO prod, IVendaDAO vend)
         {
             _login = login;
             _produtoDAO = prod;
+            _vendaDAO = vend;
         }
         public IActionResult Index()
         {
@@ -34,6 +37,7 @@ namespace Expoceep.Controllers
                 return this.RedirectToAction("Login", "Login");
         }
 
+        #region GetSeletores
         [HttpPost]
         public string GetProdutos(string q)
         {
@@ -42,9 +46,9 @@ namespace Expoceep.Controllers
             Select2 select;
             string json;
             if (q != "" && q != null)
-            {   
-                    
-                foreach (var item in _produtoDAO.SelectProdutos().Where(p => p.Nome.ToLower().Any(pn=> pn.ToString().Contains(q.ToLower()))).ToList())
+            {
+
+                foreach (var item in _produtoDAO.SelectProdutos().Where(p => p.Nome.ToLower().Any(pn => pn.ToString().Contains(q.ToLower()))).ToList())
                 {
                     prod.Add(item.Id, item.Nome);
 
@@ -84,6 +88,16 @@ namespace Expoceep.Controllers
         {
             return _produtoDAO.SelectProdutos().ToList().Where(p => p.Id == idproduto).FirstOrDefault();
         }
+        #endregion
+        #region CRUD
+
+        [HttpPost]
+        public void SalvarVenda(Venda venda)
+        {
+            
+        }
+
+        #endregion
         #endregion
     }
 }
