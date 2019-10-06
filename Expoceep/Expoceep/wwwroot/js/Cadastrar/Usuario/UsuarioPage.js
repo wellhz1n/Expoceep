@@ -105,7 +105,7 @@ $(document).on("click", "#btnDeletar", async () => {
         $.post("/" + GetController() + "/DeletarUsuario", { usuario: Usuario }, async (retorno) => {
             if (retorno) {
                 await $('#dtUsuario').DataTable().ajax.reload();
-                Usuario = null;
+                Usuario = ResetarObjeto(Usuario);
                 await toastr.success("Usuario Apagado", "Sucesso", { timeOut: 2000, preventDuplicates: true, progressBar: true });
             }
         });
