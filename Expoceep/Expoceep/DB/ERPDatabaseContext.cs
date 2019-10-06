@@ -16,6 +16,7 @@ namespace Expoceep.DB
             Tabelas.Add(typeof(Produto).Name);
             Tabelas.Add(typeof(ProdutoPropriedades).Name);
             Tabelas.Add(typeof(Venda).Name);
+            Tabelas.Add(typeof(VendaProdutos).Name);
             Tabelas.Add(typeof(Cliente).Name);
 
         }
@@ -38,6 +39,7 @@ namespace Expoceep.DB
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<ProdutoPropriedades> ProdutosPropriedadess { get; set; }
         public DbSet<Venda> Vendas { get; set; }
+        public DbSet<VendaProdutos> VendaProdutos { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
 
         public List<string> Tabelas = new List<string>();

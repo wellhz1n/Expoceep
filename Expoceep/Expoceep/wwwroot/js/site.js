@@ -40,7 +40,7 @@ var Resultado = {
 }
 var Venda = {
     Id: null,
-    Cliente: null,
+    ClienteID: null,
     DataDaVenda: '',
     ValorTotal: '',
     ListProduto: []

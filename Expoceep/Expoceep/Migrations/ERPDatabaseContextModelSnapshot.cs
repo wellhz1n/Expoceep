@@ -106,21 +106,37 @@ namespace Expoceep.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<long?>("ClienteId");
+                    b.Property<long?>("ClienteID");
 
                     b.Property<DateTime>("DataDaVenda");
-
-                    b.Property<long>("ProdutoId");
 
                     b.Property<string>("ValorTotal");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClienteId");
+                    b.ToTable("Vendas");
+                });
+
+            modelBuilder.Entity("Expoceep.Models.VendaProdutos", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<long>("ProdutoId");
+
+                    b.Property<long>("ProdutoPropriedadesId");
+
+                    b.Property<long>("VendaId");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("ProdutoId");
 
-                    b.ToTable("Vendas");
+                    b.HasIndex("ProdutoPropriedadesId");
+
+                    b.HasIndex("VendaId");
+
+                    b.ToTable("VendaProdutos");
                 });
 
             modelBuilder.Entity("Expoceep.Models.ProdutoPropriedades", b =>
@@ -131,15 +147,21 @@ namespace Expoceep.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Expoceep.Models.Venda", b =>
+            modelBuilder.Entity("Expoceep.Models.VendaProdutos", b =>
                 {
-                    b.HasOne("Expoceep.Models.Cliente", "Cliente")
-                        .WithMany()
-                        .HasForeignKey("ClienteId");
-
                     b.HasOne("Expoceep.Models.Produto", "Produto")
-                        .WithMany("Vendas")
+                        .WithMany()
                         .HasForeignKey("ProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Expoceep.Models.ProdutoPropriedades", "ProdutoPropriedades")
+                        .WithMany()
+                        .HasForeignKey("ProdutoPropriedadesId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Expoceep.Models.Venda", "Venda")
+                        .WithMany()
+                        .HasForeignKey("VendaId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

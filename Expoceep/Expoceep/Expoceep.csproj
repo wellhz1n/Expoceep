@@ -6,6 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190918005832_Start.cs" />
+    <Compile Remove="Migrations\20190918005832_Start.Designer.cs" />
     <Compile Remove="Migrations\20191004132920_Venda.cs" />
     <Compile Remove="Migrations\20191004132920_Venda.Designer.cs" />
     <Compile Remove="Migrations\20191004135230_Venda.cs" />
@@ -22,6 +24,22 @@
     <Compile Remove="Migrations\20191004222854_Venda.Designer.cs" />
     <Compile Remove="Migrations\20191004231142_Venda1.cs" />
     <Compile Remove="Migrations\20191004231142_Venda1.Designer.cs" />
+    <Compile Remove="Migrations\20191005185257_Venda.cs" />
+    <Compile Remove="Migrations\20191005185257_Venda.Designer.cs" />
+    <Compile Remove="Migrations\20191005193804_Vendacerto.cs" />
+    <Compile Remove="Migrations\20191005193804_Vendacerto.Designer.cs" />
+    <Compile Remove="Migrations\20191005201817_Venda.cs" />
+    <Compile Remove="Migrations\20191005201817_Venda.Designer.cs" />
+    <Compile Remove="Migrations\20191005201842_Venda.cs" />
+    <Compile Remove="Migrations\20191005201842_Venda.Designer.cs" />
+    <Compile Remove="Migrations\20191005202006_Venda.cs" />
+    <Compile Remove="Migrations\20191005202006_Venda.Designer.cs" />
+    <Compile Remove="Migrations\20191005204601_Venda.cs" />
+    <Compile Remove="Migrations\20191005204601_Venda.Designer.cs" />
+    <Compile Remove="Migrations\20191005213632_Venda.cs" />
+    <Compile Remove="Migrations\20191005213632_Venda.Designer.cs" />
+    <Compile Remove="Migrations\20191005222451_Venda.cs" />
+    <Compile Remove="Migrations\20191005222451_Venda.Designer.cs" />
   </ItemGroup>
 
 

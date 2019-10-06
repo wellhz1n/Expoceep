@@ -7,6 +7,7 @@ using Expoceep.DAO.ProdutoDAO;
 using Expoceep.DAO.VendaDAO;
 using Expoceep.Models;
 using Microsoft.AspNetCore.Mvc;
+using NToastNotify;
 
 namespace Expoceep.Controllers
 {
@@ -15,11 +16,13 @@ namespace Expoceep.Controllers
         private LoginSession _login;
         private IProdutoDAO _produtoDAO;
         private IVendaDAO _vendaDAO;
-        public VendasController(LoginSession login, IProdutoDAO prod, IVendaDAO vend)
+        private IToastNotification _toastNotification;
+        public VendasController(LoginSession login, IProdutoDAO prod, IVendaDAO vend, IToastNotification toas)
         {
             _login = login;
             _produtoDAO = prod;
             _vendaDAO = vend;
+            _toastNotification = toas;
         }
         public IActionResult Index()
         {
@@ -92,9 +95,21 @@ namespace Expoceep.Controllers
         #region CRUD
 
         [HttpPost]
-        public void SalvarVenda(Venda venda)
+        public bool SalvarVenda(Venda venda)
         {
-            
+            bool result = true;
+            try
+            {
+                _vendaDAO.NovaVenda(venda);
+
+            }
+            catch (Exception e)
+            {
+
+                _toastNotification.AddErrorToastMessage(e.Message, new ToastrOptions { Title = "Ops", TimeOut = 2000 });
+                result = false;
+            }
+            return result;
         }
 
         #endregion

@@ -18,7 +18,8 @@ namespace Expoceep.Models
         public string Codigo { get; set; }
         public string Nome { get; set; }
         public ICollection<ProdutoPropriedades> Propriedades { get; set; }
-        public  ICollection<Venda> Vendas { get; set; }
+        //public ICollection<VendaProdutos> VendaProdutos { get; set; }
+        //public  ICollection<Venda> Vendas { get; set; }
         [NotMapped]
         public bool Novo { get; set; }
         [NotMapped]
@@ -31,6 +32,8 @@ namespace Expoceep.Models
         public int Unidades { get; set; }
         public tamanho Tamanho { get; set; }
         public long ProdutoId { get; set; }
+        //public ICollection<VendaProdutos> VendaProdutos { get; set; }
+
         [NotMapped]
         public string TamanhoString { get; set; }
     }

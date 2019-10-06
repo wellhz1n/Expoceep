@@ -208,12 +208,24 @@ $(document).ready(async function () {
     });
 
 //BOTOES+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    $('#btnCancelar').on('click', () => {
+        window.history.go(-1);
+    });
     $('#btnSalvar').on('click', () => {
         let vendae = Venda;
         vendae.ListProduto = VendasProdutos;
         vendae.DataDaVenda = new Date().toISOString();
         vendae.ValorTotal = totalfinal.text();
-        ExecutaAjax('SalvarVenda', { venda: vendae });
+        ExecutaAjax('SalvarVenda', { venda: vendae }).then((data) => {
+            debugger
+            if (data) {
+                toastr.success("Venda Realizada", titulo, { timeOut: 2000, preventDuplicates: true, progressBar: true });
+                BloquearTela()
+                setTimeout(() => { window.location.reload(); }, 1200);
+            }
+        
+
+        });
             
     })
 });
@@ -325,3 +337,11 @@ function VerificaSeElementoJaestaAdicionado() {
     }
     return true;
 }
+
+//function ResetaTela() {
+//    $(".delete").parent($("#bloco")).remove();
+//    VendasProdutos = [];
+
+    
+
+//}
