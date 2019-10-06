@@ -1,11 +1,11 @@
 ﻿//Template========================================================================================================================
-let template = '<div class="col-12"id="bloco"><div><form method="post" class="row Produtopropriedade" id="Produtopropriedade">' +
-    '<div class="col-2" >' +
+let template = '<div class=""id="bloco"><div><form method="post" class="row Produtopropriedade" id="Produtopropriedade">' +
+    '<div class="col-2 px-2" >' +
     '<label for="Nome">Produto:</label>' +
     '<input type="hidden" name="ProdutoId" class="form-control  " disabled="disabled" />' +
-    '<input name ="Produto" class="form-control  " disabled ="disabled" /> ' +
+    '<input name ="Produto" class="form-control  " style="font-size:10pt; font-weight:bold;" disabled ="disabled" /> ' +
     '</div >' +
-    '<div class="col-2" >' +
+    '<div class="col-2  px-2" >' +
     '<label for="Tamanho">Tamanho</label>' +
     '<input name="Tamanho" class="form-control  " id="Tamanhoselect" disabled="disabled" />' +
     '</div >' +
@@ -46,6 +46,29 @@ $(document).ready(async function () {
         ImprimirNoConsole("Unidades: " + e.target.value, "default");
         if (e.target.value != '') {
             $(e.target).removeClass("border-error");
+        }
+    });
+    $("#clienteselect").select2({
+        placeholder: "Selecione Um Cliente",
+        width: "31%",
+        closeOnSelect: true,
+        allowClear: true,
+        ajax: {
+            type: "POST",
+            url: "/" + GetController() + "/GetClientes",
+            dataType: 'json',
+            params: {
+                contentType: 'application/json; charset=utf-8'
+            },
+            quietMillis: 100,
+            data: function (q) {
+                return {
+                    q: q.term
+                };
+            },
+            results: function (data, page) {
+                return { results: data.d };
+            }
         }
     });
     await $("#Produtoselect").select2({
@@ -146,7 +169,7 @@ $(document).ready(async function () {
 
                 for (var i = 0; i < prop.length; i++) {
                     prop[0].value = VProduto.id;
-                    prop[1].value = VProduto.nome;
+                    prop[1].value = VProduto.codigo+'-'+VProduto.nome;
                     prop[2].value = $("#Produtoselecttamanho").select2('data')[0].text;
                     prop[4].value = $("#Produtoform")[0][2].value;
                     try {
@@ -214,6 +237,7 @@ $(document).ready(async function () {
     $('#btnSalvar').on('click', () => {
         let vendae = Venda;
         vendae.ListProduto = VendasProdutos;
+        vendae.ClienteID = $("#clienteselect").select2('val');
         vendae.DataDaVenda = new Date().toISOString();
         vendae.ValorTotal = totalfinal.text();
         ExecutaAjax('SalvarVenda', { venda: vendae }).then((data) => {

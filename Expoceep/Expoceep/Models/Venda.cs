@@ -14,6 +14,7 @@ namespace Expoceep.Models
         public long Id { get; set; }
 
         public long? ClienteID { get; set; }
+        public long UsuarioId { get; set; }
 
         public DateTime DataDaVenda { get; set; }
 
@@ -27,10 +28,10 @@ namespace Expoceep.Models
         #endregion
         #region ForeignKey
 
-        //[ForeignKey("ProdutoPropriedadesId")]
-        //public virtual ProdutoPropriedades ProdutoPropriedades { get; set; }
-        //[ForeignKey("Id")]
-        //public virtual Cliente Cliente { get; set; }
+        [ForeignKey("UsuarioId")]
+        public virtual Usuario Usuario { get; set; }
+        [ForeignKey("ClienteID")]
+        public virtual Cliente Cliente { get; set; }
         #endregion
 
     }

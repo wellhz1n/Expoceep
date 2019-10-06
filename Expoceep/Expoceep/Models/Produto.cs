@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Expoceep.Bibliotecas;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -41,6 +42,15 @@ namespace Expoceep.Models
     {
         public long id { get; set; }
         public string text { get; set; }
+
+        public bool DoesContain(char[] identifiers, string containingString)
+        {
+            return !identifiers.Except(containingString.ToCharArray()).Any();
+        }
+        public string Select2json<T> (List<T> lista)
+        {
+            return "{ \"results\" : " + new ConversorDeObjetos().ConverterParaString(lista) + "}";
+        }
     }
 }
 

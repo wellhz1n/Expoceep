@@ -26,6 +26,10 @@ namespace Expoceep.DAO.VendaDAO
                 newprop.Unidades -= item.Unidades;
                 conn.Entry(prop).CurrentValues.SetValues(newprop);
             }
+            if (venda.ClienteID != null)
+            {
+               //venda.Cliente = conn.Clientes.Where(c => c.Id == venda.ClienteID).First();
+            }
             conn.Vendas.Add(venda);
             conn.SaveChanges();
             foreach (var item in vendaProduto)
