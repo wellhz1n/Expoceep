@@ -14,6 +14,8 @@ $(document).ready(async () => {
 $(document).on("click", "#btnNovo", () => {
     Adicionar("#Adicionar", "#Listagem");
     Usuario.Novo = true;
+    $("#btnSalvar").text("Cadastrar");
+
 });
 $(document).on("click", "#btnCancelar", async () => {
     await Cancelar("#Adicionar", "#Listagem");
@@ -88,6 +90,7 @@ $('#dtUsuario tbody').on('dblclick ', 'tr', function () {
         Adicionar("#Adicionar", "#Listagem");
         Usuario.Editando = true;
         $("#btnSalvar").text("Salvar");
+        EscondeElemento("#camposenha");
     }
     else
         toastr.warning("Selecione um registro", "Editar", { timeOut: 2000 });

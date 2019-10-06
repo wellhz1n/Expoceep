@@ -23,7 +23,9 @@ $(document).ready(async () => {
 $(document).on("click", "#btnNovo", () => {
     Adicionar("#Adicionar", "#Listagem");
     EscondeElemento("#CampoUsuarioCodigo");
+    $("#btnSalvar").text("Cadastrar");
     Produto.Novo = true;
+
 
 });
 $(document).on("click", "#btnCancelar", async () => {
@@ -116,6 +118,7 @@ $('#dtProduto tbody').on('dblclick ', 'tr', function () {
     if (produtoArray[0] != null) {
         ValorInput(produtoArray[0], "Produto");
         Adicionar("#Adicionar", "#Listagem");
+        $("#btnSalvar").text("Salvar");
         Produto.Editando = true;
         let prop = $(".Produtopropriedade");
         for (var i = 0; i < prop.length; i++) {
@@ -126,6 +129,7 @@ $('#dtProduto tbody').on('dblclick ', 'tr', function () {
 
         }
     }
+
     else
         toastr.warning("Selecione um registro", "Editar", { timeOut: 2000 });
 });
@@ -145,6 +149,7 @@ $(document).on("click", "#btnEditar", async () => {
             Produto.Editando = true;
             ValorInput(produtoArray[0], "Produto");
             await Adicionar("#Adicionar", "#Listagem");
+            $("#btnSalvar").text("Salvar");
             let prop = $(".Produtopropriedade");
             for (var i = 0; i < prop.length; i++) {
                 propriedades.push({ Id: produtoArray[0].Propriedades[i].Id, ProdutoId: produtoArray[0].Propriedades[i].ProdutoId });

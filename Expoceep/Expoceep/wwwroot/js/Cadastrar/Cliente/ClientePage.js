@@ -14,6 +14,7 @@ $(document).ready(async () => {
 $(document).on("click", "#btnNovo", () => {
     Adicionar("#Adicionar", "#Listagem");
     Cliente.Novo = true;
+    $("#btnSalvar").text("Cadastrar");
 });
 $(document).on("click", "#btnCancelar", async () => {
     await Cancelar("#Adicionar", "#Listagem");
@@ -73,6 +74,7 @@ $('#dtCliente tbody').on('dblclick ', 'tr', function () {
     if (!ObjetoENulo(Cliente)) {
         ValorInput(Cliente, "Cliente");
         Adicionar("#Adicionar", "#Listagem");
+        $("#btnSalvar").text("Salvar");
         Cliente.Editando = true;
     }
     else
@@ -105,6 +107,7 @@ $(document).on("click", "#btnEditar", async () => {
     if (!ObjetoENulo(Cliente)) {
         ValorInput(Cliente, "Cliente");
         Adicionar("#Adicionar", "#Listagem");
+        $("#btnSalvar").text("Salvar");
         EscondeElemento("#camposenha");
         Cliente.Editando = true;
     }
