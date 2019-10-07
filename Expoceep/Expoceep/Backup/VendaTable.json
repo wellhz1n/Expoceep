@@ -1,0 +1,1 @@
+[{"Id":1,"ClienteID":1,"UsuarioId":1,"DataDaVenda":"2019-10-06T23:14:25.924","ValorTotal":"20,00","ListProduto":null,"Client":null,"Usuario":{"Id":1,"Nome":null,"Login":"admin","Senha":"admin","Email":"admin@gmail.com","Cpf":null,"Novo":false,"Editando":false},"Cliente":null}]
