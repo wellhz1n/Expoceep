@@ -135,6 +135,30 @@ namespace Expoceep.Bibliotecas
 
                                 }
                                 break;
+                            case nameof(Venda):
+
+                                obj = LerArquivo<Venda>(item);
+
+                                if (obj != null)
+                                {
+                                    _cont.Vendas.RemoveRange(_cont.Vendas.ToList());
+                                    _cont.Vendas.AddRange((List<Venda>)obj);
+                                    _cont.SaveChanges();
+
+                                }
+                                break;
+                            case nameof(VendaProdutos):
+
+                                obj = LerArquivo<VendaProdutos>(item);
+
+                                if (obj != null)
+                                {
+                                    _cont.VendaProdutos.RemoveRange(_cont.VendaProdutos.ToList());
+                                    _cont.VendaProdutos.AddRange((List<VendaProdutos>)obj);
+                                    _cont.SaveChanges();
+
+                                }
+                                break;
                             default:
                                 throw new Exception("Criar case da nova tabela!!!!!");
                         }
@@ -181,6 +205,22 @@ namespace Expoceep.Bibliotecas
             {
 
                 list = _cont.Clientes.ToList();
+                j = new ConversorDeObjetos().ConverterParaString(list);
+                list = null;
+
+            }
+            else if (item == nameof(Venda))
+            {
+
+                list = _cont.Vendas.ToList();
+                j = new ConversorDeObjetos().ConverterParaString(list);
+                list = null;
+
+            }
+            else if (item == nameof(VendaProdutos))
+            {
+
+                list = _cont.VendaProdutos.ToList();
                 j = new ConversorDeObjetos().ConverterParaString(list);
                 list = null;
 
