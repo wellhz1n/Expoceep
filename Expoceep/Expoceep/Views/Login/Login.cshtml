@@ -93,11 +93,18 @@
     .inputLogin {
         font-size: 4vh;
     }
+    .login-logo{
+        position:relative;
+        height:90%;
+        width:70%;
+        margin-bottom:-10%;
+        margin-top:-35%;
+    }
 </style>
 <div class="text-center background-login">
     <div class=" caixa-login">
         <div id="box-input">
-            <h1 class="">Login</h1>
+            <img src="~/img/lOGO/Logo_com_circulo.png" class="login-logo" alt="Alternate Text" />
             <form action="/Login/Login" id="form" method="post">
 
                 <input class="inputLogin" type="text" id="loginusr" autocomplete="off"  placeholder="Usuario" name="Login" value="" />
