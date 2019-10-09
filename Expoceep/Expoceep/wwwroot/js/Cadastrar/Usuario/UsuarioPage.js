@@ -19,6 +19,7 @@ $(document).on("click", "#btnNovo", () => {
 });
 $(document).on("click", "#btnCancelar", async () => {
     await Cancelar("#Adicionar", "#Listagem");
+    //$($("input[name='Nivel']")[0]).prop('checked', 'checked');
     Usuario = ResetarObjeto(Usuario);
     AparecerElemento("#camposenha");
 
@@ -45,6 +46,8 @@ $(document).on("click", "#btnSalvar", async () => {
             await $('#dtUsuario').DataTable().ajax.reload();
             toastr.success("Salvo Com Sucesso", "Sucesso", { timeOut: 2000 })
             await Cancelar("#Adicionar", "#Listagem");
+            //$($("input[name='Nivel']")[0]).prop('checked', 'checked');
+
             //await DesbloquearTela();
         }
 
@@ -87,10 +90,12 @@ $('#dtUsuario tbody').on('dblclick ', 'tr', function () {
     Usuario = tabela.row(this).data();
     if (!ObjetoENulo(Usuario)) {
         ValorInput(Usuario, "Usuario");
+        //$($("input[name='Nivel']")[Usuario.NivelUsuario]).prop('checked', 'checked');
         Adicionar("#Adicionar", "#Listagem");
         Usuario.Editando = true;
         $("#btnSalvar").text("Salvar");
         EscondeElemento("#camposenha");
+
     }
     else
         toastr.warning("Selecione um registro", "Editar", { timeOut: 2000 });
@@ -120,6 +125,7 @@ $(document).on("click", "#btnEditar", async () => {
     //BloquearTela();
     if (!ObjetoENulo(Usuario)) {
         ValorInput(Usuario, "Usuario");
+        //$($("input[name='Nivel']")[Usuario.NivelUsuario]).prop('checked', 'checked');
         Adicionar("#Adicionar", "#Listagem");
         EscondeElemento("#camposenha");
         Usuario.Editando = true;
@@ -142,6 +148,7 @@ function ColocarValorUsuario(user) {
     Usuario.Senha = user[3].value;
     Usuario.Email = user[4].value;
     Usuario.Cpf = user[5].value;
+    Usuario.NivelUsuario = user[6].value;
 }
 
 

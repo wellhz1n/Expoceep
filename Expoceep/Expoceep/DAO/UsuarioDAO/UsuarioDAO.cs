@@ -44,6 +44,7 @@ namespace Expoceep
             user.Nome = u.Nome;
             user.Email = u.Email;
             user.Cpf = u.Cpf;
+            user.NivelUsuario = u.NivelUsuario;
             conn.SaveChanges();
         }
 
