@@ -35,7 +35,11 @@ namespace Expoceep.Controllers
         public IActionResult Index()
         {
             if (_loginSession.GetUsuarioSession() != null)
+            {
+                ViewData.Add("Usuario", _loginSession.GetUsuarioSession());
                 return View();
+
+            }
             else
                 return this.RedirectToAction("Login", "Login");
         }
@@ -105,7 +109,14 @@ namespace Expoceep.Controllers
         public IActionResult UsuarioCadastrar()
         {
             if (_loginSession.GetUsuarioSession() != null)
-                return View();
+                if (_loginSession.GetUsuarioSession().NivelUsuario == NivelUsuario.ADM)
+                {
+                    return View();
+                }
+                else
+                {
+                    return this.RedirectToAction("Index","Cadastros");
+                }
             else
                 return this.RedirectToAction("Login", "Login");
         }
