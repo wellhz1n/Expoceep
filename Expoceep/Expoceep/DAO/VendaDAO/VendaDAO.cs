@@ -20,8 +20,8 @@ namespace Expoceep.DAO.VendaDAO
             var vendaProduto = new List<VendaProdutos>();
             foreach (var item in venda.ListProduto)
             {
-                vendaProduto.Add(new VendaProdutos() { VendaId = venda.Id, ProdutoId = item.ProdutoId, ProdutoPropriedadesId = item.Id });
-                var prop = conn.ProdutosPropriedadess.Where(p => p.Id == item.Id).First();
+                var prop = conn.ProdutosPropriedadess.Where(p => p.ProdutoId == item.ProdutoId).Where(p1=> p1.Tamanho == item.Tamanho).First();
+                vendaProduto.Add(new VendaProdutos() {ProdutoId = item.ProdutoId, ProdutoPropriedadesId = prop.Id });
                 var newprop = prop;
                 newprop.Unidades -= item.Unidades;
                 conn.Entry(prop).CurrentValues.SetValues(newprop);

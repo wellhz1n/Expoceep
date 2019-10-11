@@ -32,7 +32,8 @@ var Produto = {
 var ProdutoPropriedades = {
     Tamanho: null,
     Preco: null,
-    Unidades: null
+    Unidades: null,
+    DatadeModificacao:''
 
 }
 var Resultado = {

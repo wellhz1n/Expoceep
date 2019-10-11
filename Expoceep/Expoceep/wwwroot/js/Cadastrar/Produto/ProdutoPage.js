@@ -48,6 +48,7 @@ $(document).on("click", "#btnSalvar", async () => {
         copia.Unidades = produtopropriedade[i][2].value;
         copia.Id = Produto.Novo ? null : propriedades[i].Id;
         copia.ProdutoId = Produto.Novo ? null : propriedades[i].ProdutoId;
+        copia.DatadeModificacao = new Date().toISOString();
         propriedadestemp.push(copia);
     }
 

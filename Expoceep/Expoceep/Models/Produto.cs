@@ -33,6 +33,7 @@ namespace Expoceep.Models
         public int Unidades { get; set; }
         public tamanho Tamanho { get; set; }
         public long ProdutoId { get; set; }
+        public DateTime DatadeModificacao { get; set; }
         //public ICollection<VendaProdutos> VendaProdutos { get; set; }
 
         [NotMapped]
