@@ -49,7 +49,8 @@ namespace Expoceep
             //FIM DAS INJECOES DE DEPENDENCIAS
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             string conn = Configuration["ConexaoMySql:MySqlConnectionString"];
-            services.AddDbContext<ERPDatabaseContext>(o => o.UseMySql(conn));
+            string conn1 = Configuration["ConexaoMySqlServer:MySqlConnectionString"];
+            services.AddDbContext<ERPDatabaseContext>(o => o.UseMySql(conn1));
 
 
             #region CACHE

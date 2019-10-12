@@ -166,5 +166,30 @@ namespace Expoceep.Controllers
 
         #endregion
         #endregion
+        #region Venda
+        public IActionResult Venda()
+        {
+            if (_login.GetUsuarioSession() != null)
+                return View();
+            else
+                return this.RedirectToAction("Login", "Login");
+        }
+        public int[] GetVendasParaGrafico(DateTime datainicio,DateTime datafim)
+        {
+            var result = new List<int>();
+            List<int> meses = new List<int>();
+           var lista = _vendaDAO.GetVenda().Where(v => v.DataDaVenda.Month <= datafim.Month && v.DataDaVenda.Month >= datainicio.Month).ToList();
+            for (int i = datainicio.Month; i <= datafim.Month; i++)
+            {
+                meses.Add(i);
+            }
+            
+                foreach (var mes in meses)
+                {
+                result.Add(lista.Where(l => l.DataDaVenda.Month == mes).ToList().Count);
+                }
+            return result.ToArray();
+        }
+        #endregion
     }
 }

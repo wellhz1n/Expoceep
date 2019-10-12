@@ -33,7 +33,7 @@ var ProdutoPropriedades = {
     Tamanho: null,
     Preco: null,
     Unidades: null,
-    DatadeModificacao:''
+    DatadeModificacao: ''
 
 }
 var Resultado = {
@@ -46,6 +46,25 @@ var Venda = {
     DataDaVenda: '',
     ValorTotal: '',
     ListProduto: []
+}
+const Meses = {
+    0: 'Janeiro',
+    1: 'Fevereiro',
+    2: 'Março',
+    3: 'Abril',
+    4: 'Maio',
+    5: 'Junho',
+    6: 'Julho',
+    7: 'Agosto',
+    8: 'Setembro',
+    9: 'Outubro',
+    10: 'Novembro',
+    11: 'Dezembro'
+};
+const TipoGrafico = {
+    BAR: 'bar',
+    LINE: 'line',
+    PIE: 'pie'
 }
 //FIM OBJECTS
 $(document).ready(() => {
@@ -224,7 +243,7 @@ async function Tabela(idtabela, action, controller) {
 function TableGetColuns(idtabela) {
     let tab = $("#" + idtabela + "> thead > tr > th");
     let colunas = [];
-    for (var i = 0; i < tab.length; i++) {
+    for (let i = 0; i < tab.length; i++) {
         colunas.push({ "data": tab[i].attributes.name.value, "title": tab[i].innerText != "" ? tab[i].innerText : tab[i].attributes.name.value, "autowidth": true });
     }
     return colunas;
@@ -262,14 +281,14 @@ function DesbloquearTela() {
 
 function SerialiazaGrupoForm(grupoform) {
     let formserialized = [];
-    for (var i = 0; i <= grupoform.length; i++) {
+    for (let i = 0; i <= grupoform.length; i++) {
         let grupoatual = grupoform[i];
         formserialized.push($(grupoatual).serializeArray());
     }
     return formserialized;
 }
 function ResetaGrupoFormulario(grupoform) {
-    for (var i = 0; i < grupoform.length; i++) {
+    for (let i = 0; i < grupoform.length; i++) {
         $(grupoform)[i].reset();
 
     }
@@ -304,7 +323,7 @@ function validar(seletor, arrayMensagemErro) {
 function ResetarObjeto(obj) {
     let objarray = Object.entries(obj);
     let newobj = {};
-    for (var i = 0; i < objarray.length; i++) {
+    for (let i = 0; i < objarray.length; i++) {
         objarray[i][1] = null;
         newobj[objarray[i][0]] = objarray[i][1];
     }
@@ -315,7 +334,7 @@ function ResetarObjeto(obj) {
 }
 function ObjetoENulo(obj) {
     var state = true;
-    for (var key in obj) {
+    for (let key in obj) {
         if (!(obj[key] === null || obj[key] === "")) {
             state = false;
             break;
@@ -358,7 +377,7 @@ function tiraEspacoDosInputs(idDoForm, todosEspacos) {
 }
 function ValidaSeletores(campos) {
     let camposvazios = getCamposVazios(campos);
-    for (var i = 0; i < camposvazios.length; i++) {
+    for (let i = 0; i < camposvazios.length; i++) {
         if (camposvazios[i].tagName == "SELECT" && i == 0) {
             debugger
             $(camposvazios[i]).select2('open');
@@ -379,7 +398,7 @@ function ValidaSeletores(campos) {
 function getCamposVazios(campos) {
 
     let camposvazios = [];
-    for (var i = 0; i < campos.length; i++) {
+    for (let i = 0; i < campos.length; i++) {
         if (campos[i].value == '' && campos[i].tagName != "BUTTON") {
             camposvazios.push(campos[i]);
 
@@ -404,3 +423,89 @@ function ConverteNumEmDinheiro(dinheiroNum, comcifrao = false) {
     let dinheiroformated = !comcifrao ? casas.substr(0, casas.length - 3).replace(',', '.') + subcasas : "R$:" + casas.substr(0, casas.length - 3).replace(',', '.') + subcasas;
     return dinheiroformated;
 }
+function GetMesesEntre(mes = [2]) {
+    let lista = [];
+    for (let i = mes[0]; i <= mes[1]; i++) {
+        lista.push(Meses[i]);
+    }
+    return lista;
+}
+//
+//CHART.JS
+//
+let mychart = null;
+function GerarGraficoAnual(idchart, tipo, labels = [], label, data = [], labelstring) {
+    let ctx = document.getElementById(idchart).getContext('2d');
+    let config = {
+        type: tipo,
+        data: {
+            labels: labels,
+            datasets: [{
+                label: label,
+                data: data,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(58, 189, 141,0.2)',
+                    'rgba(186, 135, 67,0.2)',
+                    'rgba(22, 145, 245,0.2)',
+                    'rgba(227, 105, 255,0.2)',
+                    'rgba(182,224,43,0.2)',
+                    'rgba(91, 3, 158,0.2)'
+
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(58, 189, 141,1)',
+                    'rgba(186, 135, 67,1)',
+                    'rgba(22, 145, 245,1)',
+                    'rgba(215, 38, 255,1)',
+                    'rgba(182,224, 43,1)',
+                    'rgba(91, 3, 158,1)'
+
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                        //max: this.max,
+                        //callback: function (value) {
+                        //    return (value / this.max * 100).toFixed(0) + '%'; // convert it to percentage
+                        //},
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: labelstring,
+                    },
+
+                }]
+            }
+        }
+    }
+    if (mychart == null) {
+        debugger;
+
+        mychart = new Chart(ctx, config);
+    }
+    else if (mychart != null) {
+        debugger;
+        mychart.destroy();
+        mychart = new Chart(ctx, config);
+
+    }
+
+};
+
