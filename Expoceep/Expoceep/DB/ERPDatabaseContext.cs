@@ -15,10 +15,10 @@ namespace Expoceep.DB
             Tabelas.Add(typeof(Usuario).Name);
             Tabelas.Add(typeof(Produto).Name);
             Tabelas.Add(typeof(ProdutoPropriedades).Name);
-            Tabelas.Add(typeof(Venda).Name);
-            Tabelas.Add(typeof(VendaProdutos).Name);
             Tabelas.Add(typeof(Cliente).Name);
             Tabelas.Add(typeof(ProdutoPropriedadesEstoque).Name);
+            Tabelas.Add(typeof(Venda).Name);
+            Tabelas.Add(typeof(VendaProdutos).Name);
 
 
         }

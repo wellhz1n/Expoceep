@@ -14,6 +14,12 @@ namespace Expoceep.DAO.VendaDAO
         {
             conn = con;
         }
+
+        public List<Venda> GetVenda()
+        {
+            return conn.Vendas.ToList();
+        }
+
         public void NovaVenda(Venda venda)
         {
             

@@ -123,7 +123,7 @@ namespace Expoceep.Bibliotecas
 
                                 }
                                 break;
-                            case "Cliente":
+                            case nameof(Cliente):
 
                                 obj = LerArquivo<Cliente>(item);
 
@@ -135,6 +135,18 @@ namespace Expoceep.Bibliotecas
 
                                 }
                                 break;
+                            case nameof(ProdutoPropriedadesEstoque):
+
+                                obj = LerArquivo<ProdutoPropriedadesEstoque>(item);
+
+                                if (obj != null)
+                                {
+                                    _cont.ProdutoPropriedadesEstoques.RemoveRange(_cont.ProdutoPropriedadesEstoques.ToList());
+                                    _cont.ProdutoPropriedadesEstoques.AddRange((List<ProdutoPropriedadesEstoque>)obj);
+                                    _cont.SaveChanges();
+
+                                }
+                                break;
                             case nameof(Venda):
 
                                 obj = LerArquivo<Venda>(item);
@@ -142,6 +154,12 @@ namespace Expoceep.Bibliotecas
                                 if (obj != null)
                                 {
                                     _cont.Vendas.RemoveRange(_cont.Vendas.ToList());
+                                    //foreach (var venda in (List<Venda>)obj)
+                                    //{
+                                    //    if (venda.ClienteID != null)
+                                    //        venda.Cliente = _cont.Clientes.Where(c => c.Id.ToString() == venda.ClienteID.ToString()).First();
+                                    //    venda.Usuario = _cont.Usuarios.Where(u => u.Id == venda.UsuarioId).First();
+                                    //}
                                     _cont.Vendas.AddRange((List<Venda>)obj);
                                     _cont.SaveChanges();
 
@@ -154,19 +172,13 @@ namespace Expoceep.Bibliotecas
                                 if (obj != null)
                                 {
                                     _cont.VendaProdutos.RemoveRange(_cont.VendaProdutos.ToList());
+                                    //foreach (var venda in (List<VendaProdutos>)obj)
+                                    //{
+                                    //    venda.Venda = _cont.Vendas.Where(v => v.Id.ToString() == venda.VendaId.ToString()).First();
+                                    //    venda.Produto = _cont.Produtos.Where(u => u.Id == venda.ProdutoId).First();
+                                    //    venda.ProdutoPropriedades = _cont.ProdutosPropriedadess.Where(pp => pp.Id == venda.ProdutoPropriedadesId).First();
+                                    //}
                                     _cont.VendaProdutos.AddRange((List<VendaProdutos>)obj);
-                                    _cont.SaveChanges();
-
-                                }
-                                break;
-                                   case nameof(ProdutoPropriedadesEstoque):
-
-                                obj = LerArquivo<ProdutoPropriedadesEstoque>(item);
-
-                                if (obj != null)
-                                {
-                                    _cont.ProdutoPropriedadesEstoques.RemoveRange(_cont.ProdutoPropriedadesEstoques.ToList());
-                                    _cont.ProdutoPropriedadesEstoques.AddRange((List<ProdutoPropriedadesEstoque>)obj);
                                     _cont.SaveChanges();
 
                                 }
@@ -237,7 +249,7 @@ namespace Expoceep.Bibliotecas
                 list = null;
 
             }
-                else if (item == nameof(ProdutoPropriedadesEstoque))
+            else if (item == nameof(ProdutoPropriedadesEstoque))
             {
 
                 list = _cont.ProdutoPropriedadesEstoques.ToList();
