@@ -8,7 +8,8 @@ var Usuario = {
     Login: null,
     Senha: null,
     Email: null,
-    Cpf: null
+    Cpf: null,
+    NivelUsuario: 0
 }
 var Cliente = {
     Novo: null,
@@ -31,7 +32,8 @@ var Produto = {
 var ProdutoPropriedades = {
     Tamanho: null,
     Preco: null,
-    Unidades: null
+    Unidades: null,
+    DatadeModificacao:''
 
 }
 var Resultado = {
@@ -100,7 +102,6 @@ function Cancelar(Teladeadicionar, Teladelistagem) {
 
 
     LimpaFormulario(Teladeadicionar);
-
     AparecerElemento(Teladelistagem);
     AparecerElemento("#btnNovo");
     AparecerElemento("#btnDeletar");
@@ -114,9 +115,10 @@ function Cancelar(Teladeadicionar, Teladelistagem) {
 
 
 function LimpaFormulario(TeladoForm) {
-    let c = TeladoForm + " form " + " :input";
+    let c = TeladoForm + " form ";
+    $(c)[0].reset();
     $(c).removeClass("border-danger");
-    $(c).toArray().forEach(o => o.value = null);
+    //$(c).toArray().forEach(o => o.value = null);
 }
 
 // Checa se um array tem nulos
@@ -234,9 +236,18 @@ function ValorInput(obj, form) {
 
     for (var i = 0; i < form.length; i++) {
 
+        if ($("input[name =\'" + form[i].name + "\' ]").length > 1) {
+            for (let b = 0; b < $("input[name =\'" + form[i].name + "\' ]").length; b++) {
+                debugger
+                if ($($("input[name =\'" + form[i].name + "\' ]")[b]).val() == objarray[i]) {
+                    $($("input[name =\'" + form[i].name + "\' ]")[b]).prop('checked', 'checked');
+                }
+            }
 
-        $("input[name =\'" + form[i].name + "\' ]").val(objarray[i]);
-
+        }
+        else {
+            $("input[name =\'" + form[i].name + "\' ]").val(objarray[i]);
+        }
     }
 
 

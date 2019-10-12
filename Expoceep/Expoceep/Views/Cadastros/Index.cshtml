@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
+    Usuario usr = (Usuario)ViewData["Usuario"];
 }
 <style>
 
@@ -13,9 +14,9 @@
     .box-prod-menu {
         padding: 2px;
         transition: all .2s ease-in-out;
-        padding:10px;
-        margin:10px;
-        font-weight:bolder;
+        padding: 10px;
+        margin: 10px;
+        font-weight: bolder;
     }
 
         .box-prod-menu:hover {
@@ -30,10 +31,15 @@
             <img src="~/img/icons/cadastro/produtos.png" class=" prod-box" alt="Alternate Text" />
             <p class="text-center">Produtos</p>
         </div>
-        <div class="col-2 text-center box-prod-menu  " id="menu-usuario">
-            <img src="~/img/icons/cadastro/usuarios.png" class=" prod-box" alt="Alternate Text" />
-            <p class="text-center">Usuarios</p>
-        </div>
+        @{ if (usr.NivelUsuario == NivelUsuario.ADM)
+            {
+                <div class="col-2 text-center box-prod-menu  " id="menu-usuario">
+                    <img src="~/img/icons/cadastro/usuarios.png" class=" prod-box" alt="Alternate Text" />
+                    <p class="text-center">Usuarios</p>
+                </div>
+                }
+                else { }
+            }
         <div class="col-2 text-center box-prod-menu " id="menu-materiais">
             <img src="~/img/icons/cadastro/materiais.png" class=" prod-box" alt="Alternate Text" />
             <p class="text-center">Materiais</p>

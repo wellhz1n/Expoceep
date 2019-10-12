@@ -3,14 +3,16 @@ using System;
 using Expoceep.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expoceep.Migrations
 {
     [DbContext(typeof(ERPDatabaseContext))]
-    partial class ERPDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20191011142821_Dataproduto")]
+    partial class Dataproduto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,24 +77,6 @@ namespace Expoceep.Migrations
                     b.HasIndex("ProdutoId");
 
                     b.ToTable("ProdutosPropriedadess");
-                });
-
-            modelBuilder.Entity("Expoceep.Models.ProdutoPropriedadesEstoque", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("DatadeModificacao");
-
-                    b.Property<long>("ProdutoPropriedadesId");
-
-                    b.Property<int>("Unidades");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProdutoPropriedadesId");
-
-                    b.ToTable("ProdutoPropriedadesEstoques");
                 });
 
             modelBuilder.Entity("Expoceep.Models.Usuario", b =>
@@ -172,14 +156,6 @@ namespace Expoceep.Migrations
                     b.HasOne("Expoceep.Models.Produto")
                         .WithMany("Propriedades")
                         .HasForeignKey("ProdutoId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Expoceep.Models.ProdutoPropriedadesEstoque", b =>
-                {
-                    b.HasOne("Expoceep.Models.ProdutoPropriedades", "ProdutoPropriedades")
-                        .WithMany()
-                        .HasForeignKey("ProdutoPropriedadesId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

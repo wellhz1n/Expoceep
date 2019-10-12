@@ -146,9 +146,9 @@ namespace Expoceep.Controllers
         #region CRUD
 
         [HttpPost]
-        public bool SalvarVenda(Venda venda)
+        public string SalvarVenda(Venda venda)
         {
-            bool result = true;
+            string result = "OK";
             //venda.Usuario = _login.GetUsuarioSession();
             venda.UsuarioId = _login.GetUsuarioSession().Id;
             try
@@ -159,8 +159,7 @@ namespace Expoceep.Controllers
             catch (Exception e)
             {
 
-                _toastNotification.AddErrorToastMessage(e.Message, new ToastrOptions { Title = "Ops", TimeOut = 2000 });
-                result = false;
+                result = string.Format(@"ERRO|{0}",e.InnerException.Message);
             }
             return result;
         }

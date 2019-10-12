@@ -15,12 +15,17 @@ namespace Expoceep.Models
         public string Senha { get; set; }
         public string Email { get; set; }
         public string Cpf { get; set; }
-
-
+        public NivelUsuario NivelUsuario { get; set; }
         [NotMapped]
         public bool Novo { get; set; }
         [NotMapped]
         public bool Editando { get; set; }
 
+    }
+    public enum NivelUsuario
+    {
+        COMUM,
+        ADM,
+        CONTADOR
     }
 }

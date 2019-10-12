@@ -242,10 +242,14 @@ $(document).ready(async function () {
         vendae.ValorTotal = totalfinal.text();
         ExecutaAjax('SalvarVenda', { venda: vendae }).then((data) => {
             debugger
-            if (data) {
+            if (data == "OK") {
                 toastr.success("Venda Realizada", titulo, { timeOut: 2000, preventDuplicates: true, progressBar: true });
                 BloquearTela()
                 setTimeout(() => { window.location.reload(); }, 1200);
+            }
+            else {
+                toastr.error("Algo Deu errado", titulo, { timeOut: 2000, preventDuplicates: true, progressBar: true });
+                ImprimirNoConsole(data.splice('|')[1], "error");
             }
         
 

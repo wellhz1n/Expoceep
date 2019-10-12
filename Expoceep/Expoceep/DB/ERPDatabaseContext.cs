@@ -18,6 +18,8 @@ namespace Expoceep.DB
             Tabelas.Add(typeof(Venda).Name);
             Tabelas.Add(typeof(VendaProdutos).Name);
             Tabelas.Add(typeof(Cliente).Name);
+            Tabelas.Add(typeof(ProdutoPropriedadesEstoque).Name);
+
 
         }
         protected override void OnModelCreating(ModelBuilder builder)
@@ -41,7 +43,7 @@ namespace Expoceep.DB
         public DbSet<Venda> Vendas { get; set; }
         public DbSet<VendaProdutos> VendaProdutos { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
-
+        public DbSet<ProdutoPropriedadesEstoque> ProdutoPropriedadesEstoques { get; set; }
         public List<string> Tabelas = new List<string>();
 
   
