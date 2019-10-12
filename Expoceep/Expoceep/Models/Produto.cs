@@ -39,6 +39,16 @@ namespace Expoceep.Models
         [NotMapped]
         public string TamanhoString { get; set; }
     }
+     public class ProdutoPropriedadesEstoque
+    {
+        public long Id { get; set; }
+        public long ProdutoPropriedadesId { get; set; }
+        public int Unidades { get; set; }
+        public DateTime DatadeModificacao { get; set; }
+        //public ICollection<VendaProdutos> VendaProdutos { get; set; }
+        [ForeignKey("ProdutoPropriedadesId")]
+       public virtual ProdutoPropriedades ProdutoPropriedades { get; set; }
+    }
     public class Select2
     {
         public long id { get; set; }

@@ -17,7 +17,11 @@ namespace Expoceep
             conn = connection;
             if (SelectUsuarios().Count() < 1)
             {
-                Usuario u = new Usuario() { Login = "admin", Senha = "admin", Email = "admin@gmail.com" };
+                Usuario u = new Usuario() { Login = "admin", 
+                                Senha = "admin", 
+                                Email = "admin@gmail.com",
+                                NivelUsuario= NivelUsuario.ADM,
+                                Nome="ADM" };
                 conn.Usuarios.Add(u);
                 conn.SaveChanges();
             }

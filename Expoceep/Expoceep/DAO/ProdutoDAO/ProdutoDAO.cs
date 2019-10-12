@@ -49,9 +49,26 @@ namespace Expoceep.DAO.ProdutoDAO
 
 
             conn.Produtos.Add(produto);
-            conn.SaveChanges();
+            SalvaEstoque(produto);
         }
 
+        private void SalvaEstoque(Produto produto)
+        {
+            conn.SaveChanges();
+            var listapropestoque = new List<ProdutoPropriedadesEstoque>();
+            foreach (var item in conn.Produtos.Where(p => p.Id == produto.Id).First().Propriedades)
+            {
+                listapropestoque.Add(new ProdutoPropriedadesEstoque
+                {
+                    ProdutoPropriedadesId = item.Id,
+                    ProdutoPropriedades = item,
+                    Unidades = item.Unidades,
+                    DatadeModificacao = item.DatadeModificacao
+                });
+            }
+            conn.ProdutoPropriedadesEstoques.AddRange(listapropestoque);
+            conn.SaveChanges();
+        }
 
         public void ApagarProduto(List<Produto> produto)
         {
@@ -78,6 +95,7 @@ namespace Expoceep.DAO.ProdutoDAO
 
             conn.Entry(produtodb).CurrentValues.SetValues(produto);
             conn.SaveChanges();
+            SalvaEstoque(produto);
         }
 
         public IEnumerable<Produto> SelectProdutos()

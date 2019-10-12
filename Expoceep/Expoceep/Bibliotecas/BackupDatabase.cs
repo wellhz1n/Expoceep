@@ -159,6 +159,18 @@ namespace Expoceep.Bibliotecas
 
                                 }
                                 break;
+                                   case nameof(ProdutoPropriedadesEstoque):
+
+                                obj = LerArquivo<ProdutoPropriedadesEstoque>(item);
+
+                                if (obj != null)
+                                {
+                                    _cont.ProdutoPropriedadesEstoques.RemoveRange(_cont.ProdutoPropriedadesEstoques.ToList());
+                                    _cont.ProdutoPropriedadesEstoques.AddRange((List<ProdutoPropriedadesEstoque>)obj);
+                                    _cont.SaveChanges();
+
+                                }
+                                break;
                             default:
                                 throw new Exception("Criar case da nova tabela!!!!!");
                         }
@@ -221,6 +233,14 @@ namespace Expoceep.Bibliotecas
             {
 
                 list = _cont.VendaProdutos.ToList();
+                j = new ConversorDeObjetos().ConverterParaString(list);
+                list = null;
+
+            }
+                else if (item == nameof(ProdutoPropriedadesEstoque))
+            {
+
+                list = _cont.ProdutoPropriedadesEstoques.ToList();
                 j = new ConversorDeObjetos().ConverterParaString(list);
                 list = null;
 
