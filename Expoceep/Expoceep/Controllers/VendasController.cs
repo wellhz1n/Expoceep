@@ -53,11 +53,11 @@ namespace Expoceep.Controllers
             string json;
             if (q != "" && q != null)
             {
-                var lista = _produtoDAO.SelectProdutos().Where(pr => new Select2().DoesContain(q.ToLower().ToCharArray(),string.Format("{0} - {1}",pr.Codigo,pr.Nome.ToLower())));
+                var lista = _produtoDAO.SelectProdutos().Where(pr => new Select2().DoesContain(q.ToLower().ToCharArray(), string.Format("{0} - {1}", pr.Codigo, pr.Nome.ToLower())));
 
                 foreach (var item in lista)
                 {
-                    prod.Add(item.Id, string.Format("{0} - {1}",item.Codigo,item.Nome));
+                    prod.Add(item.Id, string.Format("{0} - {1}", item.Codigo, item.Nome));
 
                 }
                 foreach (var item in prod.ToList())
@@ -99,11 +99,11 @@ namespace Expoceep.Controllers
             string json;
             if (q != "" && q != null)
             {
-                var lista = _clienteDAO.SelectClientes().Where(pr => new Select2().DoesContain(q.ToLower().ToCharArray(), string.Format("{0} - {1}", pr.Cpf.ToLower(),pr.Nome.ToLower())));
+                var lista = _clienteDAO.SelectClientes().Where(pr => new Select2().DoesContain(q.ToLower().ToCharArray(), string.Format("{0} - {1}", pr.Cpf.ToLower(), pr.Nome.ToLower())));
 
                 foreach (var item in lista)
                 {
-                    clie.Add(item.Id, string.Format("{0} - {1}",item.Cpf,item.Nome));
+                    clie.Add(item.Id, string.Format("{0} - {1}", item.Cpf, item.Nome));
 
                 }
                 foreach (var item in clie.ToList())
@@ -119,7 +119,7 @@ namespace Expoceep.Controllers
             {
                 foreach (var item in _clienteDAO.SelectClientes().ToList())
                 {
-                    clie.Add(item.Id, string.Format("{0} - {1}",item.Cpf,item.Nome));
+                    clie.Add(item.Id, string.Format("{0} - {1}", item.Cpf, item.Nome));
                 }
                 foreach (var item in clie.ToList())
                 {
@@ -159,7 +159,7 @@ namespace Expoceep.Controllers
             catch (Exception e)
             {
 
-                result = string.Format(@"ERRO|{0}",e.InnerException.Message);
+                result = string.Format(@"ERRO|{0}", e.InnerException.Message);
             }
             return result;
         }
@@ -174,22 +174,89 @@ namespace Expoceep.Controllers
             else
                 return this.RedirectToAction("Login", "Login");
         }
-        public int[] GetVendasParaGrafico(DateTime datainicio,DateTime datafim)
+        public int[] GetVendasParaGrafico(DateTime datainicio, DateTime datafim)
         {
             var result = new List<int>();
             List<int> meses = new List<int>();
-           var lista = _vendaDAO.GetVenda().Where(v => v.DataDaVenda.Month <= datafim.Month && v.DataDaVenda.Month >= datainicio.Month).ToList();
+            var lista = _vendaDAO.GetVenda().Where(v => v.DataDaVenda.Month <= datafim.Month && v.DataDaVenda.Month >= datainicio.Month).ToList();
             for (int i = datainicio.Month; i <= datafim.Month; i++)
             {
                 meses.Add(i);
             }
-            
-                foreach (var mes in meses)
-                {
+
+            foreach (var mes in meses)
+            {
                 result.Add(lista.Where(l => l.DataDaVenda.Month == mes).ToList().Count);
-                }
+            }
             return result.ToArray();
         }
+        #endregion
+        #region Estoque
+        public IActionResult Estoque()
+        {
+            if (_login.GetUsuarioSession() != null)
+                return View();
+            else
+                return this.RedirectToAction("Login", "Login");
+        }
+
+        #region GetProdutos
+        public Chart GetProdutosParaGrafico(long?[] produtoId, tamanho? t)
+        {
+            Chart result = new Chart();
+            var listaLabels = new List<string>();
+            var listaValues = new List<int>();
+            var list = new List<Produto>();
+            if (produtoId[0] != null)
+            {
+
+                for (int i = 0; i < produtoId.Length; i++)
+                {
+                    list.Add(_produtoDAO.SelectProdutos().Where(p => p.Id == produtoId[i]).First());
+                    list.Where(pc => pc.Id == produtoId[i])
+                        .First().Propriedades = _produtoDAO.SelectProdutosPropriedades()
+                        .Where(pcp => pcp.ProdutoId == produtoId[i])
+                        .ToList();
+                }
+            }
+            else
+            {
+                foreach (var item in _produtoDAO.SelectProdutos())
+                {
+                    item.Propriedades = _produtoDAO.SelectProdutosPropriedades().Where(prod => prod.ProdutoId == item.Id).ToList();
+                    list.Add(item);
+                }
+            }
+            list.ForEach(c =>
+            {
+              listaLabels.Add(string.Format("{0}-{1}", c.Codigo, c.Nome));
+            });
+
+            if (t == null)
+            {
+                int soma = 0;
+                foreach (var prod in list)
+                {
+                    foreach (var prodpriets in prod.Propriedades)
+                        soma += prodpriets.Unidades;
+                    listaValues.Add(soma);
+                    soma = 0;
+                }
+            }
+            else
+            {
+                list.ForEach(p =>
+                {
+                   listaValues.Add(p.Propriedades.Where(pp => pp.Tamanho == t).First().Unidades);
+                });
+            }
+            result.Labels = listaLabels;
+            result.Values = listaValues;
+            return result;
+        }
+
+        #endregion
+
         #endregion
     }
 }

@@ -116,5 +116,9 @@ namespace Expoceep.DAO.ProdutoDAO
             return codigo;
         }
 
+        public IEnumerable<ProdutoPropriedades> SelectProdutosPropriedades()
+        {
+           return conn.ProdutosPropriedadess.ToList();
+        }
     }
 }

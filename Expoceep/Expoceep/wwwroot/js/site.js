@@ -66,6 +66,13 @@ const TipoGrafico = {
     LINE: 'line',
     PIE: 'pie'
 }
+function Chartclass() {
+    return {
+        Labels: null,
+        Values: null,
+        Tipo: TipoGrafico.BAR
+    }
+};
 //FIM OBJECTS
 $(document).ready(() => {
 

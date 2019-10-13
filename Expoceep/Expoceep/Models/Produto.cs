@@ -63,5 +63,10 @@ namespace Expoceep.Models
             return "{ \"results\" : " + new ConversorDeObjetos().ConverterParaString(lista) + "}";
         }
     }
+    public class Chart
+    {
+        public List<string>  Labels { get; set; }
+        public List<int> Values { get; set; }
+    }
 }
 

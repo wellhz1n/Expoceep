@@ -12,6 +12,7 @@ namespace Expoceep.DAO.ProdutoDAO
         void AtualizarProduto(Produto produto);
         void ApagarProduto(List<Produto> produto);
         IEnumerable<Produto> SelectProdutos();
+        IEnumerable<ProdutoPropriedades> SelectProdutosPropriedades();
 
     }
 }
