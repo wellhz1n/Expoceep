@@ -1,4 +1,6 @@
-﻿let meseschart = [];
+﻿//import jsPDF from "../../../lib/jsPDF-1.3.2/main";
+
+let meseschart = [];
 let datachart = [];
 
 $(document).ready(() => {
@@ -14,8 +16,23 @@ $(document).ready(() => {
             $('#chartCont').css('display', 'block');
             GerarGraficoAnual('myChart', TipoGrafico.BAR, GetMesesEntre([mesinicio, mesfim]), 'Vendas', data, "Quantidade de Vendas");
         });
-       
-       
+
+        $("#btnSalvar").on('click', () => {
+
+            //document.getElementById('myChart').toBlob((blob) => {
+            //    saveAs(blob, `${titulo.text()}Grafico${new Date().toISOString().split('T')[0]}.png`);
+                
+            //});
+            let doc = new jsPDF();
+            doc.text('Teste JsPdf', 10, 10);
+            doc.addImage(document.getElementById('myChart').toDataURL(), 'JPEG', 5, 40, 200, 80);
+            for (var i = 2; i < 20; i++) {
+                doc.text('Teste JsPdf', 10, 120+i*10);
+
+            }
+           
+            doc.save('teste.pdf');
+        });
 
 
     });
