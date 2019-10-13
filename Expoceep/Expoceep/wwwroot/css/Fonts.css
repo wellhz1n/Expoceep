@@ -1,0 +1,62 @@
+﻿/*RELOGIO-----------------------------FONTS*/
+@font-face {
+    font-family: ClockerRegular;
+    src: url('../fonts/Clocker/Clocker Regular.ttf');
+}
+@font-face {
+    font-family: ClockerBold;
+    src: url('../fonts/Clocker/Clocker Bold.ttf');
+}
+@font-face {
+    font-family: AlarmClock;
+    src: url('../fonts/AlarmClock/alarm clock.ttf');
+}
+@font-face {
+    font-family: Number2;
+    src: url('../fonts/Number2/DJB Number 2 Pencil.ttf');
+}
+@font-face {
+    font-family: Number2Bold;
+    src: url('../fonts/Number2/DJB Number 2 Pencil Bold.ttf');
+}
+@font-face {
+    font-family: Perfect;
+    src: url('../fonts/Perfect_fonts_CC.ttf');
+}
+@font-face {
+    font-family: Arco;
+    src: url('../fonts/ARCO.ttf');
+}
+@font-face {
+    font-family: FrostW;
+    src: url('../fonts/Frost/FROSTBITE-Wide.ttf');
+}
+@font-face {
+    font-family: Square;
+    src: url('../fonts/Squared Display.ttf');
+}
+@font-face {
+    font-family: Tigre;
+    src: url('../fonts/tigre.ttf');
+}
+@font-face {
+    font-family: Loaded;
+    src: url('../fonts/loaded.ttf');
+}
+@font-face {
+    font-family: Roboto;
+    src: url('../fonts/Roboto/Roboto-Thin.ttf');
+}
+@font-face {
+    font-family: RobotoBold;
+    src: url('../fonts/Roboto/Roboto-Bold.ttf');
+}
+@font-face {
+    font-family: Comfortaa;
+    src: url('../fonts/Comfortaa/Comfortaa-Regular.ttf');
+}
+@font-face {
+    font-family: Azonix;
+    src: url('../fonts/Azonix.otf');
+}
+/*FIM---------------------------------------*/

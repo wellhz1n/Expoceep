@@ -24,7 +24,12 @@ $(document).on("click", "#menu-categoriaproduto", () => {
 
 });
 //USUARIOTABLE
-$(document).ready(function () {
+$(document).ready(async function () {
+    await BloquearTela();
+   await $("#menucont >div >p[id='construcao']").parent().each(async (d, c) => {
+       await $(c).addClass('emconstrucao');
+   });
+    await DesbloquearTela();
 });
 
 
