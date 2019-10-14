@@ -1,6 +1,6 @@
 ﻿let prodIdArr = [];
 let chartData = Chartclass();
-let tamanho = $("#Tamanhoselect").val();
+let tamanho;
 let tamanhostr;
 $(document).ready(() => {
 
@@ -46,6 +46,9 @@ $(document).ready(() => {
     });
 
     $("#btnGerar").on('click', () => {
+        debugger;
+         tamanho = $("#Tamanhoselect").val();
+
         switch (tamanho) {
             case '0':
                 tamanhostr = 'P'
@@ -73,6 +76,9 @@ $(document).ready(() => {
                 case '1':
                     chartData.Tipo = TipoGrafico.PIE;
                     break;
+                    case'2':
+                    chartData.Tipo = TipoGrafico.LINE;
+                    break;
 
                 default:
                     break;
@@ -96,14 +102,14 @@ $(document).ready(() => {
 
 
         debugger;
-        img.src = '../../img/logo/Logo_reto.png';
+        img.src = '../../img/lOGO/Logo_reto.png';
         await setTimeout(async () => {
 
             doc.addImage(img, "PNG", 2, 0, 25, 15);
             doc.setFontSize(11);
             doc.text(`Grafico de  ${titulo.text()}-${new Date().toLocaleDateString()}`, pageWidth / 2, 10, 'center');
             doc.text(`Tamanho:  ${tamanhostr}`, 2, 30);
-            doc.addImage(document.getElementById('myChart').toDataURL(), 'JPEG', 5, 40, 200, 80);
+            doc.addImage(document.getElementById('myChart').toDataURL(), 'JPEG', 5, 40, 190, 80);
             doc.text(`Produtos`, 10, 130);
             doc.text(`Unidades`, pageWidth / 2 - 15, 130);
             for (var i = 0; i < chartData.Labels.length; i++) {
