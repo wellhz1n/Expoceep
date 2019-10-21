@@ -1,7 +1,9 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
-    Usuario usr = (Usuario)ViewData["Usuario"];
+    ViewData["Title"] = "Menu Cadastros";
+    var usr = new ConversorDeObjetos().ConverterParaObject<Usuario>(Context.Session.GetString("UsuarioSession"));
+
+
 }
 <style>
 
@@ -24,7 +26,7 @@
             cursor: pointer;
         }
 
- 
+
 
     .emconstrucao {
         pointer-events: none;
@@ -33,14 +35,14 @@
 
     #construcao {
         position: relative;
-        font-family:Comfortaa;
+        font-family: Comfortaa;
         font-size: 14px;
-        width:60%;
-        height:10%;
-        color:white;
-        background:red;
+        width: 60%;
+        height: 10%;
+        color: white;
+        background: red;
         left: 45px;
-        top:-90px;
+        top: -90px;
     }
 </style>
 <div class="col-12 p-0 m-0">

@@ -30,15 +30,29 @@ namespace Expoceep.Controllers
         public IActionResult Index()
         {
             if (_login.GetUsuarioSession() != null)
+            {
+                ViewData.Add("Usuario", _login.GetUsuarioSession());
                 return View();
+            }
             else
                 return this.RedirectToAction("Login", "Login");
         }
         #region NovaVenda
         public IActionResult NovaVenda()
         {
+
             if (_login.GetUsuarioSession() != null)
-                return View();
+            {
+                if (_login.GetUsuarioSession().NivelUsuario != NivelUsuario.CONTADOR)
+                {
+                    return View();
+                }
+                else
+                {
+                    return this.RedirectToAction("Index", "Vendas");
+                }
+
+            }
             else
                 return this.RedirectToAction("Login", "Login");
         }
@@ -170,7 +184,16 @@ namespace Expoceep.Controllers
         public IActionResult Venda()
         {
             if (_login.GetUsuarioSession() != null)
-                return View();
+            {
+                if (_login.GetUsuarioSession().NivelUsuario != NivelUsuario.COMUM)
+                {
+                    return View();
+                }
+                else
+                {
+                    return this.RedirectToAction("Index", "Vendas");
+                }
+            }
             else
                 return this.RedirectToAction("Login", "Login");
         }
@@ -195,7 +218,16 @@ namespace Expoceep.Controllers
         public IActionResult Estoque()
         {
             if (_login.GetUsuarioSession() != null)
-                return View();
+            {
+                if (_login.GetUsuarioSession().NivelUsuario != NivelUsuario.COMUM)
+                {
+                    return View();
+                }
+                else
+                {
+                    return this.RedirectToAction("Index", "Vendas");
+                }
+            }
             else
                 return this.RedirectToAction("Login", "Login");
         }
@@ -229,7 +261,7 @@ namespace Expoceep.Controllers
             }
             list.ForEach(c =>
             {
-              listaLabels.Add(string.Format("{0}-{1}", c.Codigo, c.Nome));
+                listaLabels.Add(string.Format("{0}-{1}", c.Codigo, c.Nome));
             });
 
             if (t == null)
@@ -247,7 +279,7 @@ namespace Expoceep.Controllers
             {
                 list.ForEach(p =>
                 {
-                   listaValues.Add(p.Propriedades.Where(pp => pp.Tamanho == t).First().Unidades);
+                    listaValues.Add(p.Propriedades.Where(pp => pp.Tamanho == t).First().Unidades);
                 });
             }
             result.Labels = listaLabels;

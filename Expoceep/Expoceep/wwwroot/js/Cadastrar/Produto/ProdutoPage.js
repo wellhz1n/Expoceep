@@ -169,10 +169,10 @@ $(document).on("click", "#btnEditar", async () => {
 
 
 });
-$(document).keydown((k) => {
-    if ((k.keyCode == 46 || k.keyCode == 8) && (!Produto.Novo && !Produto.Editando))
-        Deletar();
-})
+//$(document).keydown((k) => {
+//    if ((k.keyCode == 46 || k.keyCode == 8) && (!Produto.Novo && !Produto.Editando))
+//        Deletar();
+//})
 
 
 function Deletar() {

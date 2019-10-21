@@ -1,15 +1,15 @@
 ﻿$(document).on("click", "#menu-venda", () => {
 
-    MudaUrl(null, "NovaVenda");
+    MudaUrl("Vendas", "NovaVenda");
 
 });
 $(document).on("click", "#menu-venda-lista", () => {
 
-    MudaUrl(null, "Venda");
+    MudaUrl("Vendas", "Venda");
 
 });
 $(document).on("click", "#menu-venda-Estoque", () => {
 
-    MudaUrl(null, "Estoque");
+    MudaUrl("Vendas", "Estoque");
 
 });

@@ -46,6 +46,7 @@ namespace Expoceep.Controllers
                 List<Usuario> usuario = (List<Usuario>)_UsuarioDAO.SelectUsuarios();
                 _loginSession.Login(usuario.Where(u => u.Login == login).First());
                 _sessao.SalvarEmCache("USER", login);
+                _sessao.SalvarEmCache("UsuarioSession", new ConversorDeObjetos().ConverterParaString(_loginSession.GetUsuarioSession()));
                 return this.RedirectToAction("Home", "Inicio");
             }
             else

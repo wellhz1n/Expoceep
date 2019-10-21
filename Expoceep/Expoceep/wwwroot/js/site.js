@@ -398,7 +398,7 @@ function ValidaSeletores(campos) {
     if (camposvazios.length == 0)
         return true
     else {
-        toastr.error("Por favor, Preencha os Campos", titulo, { preventDuplicates: true, timeOut: 2500, progressBar: true });
+        toastr.error("Por favor, Preencha os Campos", titulo.text(), { preventDuplicates: true, timeOut: 2500, progressBar: true });
         return false
     }
 }

@@ -169,7 +169,7 @@ $(document).ready(async function () {
 
                 for (var i = 0; i < prop.length; i++) {
                     prop[0].value = VProduto.id;
-                    prop[1].value = VProduto.codigo+'-'+VProduto.nome;
+                    prop[1].value = VProduto.codigo + '-' + VProduto.nome;
                     prop[2].value = $("#Produtoselecttamanho").select2('data')[0].text;
                     prop[4].value = $("#Produtoform")[0][2].value;
                     try {
@@ -230,32 +230,36 @@ $(document).ready(async function () {
 
     });
 
-//BOTOES+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //BOTOES+++++++++++++++++++++++++++++++++++++++++++++++++++++++
     $('#btnCancelar').on('click', () => {
         window.history.go(-1);
     });
     $('#btnSalvar').on('click', () => {
-        let vendae = Venda;
-        vendae.ListProduto = VendasProdutos;
-        vendae.ClienteID = $("#clienteselect").select2('val');
-        vendae.DataDaVenda = new Date().toISOString();
-        vendae.ValorTotal = totalfinal.text();
-        ExecutaAjax('SalvarVenda', { venda: vendae }).then((data) => {
-            debugger
-            if (data == "OK") {
-                toastr.success("Venda Realizada", titulo, { timeOut: 2000, preventDuplicates: true, progressBar: true });
-                BloquearTela()
-                setTimeout(() => { window.location.reload(); }, 1200);
-            }
-            else {
-                toastr.error("Algo Deu errado", titulo, { timeOut: 2000, preventDuplicates: true, progressBar: true });
-                ImprimirNoConsole(data.splice('|')[1], "error");
-            }
-        
+        if (ConverteDinheiroToNumber(CalcularTroco()) >= 0) {
 
-        });
-            
-    })
+            let vendae = Venda;
+            vendae.ListProduto = VendasProdutos;
+            vendae.ClienteID = $("#clienteselect").select2('val');
+            vendae.DataDaVenda = new Date().toISOString();
+            vendae.ValorTotal = totalfinal.text();
+            ExecutaAjax('SalvarVenda', { venda: vendae }).then((data) => {
+                debugger
+                if (data == "OK") {
+                    toastr.success("Venda Realizada", titulo.text(), { timeOut: 2000, preventDuplicates: true, progressBar: true });
+                    BloquearTela()
+                    setTimeout(() => { window.location.reload(); }, 1200);
+                }
+                else {
+                    toastr.error("Algo Deu errado", titulo.text(), { timeOut: 2000, preventDuplicates: true, progressBar: true });
+                    ImprimirNoConsole(data.splice('|')[1], "error");
+                }
+
+            });
+        } else
+            toastr.warning("Valor Invalido ou Insuficiente", titulo.text(), { timeOut: 2000, preventDuplicates: true, progressBar: true });
+
+
+    });
 });
 
 function CalcularTroco() {
@@ -370,6 +374,6 @@ function VerificaSeElementoJaestaAdicionado() {
 //    $(".delete").parent($("#bloco")).remove();
 //    VendasProdutos = [];
 
-    
+
 
 //}

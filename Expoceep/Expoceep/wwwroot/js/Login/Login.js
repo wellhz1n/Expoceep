@@ -17,6 +17,10 @@
 
 });
 
-
+$("#loginsenha").keydown((k) => {
+    ImprimirNoConsole(k,'default')
+    if ((k.keyCode == 13))
+        $("#login").click();
+})
 // Validação que tira espaço
 tiraEspacoDosInputs("form", true);

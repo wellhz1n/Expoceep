@@ -1,23 +1,44 @@
 ﻿@{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "Inicio";
+    var UsuarioLogado = new ConversorDeObjetos().ConverterParaObject<Usuario>(Context.Session.GetString("UsuarioSession"));
+
 }
 <style>
-    h2{
+    h2 {
         font-family: Comfortaa;
-
     }
+
     #clock p {
         font-family: Roboto;
         -webkit-font-smoothing: antialiased;
         font-size: 15vh;
         width: 40%;
-        position:relative;
-        text-align:center;
-        left:33%;
-        background:rgba(52, 152, 219, 0.8) ;
-        border-radius:20px;
-        color:white;
+        position: relative;
+        text-align: center;
+        left: 33%;
+        background: rgba(52, 152, 219, 0.8);
+        border-radius: 20px;
+        color: white;
     }
+
+    .prod-box {
+        height: 55%;
+        width: 40%;
+        margin-top: 5%;
+    }
+
+    .box-prod-menu {
+        padding: 2px;
+        transition: all .2s ease-in-out;
+        padding: 10px;
+        margin: 10px;
+        font-weight: bolder;
+    }
+
+        .box-prod-menu:hover {
+            background: linear-gradient(rgba(0,0,0,0.1),rgba(0,0,0,0.1));
+            cursor: pointer;
+        }
 </style>
 <div class="col-12 text-center">
 
@@ -27,9 +48,27 @@
     <div id="clock" class="col-12">
         <p id="clockletter"></p>
     </div>
-    
+    @{ if (UsuarioLogado.NivelUsuario == NivelUsuario.CONTADOR)
+        {<hr class="my-5 ">
+            <div style="left:38%" class="col-12 ">
 
+                <h2 style="position:relative;left:-34%" class="text-center">Gerar Graficos</h2>
+                <div class="row text-center p-0 m-0 col-10 ">
+                    <div class="col-2 text-center box-prod-menu " id="menu-venda-lista">
+                        <img src="~/img/icons/cadastro/Graficos.png" class=" prod-box" alt="Alternate Text" />
+                        <p class="text-center">Vendas</p>
+                    </div>
+                    <div class="col-2 text-center box-prod-menu " id="menu-venda-Estoque">
+                        <img src="~/img/icons/cadastro/Estoque.png" class=" prod-box" alt="Alternate Text" />
+                        <p class="text-center">Estoque</p>
+                    </div>
+                </div>
+            </div>
+        }
+    }
 </div>
+
 @section scripts{
     <script src="~/js/Home/Home.js" type="text/javascript"></script>
+    <script src="~/js/Vendas/MenuVendas.js"></script>
 }
