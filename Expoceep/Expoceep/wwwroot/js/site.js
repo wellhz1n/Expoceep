@@ -462,7 +462,16 @@ function GerarGraficoAnual(idchart, tipo, labels = [], label, data = [], labelst
                     'rgba(22, 145, 245,0.5)',
                     'rgba(227, 105, 255,0.5)',
                     'rgba(182,224,43,0.5)',
-                    'rgba(91, 3, 158,0.5)'
+                    'rgba(91, 3, 158,0.5)',
+                    'rgba(9, 142, 144,0.5)',
+                    'rgba(210, 29, 132, 0.5)',
+                    'rgba(154, 22, 25, 0.5)',
+                    'rgba(25, 26, 82, 0.5)',
+                    'rgba(125, 179, 196, 0.5)',
+                    'rgba(233, 130, 100, 0.5)',
+                    'rgba(200, 10, 4, 0.5)',
+                    'rgba(158, 19, 131,0.5)',
+                    'rgba(186, 15, 255,0.5)',
 
                 ],
                 borderColor: [
@@ -477,7 +486,16 @@ function GerarGraficoAnual(idchart, tipo, labels = [], label, data = [], labelst
                     'rgba(22, 145, 245,1)',
                     'rgba(215, 38, 255,1)',
                     'rgba(182,224, 43,1)',
-                    'rgba(91, 3, 158,1)'
+                    'rgba(91, 3, 158,1)',
+                    'rgb(9, 142, 144)',
+                    'rgba(210, 29, 132, 1)',
+                    'rgba(154, 22, 25, 1)',
+                    'rgba(25, 26, 82, 1)',
+                    'rgba(125, 179, 196, 1)',
+                    'rgba(233, 130, 100, 1)',
+                    'rgba(200, 10, 4, 1)',
+                    'rgba(158, 19, 131,1)',
+                    'rgba(186, 15, 255,1)',
 
                 ],
                 borderWidth: 1
