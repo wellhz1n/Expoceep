@@ -15,6 +15,13 @@
 
     .selected {
         background: #b6b6b6 !important;
+    
+    
+    }
+    .fundo{
+        background-image: linear-gradient(rgba(52, 152, 219, 0.4), rgba(255, 255, 255, 0.54));
+        border-radius: 5px;
+    
     }
 </style>
 <div class="col-12 p-0 m-0">
@@ -30,8 +37,8 @@
 
 
         <div class="row">
-            <div class="container1 alert-dark col-10 p-5 h-50 w-75" style="left:3%;margin-top:1%; top:0%;">
-                <div class="col-12" style="left:-3%;">
+            <div class="container1 fundo col-10 p-5 h-50 w-75" style="border-top-right-radius:0px; left:3%;margin-top:1%; top:0%;" id="fundo">
+                <div class="col-12" style="left:-3%;"> 
                     <select id="clienteselect"style="display:block;"></select>
                 </div>
                 <form id="Produtoform" class="row p-2 h">
@@ -42,7 +49,7 @@
                         <i style="font-size:16px; font-weight:bold;" class="fas fa-plus"></i>
                     </button>
                 </form>
-                <div class="col-4 alert-dark p-5" style="top:0%; margin-right:0%; right:0%; left:100%; height:100%; position:absolute;">
+                <div  class="col-4 fundo  p-5" style="border-top-left-radius:0px; top:0%; margin-right:0%; right:0%; left:100%; height:100%; position:absolute;">
                     <div class="row text-center">
 
                         <div class="text-danger row mx-1 font-weight-bolder"> <p>Total: R$:<p id="total"></p></div>

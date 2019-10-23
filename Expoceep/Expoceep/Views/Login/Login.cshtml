@@ -14,7 +14,7 @@
         left: 30%;
         height: 50%;
         width: 40%;
-        background: linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5));
+        background-image: linear-gradient(rgba(255, 255, 255, 0.54), rgba(52, 152, 219, 0.84));
         text-align: center;
         border-radius: 5%;
         transition:all 1s ease-in-out;
@@ -31,8 +31,11 @@
 
 
     }
-
+:placeholder{
+    color:#dddddd;
+            }
     .caixa-login > div > form > input {
+        color:#dddddd;
         position:relative;
         left:0% !important;
         display:block;
@@ -47,17 +50,19 @@
         transition:all .2s ease-in-out;
     }
      .caixa-login > div > form > input[name="Login"]:focus{
-         background:rgba(31, 31, 31, 0.85);
+         background:rgba(0, 0, 0, 0.28);
          width:80%;
          color:#ffffff;
          font-weight:bolder;
      }
+     
      .caixa-login > div > form > input[name="Senha"]:focus{
-         background:rgba(31, 31, 31, 0.85);
+         background:rgba(0, 0, 0, 0.28);
          color:#ffffff;
          width:80%;
          font-weight:bolder;
      }
+     
      .caixa-login > div > form > input[type=button]{
         width: 30%;
         height: 7.5vh !important;
