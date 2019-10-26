@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
-;
+
   <ItemGroup>
     <Compile Remove="Migrations\20190918005832_Start.cs" />
     <Compile Remove="Migrations\20190918005832_Start.Designer.cs" />
