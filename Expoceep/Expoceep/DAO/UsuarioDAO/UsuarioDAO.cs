@@ -7,61 +7,62 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace Expoceep
 {
     public class UsuarioDAO : IUsuarioDAO
     {
-        private ERPDatabaseContext conn;
-        public UsuarioDAO(ERPDatabaseContext connection)
+        public UsuarioDAO()
         {
-            conn = connection;
-            if (SelectUsuarios().Count() < 1)
-            {
-                Usuario u = new Usuario() { Login = "admin", 
-                                Senha = "admin", 
-                                Email = "admin@gmail.com",
-                                NivelUsuario= NivelUsuario.ADM,
-                                Nome="ADM" };
-                conn.Usuarios.Add(u);
-                conn.SaveChanges();
-            }
+            // if (SelectUsuarios().Count() < 1)
+            // {
+            //     Usuario u = new Usuario() { Login = "admin", 
+            //                     Senha = "admin", 
+            //                     Email = "admin@gmail.com",
+            //                     NivelUsuario= NivelUsuario.ADM,
+            //                     Nome="ADM" };
+            //     conn.Usuarios.Add(u);
+            //     conn.SaveChanges();
+            // }
         }
 
         public void AdicionarUsuario(Usuario u)
         {
-            u.Login = u.Login.ToLower();
-            conn.Usuarios.Add(u);
-            conn.SaveChanges();
+
+            // u.Login = u.Login.ToLower();
+            // conn.Usuarios.Add(u);
+            // conn.SaveChanges();
         }
 
         public void ApagarUsuario(int id)
         {
-            var usr = conn.Usuarios.ToList().Find(u => u.Id.ToString() == id.ToString());
-            conn.Remove(usr);
-            conn.SaveChanges();
+            // var usr = conn.Usuarios.ToList().Find(u => u.Id.ToString() == id.ToString());
+            // conn.Remove(usr);
+            // conn.SaveChanges();
         }
 
         public void AtualizaUsuario(Usuario u)
         {
-            var user = conn.Usuarios.SingleOrDefault(o => o.Id.ToString() == u.Id.ToString());
-            user.Login = u.Login.ToLower();
-            user.Nome = u.Nome;
-            user.Email = u.Email;
-            user.Cpf = u.Cpf;
-            user.NivelUsuario = u.NivelUsuario;
-            conn.SaveChanges();
+            // var user = conn.Usuarios.SingleOrDefault(o => o.Id.ToString() == u.Id.ToString());
+            // user.Login = u.Login.ToLower();
+            // user.Nome = u.Nome;
+            // user.Email = u.Email;
+            // user.Cpf = u.Cpf;
+            // user.NivelUsuario = u.NivelUsuario;
+            // conn.SaveChanges();
         }
 
         public bool Login(string login, string senha)
         {
-            var usuarioslog = conn.Usuarios.Where(u => u.Login == login && u.Senha == senha).FirstOrDefault();
-            return usuarioslog != null ? true : false;
+            // var usuarioslog = conn.Usuarios.Where(u => u.Login == login && u.Senha == senha).FirstOrDefault();
+            // return usuarioslog != null ? true : false;
+            return false;
         }
         public IEnumerable<Usuario> SelectUsuarios()
         {
             try
             {
-                return conn.Usuarios.ToList();
+                return new List<Usuario>();
 
             }
             catch (Exception)
@@ -72,17 +73,17 @@ namespace Expoceep
         }
         public void Popular()
         {
-            List<Usuario> users = new List<Usuario>();
-            for (int i = 0; i < 20; i++)
-            {
-                users.Add(new Usuario { Nome = "Teste"+i, Login = "Teste."+i, Senha = "123", Email = "TEste"+i+"@gmail.com" });
+            // List<Usuario> users = new List<Usuario>();
+            // for (int i = 0; i < 20; i++)
+            // {
+            //     users.Add(new Usuario { Nome = "Teste"+i, Login = "Teste."+i, Senha = "123", Email = "TEste"+i+"@gmail.com" });
 
-            }
-            foreach (var item in users)
-            {
-                conn.Usuarios.Add(item);
-            }
-            conn.SaveChanges();
+            // }
+            // foreach (var item in users)
+            // {
+            //     conn.Usuarios.Add(item);
+            // }
+            // conn.SaveChanges();
         }
     }
 }
