@@ -42,13 +42,6 @@
 /home/wellington/Área de Trabalho/projetos/wellhz1n/Expoceep/Expoceep/Expoceep/obj/Debug/netcoreapp2.2/Expoceep.csproj.CopyComplete
 D:\Projetos\wellhz1n\Expoceep\Expoceep\Expoceep\bin\Debug\netcoreapp2.2\appsettings.Development.json
 D:\Projetos\wellhz1n\Expoceep\Expoceep\Expoceep\bin\Debug\netcoreapp2.2\appsettings.json
-D:\Projetos\wellhz1n\Expoceep\Expoceep\Expoceep\bin\Debug\netcoreapp2.2\Backup\ClienteTable.json
-D:\Projetos\wellhz1n\Expoceep\Expoceep\Expoceep\bin\Debug\netcoreapp2.2\Backup\ProdutoPropriedadesEstoqueTable.json
-D:\Projetos\wellhz1n\Expoceep\Expoceep\Expoceep\bin\Debug\netcoreapp2.2\Backup\ProdutoPropriedadesTable.json
-D:\Projetos\wellhz1n\Expoceep\Expoceep\Expoceep\bin\Debug\netcoreapp2.2\Backup\ProdutoTable.json
-D:\Projetos\wellhz1n\Expoceep\Expoceep\Expoceep\bin\Debug\netcoreapp2.2\Backup\UsuarioTable.json
-D:\Projetos\wellhz1n\Expoceep\Expoceep\Expoceep\bin\Debug\netcoreapp2.2\Backup\VendaProdutosTable.json
-D:\Projetos\wellhz1n\Expoceep\Expoceep\Expoceep\bin\Debug\netcoreapp2.2\Backup\VendaTable.json
 D:\Projetos\wellhz1n\Expoceep\Expoceep\Expoceep\bin\Debug\netcoreapp2.2\global.json
 D:\Projetos\wellhz1n\Expoceep\Expoceep\Expoceep\bin\Debug\netcoreapp2.2\Properties\launchSettings.json
 D:\Projetos\wellhz1n\Expoceep\Expoceep\Expoceep\bin\Debug\netcoreapp2.2\Expoceep.deps.json
