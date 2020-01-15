@@ -1,28 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "/home/wellington/Área de Trabalho/projetos/wellhz1n/Expoceep/Expoceep/Expoceep/Expoceep.csproj": {}
+    "D:\\Projetos\\wellhz1n\\Expoceep\\Expoceep\\Expoceep\\Expoceep.csproj": {}
   },
   "projects": {
-    "/home/wellington/Área de Trabalho/projetos/wellhz1n/Expoceep/Expoceep/Expoceep/Expoceep.csproj": {
+    "D:\\Projetos\\wellhz1n\\Expoceep\\Expoceep\\Expoceep\\Expoceep.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/wellington/Área de Trabalho/projetos/wellhz1n/Expoceep/Expoceep/Expoceep/Expoceep.csproj",
+        "projectUniqueName": "D:\\Projetos\\wellhz1n\\Expoceep\\Expoceep\\Expoceep\\Expoceep.csproj",
         "projectName": "Expoceep",
-        "projectPath": "/home/wellington/Área de Trabalho/projetos/wellhz1n/Expoceep/Expoceep/Expoceep/Expoceep.csproj",
-        "packagesPath": "/home/wellington/.nuget/packages/",
-        "outputPath": "/home/wellington/Área de Trabalho/projetos/wellhz1n/Expoceep/Expoceep/Expoceep/obj/",
+        "projectPath": "D:\\Projetos\\wellhz1n\\Expoceep\\Expoceep\\Expoceep\\Expoceep.csproj",
+        "packagesPath": "C:\\Users\\welli\\.nuget\\packages\\",
+        "outputPath": "D:\\Projetos\\wellhz1n\\Expoceep\\Expoceep\\Expoceep\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/home/wellington/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\welli\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -118,10 +122,16 @@
             }
           },
           "imports": [
-            "net461"
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
           ],
           "assetTargetFallback": true,
-          "warn": true
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
